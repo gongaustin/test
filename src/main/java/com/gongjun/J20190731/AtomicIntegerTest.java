@@ -30,3 +30,25 @@ public class AtomicIntegerTest {
     }
 
 }
+
+
+class Test{
+
+    public static int count = 0;
+    public static void main(String[] args) throws Exception{
+        for (int i = 0; i < 1000; i++) {
+
+            new Thread(){
+                public void run(){
+                    synchronized(this){
+                        count++;
+                    }
+                }
+            }.start();
+
+        }
+        Thread.sleep(2000);
+        System.out.println("the count value is:"+count);
+    }
+
+}
