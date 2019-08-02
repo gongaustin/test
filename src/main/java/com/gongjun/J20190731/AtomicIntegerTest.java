@@ -16,12 +16,10 @@ public class AtomicIntegerTest {
     public static void main(String[] args) throws Exception{
         for (int i = 0; i < 1000; i++) {
 
-            new Thread(){
-                public void run(){
-                    count.getAndIncrement();
+            new Thread(() -> {
+                count.getAndIncrement();
 //                    count++;
-                }
-            }.start();
+            }).start();
 
 
         }
