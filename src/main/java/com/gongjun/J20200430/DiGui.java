@@ -32,6 +32,6 @@ public class DiGui {
 
     @Test
     public void other(){
-        System.out.println(fun(5));
+        System.out.println(fun(12));
     }
 }
