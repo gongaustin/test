@@ -29,7 +29,7 @@ public class demoC {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        long  a =  Math.round(1.5);
+        long a = Math.round(1.5);
         long b = Math.round(-1.5);
         System.out.println(a);
         System.out.println(b);
