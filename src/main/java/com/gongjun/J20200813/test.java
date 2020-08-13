@@ -35,6 +35,7 @@ public class test {
         Class klass = Class.forName("com.gongjun.J20200813.Cat");
 
         try {
+            //获取带参构造方法
             Constructor<Cat> cat_three_1 = klass.getConstructor(String.class);
             Cat cat_three = cat_three_1.newInstance("喵先森");
 
@@ -46,6 +47,12 @@ public class test {
             System.out.println(cat_three == cat_four);
             System.out.println(cat_three.equals(cat_four));
             System.out.println(cat_four.equals(cat_five));
+
+            Constructor<Cat> cat_many = klass.getConstructor(String.class,int.class,String.class);//int。class不能写成Integer.class,Integer是封装类
+
+            Cat cat_m = cat_many.newInstance("喵先森",2,"黄色");
+
+            System.out.println(cat_m.getColor());
 
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

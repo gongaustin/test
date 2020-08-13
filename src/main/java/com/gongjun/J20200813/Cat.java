@@ -15,6 +15,12 @@ public class Cat {
         this.name = name;
     }
 
+    public Cat(String name,int age,String color){
+        this.name = name;
+        this.age = age;
+        this.color = color;
+    }
+
     public String getName() {
         return name;
     }
