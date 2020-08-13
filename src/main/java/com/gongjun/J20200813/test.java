@@ -48,7 +48,7 @@ public class test {
             System.out.println(cat_three.equals(cat_four));
             System.out.println(cat_four.equals(cat_five));
 
-            Constructor<Cat> cat_many = klass.getConstructor(String.class,int.class,String.class);//int。class不能写成Integer.class,Integer是封装类
+            Constructor<Cat> cat_many = klass.getConstructor(String.class,int.class,String.class);//int.class不能写成Integer.class,Integer是封装类
 
             Cat cat_m = cat_many.newInstance("喵先森",2,"黄色");
 
