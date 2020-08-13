@@ -2,6 +2,8 @@ package com.gongjun.J20200506;
 
 import org.junit.Test;
 
+import java.awt.event.KeyEvent;
+
 
 /**
  * @Description:冒泡排序
@@ -26,6 +28,10 @@ public class test {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i]+"\t");
         }
+    }
+    @Test
+    public void keyTyped(KeyEvent e) {
+        System.out.println("【 键入一个字符：  " + e.getKeyChar()+"   】");
     }
 
 }
