@@ -3,7 +3,7 @@ package com.gongjun.J20200819;
 import org.junit.Test;
 
 /**
- * @Description:
+ * @Description: 继承抽象类,访问抽象类的属性和方法可以通过子类的实例访问
  * @Author:GongJun
  * @Date:2020/8/21
  */
@@ -20,6 +20,8 @@ public class testAbstractClassImpl extends testAbstractClass{
 
     @Test
     public void cc(){
-        new testAbstractClassImpl().bb();
+        testAbstractClassImpl tac = new testAbstractClassImpl();
+        tac.bb();
+        System.out.println(tac.a);
     }
 }
