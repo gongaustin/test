@@ -2,6 +2,8 @@ package com.gongjun.J20190731;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.junit.Test;
+
 /**
  * @Description:AtomicInteger-保证多线程访问数据的原子性
  * @Author:GongJun
@@ -9,44 +11,58 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class AtomicIntegerTest {
 
-    public static AtomicInteger count = new AtomicInteger(0);
+    public int count1 = 0;
 
-//    public static int count = 0;
 
-    public static void main(String[] args) throws Exception{
+    @Test
+    public void aa() throws Exception{
+        for (int i = 0; i < 1000; i++) {
+            new Thread(()->{
+                count1++;
+            }).start();
+        }
+        Thread.sleep(2000);
+        System.out.println("the count value is:"+count1);
+    }
+
+    public AtomicInteger count2 = new AtomicInteger(0);
+
+    @Test
+    public void bb() throws Exception{
         for (int i = 0; i < 1000; i++) {
 
             new Thread(() -> {
-                count.getAndIncrement();
-//                    count++;
+                count2.getAndIncrement();
             }).start();
-
 
         }
         Thread.sleep(2000);
-        System.out.println("count value is:"+count);
+        System.out.println("count value is:"+count2);
     }
 
-}
+    public int count3 = 0;
 
-
-class Test{
-
-    public static int count = 0;
-    public static void main(String[] args) throws Exception{
+    @Test
+    public void cc() throws Exception{
         for (int i = 0; i < 1000; i++) {
 
             new Thread(){
                 public void run(){
                     synchronized(this){
-                        count++;
+                        count3++;
                     }
                 }
             }.start();
 
         }
         Thread.sleep(2000);
-        System.out.println("the count value is:"+count);
+        System.out.println("the count value is:"+count3);
+    }
+
+    @Test
+    public void dd(){
+
     }
 
 }
+
