@@ -20,8 +20,9 @@ public class testAbstractClassImpl extends testAbstractClass{
 
     @Test
     public void cc(){
-        testAbstractClassImpl tac = new testAbstractClassImpl();
-        tac.bb();
-        System.out.println(tac.a);
+        //无需创建实例
+        bb();
+        System.out.println(a);
+        super.bb(); //调用
     }
 }
