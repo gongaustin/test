@@ -22,7 +22,7 @@ public class testAbstractClassImpl extends testAbstractClass{
     public void cc(){
         //无需创建实例
         bb();
-        System.out.println(a);
+        System.out.println(super.a);
         super.bb(); //调用
     }
 }
