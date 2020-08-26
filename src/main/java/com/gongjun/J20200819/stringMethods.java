@@ -56,18 +56,7 @@ public class stringMethods {
 
         System.out.println(s.replace(" ","")); //3243534543654363436363463  效果同replaceAll()
 
-        Arrays.asList(1,2,3,4)
-                .stream()
-                .map(n->n*n)
-                .collect(Collectors.toList())
-                .forEach(e-> System.out.println(e));
-        /*
-         1
-         4
-         9
-         16
-         */
-
-
     }
+
+
 }
