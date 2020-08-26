@@ -1,9 +1,11 @@
 package com.gongjun.J20200819;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -52,7 +54,15 @@ public class stringMethods {
 
         System.out.println(s.equals("abc"));
 
+        System.out.println(s.replace(" ","")); //3243534543654363436363463  效果同replaceAll()
 
+        Arrays.asList(1,2,3,4).stream().map(n->n*n).collect(Collectors.toList()).forEach(e-> System.out.println(e));
+        /*
+         1
+         4
+         9
+         16
+         */
 
 
     }
