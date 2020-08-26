@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  * @Author:GongJun
  * @Date:2020/8/26
  */
-public class streamShow {
+public class JavaStream {
 
     @Test
     public void aa(){
