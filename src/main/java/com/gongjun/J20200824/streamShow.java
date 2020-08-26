@@ -17,9 +17,9 @@ public class streamShow {
         //stream应用
         Arrays.asList(1,2,3,4)
                 .stream()
-                .map(n->Math.pow(n,2))
+                .map(n -> Math.pow(n,2))
                 .collect(Collectors.toList())
-                .forEach(e-> System.out.println(this.doubleToInt(e)));
+                .forEach(e -> System.out.println(this.doubleToInt(e)));
         /*
          1
          4
