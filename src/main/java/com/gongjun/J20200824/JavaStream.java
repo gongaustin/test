@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
- * @Description:
+ * @Description: Java8新特性stream demo
  * @Author:GongJun
  * @Date:2020/8/26
  */
