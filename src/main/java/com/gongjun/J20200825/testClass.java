@@ -6,7 +6,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
 /**
- * @Description:
+ * @Description:finalClass测试类
  * @Author:GongJun
  * @Date:2020/8/29
  */

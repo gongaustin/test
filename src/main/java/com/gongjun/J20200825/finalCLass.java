@@ -1,7 +1,7 @@
 package com.gongjun.J20200825;
 
 /**
- * @Description:
+ * @Description: final修饰类对的用法
  * @Author:GongJun
  * @Date:2020/8/29
  */
@@ -9,7 +9,7 @@ final class finalCLass {
     finalCLass(){
 
     }
-    int a = 1;
+    static int a = 1;
     void b(){
         System.out.println("final");
     }
