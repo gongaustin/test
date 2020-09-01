@@ -25,6 +25,8 @@ public class DiGui {
         sum(1);
     }
 
+    /****************************分割线****************************/
+
     public int fun(int m){
         //这样效率严重有问题
         if(m == 1) return 1;
@@ -42,7 +44,7 @@ public class DiGui {
     public void numberSum(){
         System.out.println(funNumber(100));
     }
-
+    /****************************分割线****************************/
     //计算1^2+2^2+3^2+...+n^2
     public int squareSum(int n){
         int sum = 0;
