@@ -26,27 +26,35 @@ public class DiGui {
     }
 
     public int fun(int m){
-        if(m<2) return 1;
+        //这样效率严重有问题
+        if(m == 1) return 1;
         return fun(m-1)+fun(m-2);
     }
 
+    public int funNumber(int m){
+        int sum = 0;
+        if(m==1) sum = 1;
+        else sum = m+funNumber(m-1);
+        return sum;
+    }
+
     @Test
-    public void other(){
-        System.out.println(fun(2));
+    public void numberSum(){
+        System.out.println(funNumber(100));
     }
 
     //计算1^2+2^2+3^2+4^2+...+n^2
-    public int b(int n){
+    public int squareSum(int n){
         int sum = 0;
         if(n == 1) sum = 1;
         else{
-            sum = new Double(Math.pow(n,2)).intValue()+b(n-1);
+            sum = (int)Math.pow(n,2)+squareSum(n-1);
         }
         return sum;
     }
 
     @Test
     public void square(){
-        System.out.println(b(122));
+        System.out.println(squareSum(9));
     }
 }
