@@ -30,7 +30,7 @@ public class DiGui {
         if(m == 1) return 1;
         return fun(m-1)+fun(m-2);
     }
-
+    //计算1+2+3+...+n
     public int funNumber(int m){
         int sum = 0;
         if(m==1) sum = 1;
@@ -43,7 +43,7 @@ public class DiGui {
         System.out.println(funNumber(100));
     }
 
-    //计算1^2+2^2+3^2+4^2+...+n^2
+    //计算1^2+2^2+3^2+...+n^2
     public int squareSum(int n){
         int sum = 0;
         if(n == 1) sum = 1;
