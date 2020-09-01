@@ -32,6 +32,21 @@ public class DiGui {
 
     @Test
     public void other(){
-        System.out.println(fun(12));
+        System.out.println(fun(2));
+    }
+
+    //计算1^2+2^2+3^2+4^2+...+n^2
+    public int b(int n){
+        int sum = 0;
+        if(n == 1) sum = 1;
+        else{
+            sum = new Double(Math.pow(n,2)).intValue()+b(n-1);
+        }
+        return sum;
+    }
+
+    @Test
+    public void square(){
+        System.out.println(b(122));
     }
 }
