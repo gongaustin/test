@@ -88,7 +88,7 @@ public class BasicDataTypeTest {
 
     @Test
     public void byteArrayTest(){
-        byte[] b = {1,2,3};
+        byte[] b = {1,4,3};
         Arrays.asList(b).stream().forEach(e->{
             System.out.println(e);
         });
@@ -96,6 +96,17 @@ public class BasicDataTypeTest {
         Arrays.asList(b).stream().forEach(e->{
             System.out.println(Arrays.toString(e));
         });
+        System.out.println("*******分割线*******");
+        //parallelSort方法对byte数组排序
+        byte[] a = b;
+        System.out.println(a);
+        System.out.println(Arrays.toString(b));
+        System.out.println("*******分割线*******");
+        Arrays.parallelSort(b);
+        System.out.println(b);
+        System.out.println(Arrays.toString(b));
+        System.out.println(a == b); //true
+
     }
 
 
