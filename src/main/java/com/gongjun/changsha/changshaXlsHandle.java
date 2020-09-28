@@ -337,6 +337,27 @@ public class changshaXlsHandle {
         this.excelToHtml("D:","1.xlsx");
         
     }
+    
+    
+    /**
+     * @param: [cell]
+     * @description: 获取指定表格的值
+     * @author: GongJun
+     * @time: Created in 14:14 2020/9/28
+     * @modified: 
+     * @return: java.lang.String
+     **/
+    public String achieveCellValue(Cell cell){
+
+        //return StringUtils.isBlank((cell==null?"":cell.getStringCellValue()))?"0":cell.getStringCellValue().replaceAll(" ","");
+
+        if (null == cell) return "0";
+        String value = cell.getStringCellValue();
+        //去除空格
+        if(StringUtils.isNotBlank(value)) value = value.replaceAll(" ","");
+        else return "0";
+        return value;
+    }
 
 
     /**
