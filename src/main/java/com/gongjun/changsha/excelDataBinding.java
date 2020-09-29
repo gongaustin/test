@@ -1,10 +1,7 @@
 package com.gongjun.changsha;
 
 import com.gongjun.changsha.tools.ExcelUtils;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.junit.Test;
 
@@ -47,22 +44,32 @@ public class excelDataBinding {
             Iterator<Cell> cells = rw.iterator();
             while (cells.hasNext()){
                 Cell cell = cells.next();
-                String value = "";
+                Object value = "";
                 switch (cell.getCellTypeEnum()){
                     case STRING:
                         value = cell.getStringCellValue();
                         break;
                     case NUMERIC:
-                        value = cell.getNumericCellValue()+"";
+                        value = cell.getNumericCellValue();
                         break;
                     case BOOLEAN:
-                        value = cell.getBooleanCellValue()+"";
+                        value = cell.getBooleanCellValue();
                         break;
+                    case FORMULA: {
+                        //判断cell是否为日期格式
+                        if (DateUtil.isCellDateFormatted(cell)) {
+                            //转换为日期格式YYYY-mm-dd
+                            value = cell.getDateCellValue();
+                        } else {
+                            //数字
+                            value = String.valueOf(cell.getNumericCellValue());
+                        }
+                        break;
+                    }
                     default:
                         break;
                 }
 
-                if(value.endsWith(".0")) value = value.substring(0,value.lastIndexOf("."));
                 System.out.println(value);
 
             }

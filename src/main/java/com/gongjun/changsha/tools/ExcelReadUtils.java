@@ -64,6 +64,49 @@ public class ExcelReadUtils {
     }
 
 
+
+    /**
+     * @param sheet Sheet
+     * @param column   指定需要获取的列数，例如第一列 1
+     * @param startRow 指定从第几行开始读取数据
+     * @param endRow   指定结束行
+     * @return 返回读取列数据的set
+     */
+    public static HashSet<String> getSheetColumnSet(Sheet sheet, int column, int startRow, int endRow) {
+        HashSet<String> result = new HashSet<>();
+        if( null == sheet) return result;
+        int rownum = sheet.getPhysicalNumberOfRows(); //行数
+        Row row = null;
+        String cellData = null;
+        for (int i = startRow - 1; i < endRow; i++) {
+            System.out.println(i);
+            row = sheet.getRow(i);
+            if (row != null) {
+                cellData = (String) getCellFormatValue(row.getCell(column - 1));
+                result.add(cellData.replaceAll(" ", ""));
+            } else {
+                break;
+            }
+            System.out.println(cellData);
+        }
+
+        return result;
+    }
+
+    /**
+     * @param sheet Sheet
+     * @param column   指定需要获取的列数，例如第一列 1
+     * @param startRow 指定从第几行开始读取数据
+     * @return 返回读取列数据的set
+     */
+    public static HashSet<String> getSheetColumnSet(Sheet sheet, int column, int startRow) {
+        int rownum = sheet.getPhysicalNumberOfRows(); //行数
+        System.out.println("sumrows " + rownum);
+        return getSheetColumnSet(sheet, column, startRow, rownum - 1);
+    }
+
+
+
     //读取excel
     public static Workbook readExcel(String filePath) {
         Workbook wb = null;
