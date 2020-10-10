@@ -5,6 +5,7 @@ import javafx.beans.DefaultProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.junit.Test;
 
 import java.io.File;
@@ -108,7 +109,15 @@ public class excelDataBinding {
         //获取1、F35120_2018年的表格
         Sheet sheetTwo = workbook.getSheet("1、F35020_2018年");
         //样表，写入数据的表格
-        Sheet sheetYangBiao = workbook.getSheet("测试表");
+        Sheet sheetYangBiao = workbook.getSheet("样表");
+        //设置字体样式
+        Font font = workbook.createFont();
+        font.setFontName("宋体");
+        font.setFontHeightInPoints((short) 9);
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setFont(font);
+        //设置样式垂直居中
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
         
         //获取样表的行
         int rowYangBiao = sheetYangBiao.getPhysicalNumberOfRows();
@@ -156,6 +165,18 @@ public class excelDataBinding {
                     Cell cellOne = rowWrite.getCell(1);
                     Cell cellTwo = rowWrite.getCell(2);
                     //判断数据类型，根据数据类型写入
+//                    switch (期末使用计算机_总数量_value.getClass().getName()){
+//                        case "java.lang.String":
+//                            System.out.println("String");
+//                        case "java.lang.Double":
+//                            System.out.println("Double");
+//
+//                    }
+
+
+                    cellOne.setCellStyle(cellStyle);
+                    cellTwo.setCellStyle(cellStyle);
+
                     if(期末使用计算机_总数量_value instanceof java.lang.String)  cellOne.setCellValue(String.valueOf(期末使用计算机_总数量_value));
                     if(期末使用计算机_总数量_value instanceof java.lang.Double)  cellOne.setCellValue((Double) 期末使用计算机_总数量_value);
 
