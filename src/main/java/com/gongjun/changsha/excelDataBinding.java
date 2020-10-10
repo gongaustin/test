@@ -143,6 +143,8 @@ public class excelDataBinding {
             Object 期末使用计算机_总数量_value = ExcelUtils.getCellValue(期末使用计算机_总数量);
             Object 期末使用计算机_百家企业拥有数量_value = ExcelUtils.getCellValue(期末使用计算机_百家企业拥有数量);
             if(hangyes.contains(hangye))
+
+            //测试打印数据
             System.out.println("行业"+hangye+"--"+"总数量"+期末使用计算机_总数量_value+"--"+期末使用计算机_百家企业拥有数量_value);
 
 
@@ -153,19 +155,13 @@ public class excelDataBinding {
                 if(hangyeName.equals(hangye)){
                     Cell cellOne = rowWrite.getCell(1);
                     Cell cellTwo = rowWrite.getCell(2);
-                    if(!Objects.isNull(期末使用计算机_总数量_value)){
-                        String 期末使用计算机_总数量_value_str = String.valueOf(期末使用计算机_总数量_value);
-                        if(StringUtils.isNotBlank(期末使用计算机_总数量_value_str)){
-                            cellOne.setCellValue(期末使用计算机_总数量_value_str);
-                        }
-                    }
+                    //判断数据类型，根据数据类型写入
+                    if(期末使用计算机_总数量_value instanceof java.lang.String)  cellOne.setCellValue(String.valueOf(期末使用计算机_总数量_value));
+                    if(期末使用计算机_总数量_value instanceof java.lang.Double)  cellOne.setCellValue((Double) 期末使用计算机_总数量_value);
 
-                    if(!Objects.isNull(期末使用计算机_百家企业拥有数量_value)){
-                        String 期末使用计算机_百家企业拥有数量_value_str = String.valueOf(期末使用计算机_百家企业拥有数量_value);
-                        if(StringUtils.isNotBlank(期末使用计算机_百家企业拥有数量_value_str)){
-                            cellTwo.setCellValue(期末使用计算机_百家企业拥有数量_value_str);
-                        }
-                    }
+                    //判断数据类型，根据数据类型写入
+                    if(期末使用计算机_百家企业拥有数量_value instanceof java.lang.String)  cellTwo.setCellValue(String.valueOf(期末使用计算机_百家企业拥有数量_value));
+                    if(期末使用计算机_百家企业拥有数量_value instanceof java.lang.Double)  cellTwo.setCellValue((Double) 期末使用计算机_百家企业拥有数量_value);
 
                 }
             }
