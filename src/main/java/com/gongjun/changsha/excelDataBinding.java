@@ -95,7 +95,14 @@ public class excelDataBinding {
 
 
     }
-
+    /**
+     * @param: []
+     * @description: 读取前几个表格的数据，并写入新的表格中
+     * @author: GongJun
+     * @time: Created in 15:16 2020/10/10
+     * @modified:
+     * @return: void
+     **/
     //获取几个表格的数据写入样表
     public void taskOne() throws Exception{
 
