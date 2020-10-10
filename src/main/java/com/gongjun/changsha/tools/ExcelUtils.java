@@ -275,6 +275,63 @@ public class ExcelUtils {
     }
 
     /**
+     * @param: [wb, sheetIndex]
+     * @description: 根据SheetIndex获取表格
+     * @author: GongJun
+     * @time: Created in 10:10 2020/10/10
+     * @modified:
+     * @return: org.apache.poi.ss.usermodel.Sheet
+     **/
+    public static Sheet readSheetFromWorkbookByIndex(Workbook wb,int sheetIndex){
+        if(wb == null) return null;
+        Sheet st = wb.getSheetAt(sheetIndex);
+        return st;
+    }
+
+    public static Object getCellValue(Cell cell){
+        Object value = "";
+        switch (cell.getCellTypeEnum()){
+            case STRING:
+                value = cell.getStringCellValue();
+                break;
+            case NUMERIC:
+                value = cell.getNumericCellValue();
+                break;
+            case BOOLEAN:
+                value = cell.getBooleanCellValue();
+                break;
+            case FORMULA: {
+                //判断cell是否为日期格式
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    //转换为日期格式YYYY-mm-dd
+                    value = cell.getDateCellValue();
+                } else {
+                    //数字
+                    value = String.valueOf(cell.getNumericCellValue());
+                }
+                break;
+            }
+            default:
+                break;
+        }
+        return value;
+    }
+
+    /**
+     * @param: [wb, sheetName]
+     * @description: 根据SheetName获取表格
+     * @author: GongJun
+     * @time: Created in 10:19 2020/10/10
+     * @modified: 
+     * @return: org.apache.poi.ss.usermodel.Sheet
+     **/
+    public static Sheet readSheetFromWorkbookByName(Workbook wb,String sheetName){
+        if(wb == null) return null;
+        Sheet st = wb.getSheet(sheetName);
+        return st;
+    }
+
+    /**
      * 解析单元格中的值
      *
      * @param cell 单元格
@@ -345,5 +402,9 @@ public class ExcelUtils {
         }
 
     }
+
+
+
+
 
 }
