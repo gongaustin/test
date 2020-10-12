@@ -289,6 +289,7 @@ public class ExcelUtils {
     }
 
     public static Object getCellValue(Cell cell){
+        if(cell == null) return null;
         Object value = "";
         switch (cell.getCellTypeEnum()){
             case STRING:

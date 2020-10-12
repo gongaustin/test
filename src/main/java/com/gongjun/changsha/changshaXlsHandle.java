@@ -107,8 +107,6 @@ public class changshaXlsHandle {
             workbook = WorkbookFactory.create(new File(excelPath));
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InvalidFormatException e) {
-            e.printStackTrace();
         }
         Sheet sheet=workbook.getSheetAt(0);
             //获取第一行

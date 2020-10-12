@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.poi.openxml4j.util.ZipSecureFile;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -51,23 +52,23 @@ public class PoiUtils {
             toCell.setCellComment(fromCell.getCellComment());
         }
         // 不同数据类型处理
-        int fromCellType = fromCell.getCellType();
+        CellType fromCellType = fromCell.getCellType();
         toCell.setCellType(fromCellType);
-        if (fromCellType == XSSFCell.CELL_TYPE_NUMERIC) {
+        if (fromCellType == CellType.NUMERIC) {
             if (XSSFDateUtil.isCellDateFormatted(fromCell)) {
                 toCell.setCellValue(fromCell.getDateCellValue());
             } else {
                 toCell.setCellValue(fromCell.getNumericCellValue());
             }
-        } else if (fromCellType == XSSFCell.CELL_TYPE_STRING) {
+        } else if (fromCellType == CellType.STRING) {
             toCell.setCellValue(fromCell.getRichStringCellValue());
-        } else if (fromCellType == XSSFCell.CELL_TYPE_BLANK) {
+        } else if (fromCellType == CellType.BLANK) {
             // nothing21
-        } else if (fromCellType == XSSFCell.CELL_TYPE_BOOLEAN) {
+        } else if (fromCellType == CellType.BOOLEAN) {
             toCell.setCellValue(fromCell.getBooleanCellValue());
-        } else if (fromCellType == XSSFCell.CELL_TYPE_ERROR) {
+        } else if (fromCellType == CellType.ERROR) {
             toCell.setCellErrorValue(fromCell.getErrorCellValue());
-        } else if (fromCellType == XSSFCell.CELL_TYPE_FORMULA) {
+        } else if (fromCellType == CellType.FORMULA) {
             toCell.setCellFormula(fromCell.getCellFormula());
         } else { // nothing29
         }
