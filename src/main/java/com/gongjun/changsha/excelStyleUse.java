@@ -103,35 +103,46 @@ public class excelStyleUse {
             //标题单独处理
             if (i == 0) {
 
-                sheetModel.removeMergedRegion(0);
-                sheetModel.addMergedRegion(new CellRangeAddress(0, 0, 0, hang.size() - 1));
+
+                //设置下划线样式
+                for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) {
+
+                    Cell cell = row.getCell(j);
+                    if(cell != null && cell.getStringCellValue() != null){
+                        cellhangStyle = cell.getCellStyle();
+                    }
+
+                }
+
 //                cras.stream().forEach(e->{
 //                    System.out.println(e.formatAsString());
 //                });
                 //合并单元格
-//                hang = xlsxData.get(1);
-//                cellhangStyle = row.getCell(0).getCellStyle();
-//                for (int j = row.getPhysicalNumberOfCells(); j < hang.size(); j++) {
-//                    Cell cell = row.getCell(j);
-//                    if(cell == null) cell = row.createCell(j);
-//                    cell.setCellStyle(cellhangStyle);
-//                }
+                hang = xlsxData.get(1);
+                for (int j = row.getPhysicalNumberOfCells(); j < hang.size(); j++) {
+                    Cell cell = row.getCell(j);
+                    if(cell == null) cell = row.createCell(j);
+                    cell.setCellStyle(cellhangStyle);
+                }
+                sheetModel.removeMergedRegion(0);
+                sheetModel.addMergedRegion(new CellRangeAddress(0, 0, 0, hang.size() - 1));
 
             }
             if (i == 1) {
-                sheetModel.getMergedRegions().stream().forEach(e -> {
-                    System.out.println(e.toString());
-                });
+//                sheetModel.getMergedRegions().stream().forEach(e -> {
+//                    System.out.println(e.toString());
+//                });
+
+                //合并单元格
+                hang = xlsxData.get(1);
+                cellhangStyle = row.getCell(2).getCellStyle();
+                for (int j = row.getPhysicalNumberOfCells(); j < hang.size(); j++) {
+                    Cell cell = row.getCell(j);
+                    if(cell == null) cell = row.createCell(j);
+                    cell.setCellStyle(cellhangStyle);
+                }
                 sheetModel.removeMergedRegion(2);
                 sheetModel.addMergedRegion(new CellRangeAddress(1, 1, 2, hang.size() - 1));
-                //合并单元格
-//                hang = xlsxData.get(1);
-//                cellhangStyle = row.getCell(2).getCellStyle();
-//                for (int j = row.getPhysicalNumberOfCells(); j < hang.size(); j++) {
-//                    Cell cell = row.getCell(j);
-//                    if(cell == null) cell = row.createCell(j);
-//                    cell.setCellStyle(cellhangStyle);
-//                }
             }
             if (i == 2) {
                 hang = xlsxData.get(i - 1);
