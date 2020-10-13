@@ -50,15 +50,16 @@ public class excelStyleReuse {
 
         List hangModelName = new ArrayList();
         List hangModelNameTrim = new ArrayList();
-        for (int i = 4; i < rowModelNum; i++) {
+
+        //标准表格的起始行
+        int rowBeginModelNum = 4;
+        //获取标准表格的行标题的集合
+        for (int i = rowBeginModelNum; i < rowModelNum; i++) {
             Row rowModel = sheetModel.getRow(i);
             Cell cell = rowModel.getCell(0);
-//            cellStyle = cell.getCellStyle();
-            String hang = cell.getStringCellValue();
+            String hang = cell.getStringCellValue()==null?"":cell.getStringCellValue();
             hangModelName.add(hang);
             hangModelNameTrim.add(hang == null ? "" : hang.trim());
-
-
         }
 
 //        待处理表排除不读取的行列项
