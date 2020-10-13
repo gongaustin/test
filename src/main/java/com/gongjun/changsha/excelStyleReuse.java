@@ -98,8 +98,8 @@ public class excelStyleReuse {
             if (i == 0) {
 
                 //设置下划线样式
-                for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) {
-
+                int  physicalNumberOfCells = row.getPhysicalNumberOfCells();
+                for (int j = 0; j < physicalNumberOfCells; j++) {
                     Cell cell = row.getCell(j);
                     if(cell != null && cell.getStringCellValue() != null){
                         cellhangStyle = cell.getCellStyle();
@@ -109,11 +109,22 @@ public class excelStyleReuse {
 
                 //并非多此一举，复用样式
                 hang = xlsxData.get(1);
-                for (int j = row.getPhysicalNumberOfCells(); j < hang.size(); j++) {
-                    Cell cell = row.getCell(j);
-                    if(cell == null) cell = row.createCell(j);
-                    cell.setCellStyle(cellhangStyle);
+
+                if(hang.size() > physicalNumberOfCells){
+                    for (int j = physicalNumberOfCells; j < hang.size(); j++) {
+                        Cell cell = row.getCell(j);
+                        if(cell == null) cell = row.createCell(j);
+                        cell.setCellStyle(cellhangStyle);
+                    }
                 }
+
+                if(hang.size() < physicalNumberOfCells){
+                    for (int j = hang.size(); j < physicalNumberOfCells; j++) {
+                        Cell cell = row.getCell(j);
+                        if(cell == null) cell = row.createCell(j);
+                    }
+                }
+
                 //设置合并的单元格
                 sheetModel.removeMergedRegion(0);
                 sheetModel.addMergedRegion(new CellRangeAddress(0, 0, 0, hang.size() - 1));
