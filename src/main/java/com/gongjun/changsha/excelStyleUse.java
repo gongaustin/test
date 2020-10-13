@@ -32,11 +32,6 @@ public class excelStyleUse {
         Workbook workbookTask = ExcelUtils.getWorkbookFromExcel(new File(taskPath));
 
         //设置标椎表格的样式
-//        Font font = workbookModel.createFont();
-//        //设置字体
-//        font.setFontName("宋体");
-//        //设置字体大小
-//        font.setFontHeightInPoints((short) 9);
         CellStyle cellhangStyle = null;
         CellStyle cellDataStyle = null;
 
@@ -66,11 +61,9 @@ public class excelStyleUse {
 
         }
 
-
+//        待处理表排除不读取的行列项
         //列排除
         List outCols = Arrays.asList(1, 2, 3, 4);
-
-
         //行派出
         List outRows = Arrays.asList(1, 2, 3, 4, 6, 7);
 
@@ -103,7 +96,6 @@ public class excelStyleUse {
             //标题单独处理
             if (i == 0) {
 
-
                 //设置下划线样式
                 for (int j = 0; j < row.getPhysicalNumberOfCells(); j++) {
 
@@ -114,26 +106,22 @@ public class excelStyleUse {
 
                 }
 
-//                cras.stream().forEach(e->{
-//                    System.out.println(e.formatAsString());
-//                });
-                //合并单元格
+                //并非多此一举，复用样式
                 hang = xlsxData.get(1);
                 for (int j = row.getPhysicalNumberOfCells(); j < hang.size(); j++) {
                     Cell cell = row.getCell(j);
                     if(cell == null) cell = row.createCell(j);
                     cell.setCellStyle(cellhangStyle);
                 }
+                //设置合并的单元格
                 sheetModel.removeMergedRegion(0);
                 sheetModel.addMergedRegion(new CellRangeAddress(0, 0, 0, hang.size() - 1));
 
             }
+            //列标题处理
             if (i == 1) {
-//                sheetModel.getMergedRegions().stream().forEach(e -> {
-//                    System.out.println(e.toString());
-//                });
 
-                //合并单元格
+                //并非多此一举，复用样式
                 hang = xlsxData.get(1);
                 cellhangStyle = row.getCell(2).getCellStyle();
                 for (int j = row.getPhysicalNumberOfCells(); j < hang.size(); j++) {
@@ -141,6 +129,7 @@ public class excelStyleUse {
                     if(cell == null) cell = row.createCell(j);
                     cell.setCellStyle(cellhangStyle);
                 }
+                //设置合并的单元格
                 sheetModel.removeMergedRegion(2);
                 sheetModel.addMergedRegion(new CellRangeAddress(1, 1, 2, hang.size() - 1));
             }
@@ -196,44 +185,11 @@ public class excelStyleUse {
                             if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
                         }
                     }
-
-
                 }
-
-
-//                hang = xlsxData.get(i-1);
-//                Cell cell0 = row.getCell(0);
-//                String cell0Value="";
-//                if(cell0 != null){
-//                    cell0Value = cell0.getStringCellValue().trim();
-//                }
-//               Cell cellStyle = row.getCell(1);
-//               if(cellStyle != null) cellDataStyle = cellStyle.getCellStyle();
-//
-//                for (int j = 0; j < xlsxData.size(); j++) {
-//                    List datas= xlsxData.get(j);
-//                    Object name = datas.get(0);
-//                    if(name != null && cell0Value.equals(String.valueOf(name).trim())){
-//                        for (int k = 1; k < hang.size(); k++) {
-//                            Cell cell = row.getCell(k);
-//                            if(cell == null) cell = row.createCell(k);
-//                            cell.setCellStyle(cellDataStyle);
-//                            Object value = hang.get(k);
-//                            if(value instanceof java.lang.String) cell.setCellValue(String.valueOf(value));
-//                            if(value instanceof java.lang.Double) cell.setCellValue((Double)value);
-//                        }
-//                    }
-//                }
             }
-
-
         }
-
-
         //修改的数据写入表格
         this.write2Excel(workbookModel, modelPath);
-
-
     }
 
 
