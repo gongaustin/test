@@ -13,11 +13,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Description: Excel样式处理
+ * @Description: Excel样式处理-数据拷贝&样式复用
  * @Author: GongJun
  * @Date: Created in 16:03 2020/10/10
  */
-public class excelStyleUse {
+public class excelStyleReuse {
 
     public void styleUse() throws Exception {
 
