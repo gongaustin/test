@@ -387,5 +387,24 @@ public class ExcelUtils {
 
     }
 
+    /**
+     * @param: [workbook, filePath]
+     * @description: 写入表格的方法
+     * @author: GongJun
+     * @time: Created in 15:49 2020/10/12
+     * @modified:
+     * @return: void
+     **/
+    public static void write2Excel(Workbook workbook, String filePath) {
+        try {
+            FileOutputStream excelFileOutPutStream = new FileOutputStream(filePath);
+            excelFileOutPutStream.flush();
+            workbook.write(excelFileOutPutStream);
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
