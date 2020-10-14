@@ -3,7 +3,6 @@ package com.gongjun.changsha.excelDos;
 import com.gongjun.changsha.tools.ExcelUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.junit.Test;
 
 import java.io.File;
@@ -82,12 +81,12 @@ public class Excel_1_05 {
         /**
          * @修改点******************************************************************
          * */
-        List exceptRows = Arrays.asList(0, 1, 2, 3, 4, 6, 7);
+        List exceptRows = Arrays.asList(0, 1, 2, 3, 4, 5);
         //dataSheet排除的列数(0开始，合并的列算一列)
         /**
          * @修改点******************************************************************
          * */
-        List exceptCols = Arrays.asList(1, 3, 4, 5);
+        List exceptCols = Arrays.asList(1);
 
         //读取dataSheet的数据
         //获取行数
@@ -124,69 +123,11 @@ public class Excel_1_05 {
 
         //获取标准表格的行数
         int standardSheetRows = standardSheet.getPhysicalNumberOfRows();
-        List<Map<String, String>> titles = new ArrayList<>();
-        //获取主栏标题
-        for (int i = 0; i < standardSheetRows; i++) {
-            Row row = standardSheet.getRow(i);
-            Cell titleCell = row.getCell(0);
-            if (titleCell == null) continue;
-            String title = titleCell.getStringCellValue();
-            Map<String, String> titleMap = new HashMap<>();
-            String titleTrim = title.trim().replaceAll(" ", "");
-            titleMap.put(title, titleTrim);
-            titles.add(titleMap);
-        }
-
-        //去除合并表格
-        while (standardSheet.getNumMergedRegions() > 0) {
-            standardSheet.removeMergedRegion(0);
-        }
-        //宾栏写入
-        //获取宾栏数据
-        List<Object> bingTile = dataSheetDatas.get(0);
 
         //获取标准表格的宾栏
         /**
          * @修改点******************************************************************
          * */
-        Row bingRow = standardSheet.getRow(3);
-
-        //获取宾栏表格数
-        int bingCellNum = bingRow.getPhysicalNumberOfCells();
-        //获取宾栏的个数
-        int bingNum = bingTile.size();
-
-        //获取宾栏的样式
-
-        CellStyle csBing = bingRow.getCell(2).getCellStyle();
-        if (bingCellNum <= bingNum) {
-            for (int j = 0; j < bingNum; j++) {
-                Cell bingCell = bingRow.getCell(j);
-                if (bingCell == null) bingCell = bingRow.createCell(j); //超出的表格则创建
-                //设置样式
-                bingCell.setCellStyle(csBing);
-                Object value = bingTile.get(j);
-                if (value instanceof java.lang.String) bingCell.setCellValue(String.valueOf(value));
-                if (value instanceof java.lang.Double) bingCell.setCellValue((Double) value);
-            }
-        } else if (bingCellNum > bingNum) {
-            for (int i = 0; i < bingNum; i++) {
-                Cell bingCell = bingRow.getCell(i);
-                //设置样式
-                Object value = bingTile.get(i);
-                if (value instanceof java.lang.String) bingCell.setCellValue(String.valueOf(value));
-                if (value instanceof java.lang.Double) bingCell.setCellValue((Double) value);
-            }
-            for (int i = bingNum; i < bingCellNum; i++) {
-                Cell bingCell = bingRow.getCell(i);
-                bingRow.removeCell(bingCell);
-            }
-        }
-
-        //写入数据
-        //移除宾栏数据
-
-        dataSheetDatas.remove(0);
         for (List<Object> data : dataSheetDatas) {
             if (data == null) continue;
             //遍历变革栏
@@ -210,7 +151,7 @@ public class Excel_1_05 {
                             if (cell == null) cell = row.createCell(j);
                             cell.setCellStyle(cs);
                             Object value = data.get(j);
-                            if (value instanceof java.lang.String) cell.setCellValue(String.valueOf(value));
+                            if (value instanceof java.lang.String) cell.setCellValue(Double.valueOf(String.valueOf(value)));
                             if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
                         }
                     } else if (writeNum < rowNum) {
@@ -218,7 +159,7 @@ public class Excel_1_05 {
                             Cell cell = row.getCell(j);
                             cell.setCellStyle(cs);
                             Object value = data.get(j);
-                            if (value instanceof java.lang.String) cell.setCellValue(String.valueOf(value));
+                            if (value instanceof java.lang.String) cell.setCellValue(Double.valueOf(String.valueOf(value)));
                             if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
                         }
                         for (int j = writeNum; j < rowNum; j++) {
@@ -230,15 +171,6 @@ public class Excel_1_05 {
             }
         }
 
-
-        /**
-         * @修改点******************************************************************
-         * */
-        //重新设置合并表格
-        standardSheet.addMergedRegion(new CellRangeAddress(0, 0, 0, bingNum - 1));
-        standardSheet.addMergedRegion(new CellRangeAddress(2, 3, 0, 0));
-        standardSheet.addMergedRegion(new CellRangeAddress(2, 3, 1, 1));
-        standardSheet.addMergedRegion(new CellRangeAddress(2, 2, 2, bingNum - 1));
         //写入表格
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
     }
