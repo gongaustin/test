@@ -1,5 +1,7 @@
 package com.gongjun.J20190226;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Scanner;
 
 /**
@@ -25,5 +27,7 @@ public class demo1 {
         }
         String result = a==b?a+"="+b:(a>b?a+">"+b:a+"<"+b);
         System.out.println(">>>:"+result);
+        String ss = "   12323442";
+        System.out.println(StringUtils.startsWith(ss," "));
     }
 }

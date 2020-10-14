@@ -49,8 +49,11 @@ public class Excel_1_01 {
                 System.out.println("没有符合条件的表格请重新检查！");
                 break;
             case 1:
-                dataReadDos(accordExcels.get(0));
-                break;
+            {
+                List<List<Object>> dataSheetDatas = dataReadDos(accordExcels.get(0));
+                if(dataSheetDatas != null) dataWriteDos(dataSheetDatas);
+            }
+            break;
             default:
                 System.out.println("有重复表格请重新检查！");
                 break;
@@ -61,12 +64,17 @@ public class Excel_1_01 {
 
     }
 
-    public static void dataReadDos(String dataExcelPath) {
+
+
+
+
+
+    public static List<List<Object>> dataReadDos(String dataExcelPath) {
 
 
         //获取数据表格的Workbook
         Workbook dataWorkbook = ExcelUtils.getWorkbookFromExcel(new File(dataExcelPath));
-        if (dataWorkbook == null) return;
+        if (dataWorkbook == null) return null;
 
         //获取数据表格的Sheet
         Sheet dataSheet = dataWorkbook.getSheetAt(0);
@@ -102,7 +110,7 @@ public class Excel_1_01 {
             }
             dataSheetDatas.add(dataSheetRowDatas); //保存行数据到表数据中
         }
-        dataWriteDos(dataSheetDatas); //调用写入的方法
+        return dataSheetDatas;
     }
 
     public static void dataWriteDos(List<List<Object>> dataSheetDatas) {
@@ -176,9 +184,23 @@ public class Excel_1_01 {
             }
         }
 
+
+        /**
+         * @修改点******************************************************************
+         * */
+        //写入前清除数据
+        for (int i = 4; i < standardSheetRows; i++) {
+            Row row = standardSheet.getRow(i);
+
+            for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
+                Cell cell = row.getCell(j);
+                cell.setCellValue(0);
+            }
+
+        }
+
         //写入数据
         //移除宾栏数据
-
         dataSheetDatas.remove(0);
         for (List<Object> data : dataSheetDatas) {
             if (data == null) continue;
@@ -207,7 +229,7 @@ public class Excel_1_01 {
                             if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
                         }
                     } else if (writeNum < rowNum) {
-                        for (int j = 0; j < writeNum; j++) {
+                        for (int j = 1; j < writeNum; j++) {
                             Cell cell = row.getCell(j);
                             cell.setCellStyle(cs);
                             Object value = data.get(j);
