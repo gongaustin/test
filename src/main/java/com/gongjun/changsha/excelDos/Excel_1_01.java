@@ -234,8 +234,6 @@ public class Excel_1_01 {
         standardSheet.addMergedRegion(new CellRangeAddress(2, 2, 2, bingNum - 1));
         //写入表格
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
-
-
     }
 
 
