@@ -128,6 +128,29 @@ public class Excel_1_03 {
          * */
         int dataBeginRow = 3;
         int dataBeginCol = 1;
+
+
+        //原有数据行数
+        int originDataRows = standardSheetRows - dataBeginRow;
+        int writeDataRows = dataSheetDatas.size();
+
+
+
+        /**
+         * 样式复制，获取主栏的样式(必须设置总计数据行字体加粗)
+         * @必须设置总计数据行字体加粗，否则无法加粗字体
+         */
+        /**
+        * @加粗样式
+        * */
+        CellStyle titleBold = standardSheet.getRow(dataBeginRow).getCell(0).getCellStyle();
+        CellStyle dataBold = standardSheet.getRow(dataBeginRow).getCell(1).getCellStyle();
+        /**
+         * @不加粗样式
+         * */
+        CellStyle titleNoBold = standardSheet.getRow(dataBeginRow+2).getCell(0).getCellStyle();
+        CellStyle dataNoBold = standardSheet.getRow(dataBeginRow+2).getCell(1).getCellStyle();
+        //写入数据
         //清除数据
         for (int i = dataBeginRow; i < standardSheetRows; i++) {
             Row row = standardSheet.getRow(i);
@@ -136,43 +159,13 @@ public class Excel_1_03 {
                 Cell cell = row.getCell(j);
                 cell.setCellValue(0);
             }
-
         }
-
-        //原有数据行数
-        int originDataRows = standardSheetRows - dataBeginRow;
-        int writeDataRows = dataSheetDatas.size();
-
-        //写入数据
         if (originDataRows > writeDataRows) {
             for (int i = writeDataRows + dataBeginRow; i < standardSheetRows; i++) {
                 Row row = standardSheet.getRow(i);
                 standardSheet.removeRow(row);
             }
-
         }
-
-        //获取主栏的样式
-        CellStyle titleNoBold = standardSheet.getRow(dataBeginRow+3).getCell(0).getCellStyle();
-        CellStyle titleBold = standardSheet.getRow(dataBeginRow+3).getCell(0).getCellStyle();
-        CellStyle dataNoBold = standardSheet.getRow(dataBeginRow+3).getCell(1).getCellStyle();
-        CellStyle dataBold = standardSheet.getRow(dataBeginRow+3).getCell(1).getCellStyle();
-
-        Font fontBold = standardWorkbook.createFont();
-        Font fontNoBold = standardWorkbook.createFont();
-
-        fontBold.setFontName("宋体");
-        fontBold.setFontHeightInPoints((short) 9);
-        fontBold.setBold(true);
-        titleBold.setFont(fontBold);
-        dataBold.setFont(fontBold);
-
-        fontNoBold.setFontName("宋体");
-        fontNoBold.setFontHeightInPoints((short) 9);
-        fontNoBold.setBold(false);
-        titleNoBold.setFont(fontNoBold);
-        dataNoBold.setFont(fontNoBold);
-
         for (int i = 0; i < writeDataRows; i++) {
             List<Object> data = dataSheetDatas.get(i);
             //遍历数据
@@ -181,7 +174,6 @@ public class Excel_1_03 {
             Cell title = row.getCell(0) == null ? row.createCell(0) : row.getCell(0);
             String valueStr = String.valueOf(data.get(0));
             if (!valueStr.startsWith(" ")) {
-                System.out.println(data.get(0));
                 title.setCellStyle(titleBold);
                 //单独处理总计
                 if("总计".equals(valueStr.trim())) valueStr="总  计";
