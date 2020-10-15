@@ -1,9 +1,9 @@
 package com.gongjun.changsha.excelDos;
 
+import com.gongjun.J20200913.A;
 import com.gongjun.changsha.tools.ExcelUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.junit.Test;
 
 import java.io.File;
@@ -27,21 +27,24 @@ public class Excel_1_06 {
     private static String todoExcelFilePath = "D:\\长沙项目\\表格批量处理\\平台导出表格";
 
     public static void todo() {
-        //标准表格的路径
+        //按地区分组
+        List<List<Object>> dataSheetDatas = excelDos("(1-02A)",Arrays.asList(0,1,2,3,4,5,6,7,8),Arrays.asList(1),0);
+        //按登记类型分组
+        dataSheetDatas.addAll(excelDos("(1-06A)", Arrays.asList(0,1,2,3,4,5,6),Arrays.asList(1),1));
 
-        List<List<Object>> dataOne = excelDataRead("(1-02)");
-        List<List<Object>> dataTwo = excelDataRead("(1-08A)");
 
+        for (List<Object> list:dataSheetDatas){
+            System.out.println(list.toString());
+        }
 
-
-        //待处理表格的文件夹
+        dataWriteDos(dataSheetDatas);
 
     }
 
 
-
-    public static List<List<Object>> excelDataRead(String keywords){
-        List<List<Object>> datas = new ArrayList<>();
+    public static List<List<Object>> excelDos(String keywords,List exceptRows,List exceptCols,int mark){
+        //标准表格的路径
+        List<List<Object>> dataSheetDatas = new ArrayList<>();
         File file = new File(todoExcelFilePath);        //获取其file对象
         File[] fs = file.listFiles();    //遍历path下的文件和目录，放在File数组中
         List<String> accordExcels = new ArrayList<>();
@@ -62,7 +65,7 @@ public class Excel_1_06 {
                 break;
             case 1:
             {
-                datas = dataReadDos(accordExcels.get(0));
+                dataSheetDatas = dataReadDos(accordExcels.get(0),exceptRows,exceptCols,mark);
             }
             break;
             default:
@@ -70,15 +73,22 @@ public class Excel_1_06 {
                 break;
         }
 
-        return datas;
+        return dataSheetDatas;
     }
 
 
 
 
+    /**
+     * @param: [dataExcelPath, exceptRows, exceptCols]
+     * @description: 读取表格数据的方法
+     * @author: GongJun
+     * @time: Created in 9:13 2020/10/15
+     * @modified:
+     * @return: java.util.List<java.util.List<java.lang.Object>>
+     **/
 
-
-    public static List<List<Object>> dataReadDos(String dataExcelPath) {
+    public static List<List<Object>> dataReadDos(String dataExcelPath,List exceptRows,List exceptCols,int mark) {
 
 
         //获取数据表格的Workbook
@@ -92,17 +102,18 @@ public class Excel_1_06 {
         /**
          * @修改点******************************************************************
          * */
-        List exceptRows = Arrays.asList(0, 1, 2, 3, 4, 6, 7);
+//        List exceptRows = Arrays.asList(0, 1, 2, 3, 4, 5);
         //dataSheet排除的列数(0开始，合并的列算一列)
         /**
          * @修改点******************************************************************
          * */
-        List exceptCols = Arrays.asList(1, 3, 4, 5);
+//        List exceptCols = Arrays.asList(1);
 
         //读取dataSheet的数据
         //获取行数
         int dataSheetRows = dataSheet.getPhysicalNumberOfRows();
         List<List<Object>> dataSheetDatas = new ArrayList<>(); //整张表数据
+        int count = 0;
         for (int i = 0; i < dataSheetRows; i++) {
             if (exceptRows.contains(i)) continue;
             Row dataSheetRow = dataSheet.getRow(i);
@@ -115,10 +126,31 @@ public class Excel_1_06 {
                 Cell cell = dataSheetRow.getCell(j);
                 //获取数据
                 Object dataValue = ExcelUtils.getCellValue(cell);
+                if(j == 0){
+                    if(mark == 0){
+                        if(count == 0) dataValue = "总  计";
+                        else dataValue = String.valueOf(dataValue) == null?"":"  "+String.valueOf(dataValue).trim();
+                    }
+                    if(mark == 1){
+                        dataValue = String.valueOf(dataValue);
+                        if(StringUtils.isNotBlank((String)dataValue)){
+                            if(!((String) dataValue).startsWith(" ")) dataValue = "  "+dataValue;
+                            else dataValue = "    "+((String) dataValue).trim();
+                        }
+
+                    }
+                }
+
+
                 dataSheetRowDatas.add(dataValue); //保存Cell数据到行
             }
+            if (dataSheetRowDatas != null && StringUtils.isNotBlank(String.valueOf(dataSheetRowDatas.get(0))) && Double.valueOf(String.valueOf(dataSheetRowDatas.get(1))) != 0)
             dataSheetDatas.add(dataSheetRowDatas); //保存行数据到表数据中
+
+            count++;
         }
+        if(mark == 0)dataSheetDatas.add(1,Arrays.asList("按地区分组",null,null,null,null,null));
+        if(mark == 1)dataSheetDatas.add(0,Arrays.asList("按登记注册类型分组",null,null,null,null,null));
         return dataSheetDatas;
     }
 
@@ -134,128 +166,90 @@ public class Excel_1_06 {
 
         //获取标准表格的行数
         int standardSheetRows = standardSheet.getPhysicalNumberOfRows();
-        List<Map<String, String>> titles = new ArrayList<>();
-        //获取主栏标题
-        for (int i = 0; i < standardSheetRows; i++) {
-            Row row = standardSheet.getRow(i);
-            Cell titleCell = row.getCell(0);
-            if (titleCell == null) continue;
-            String title = titleCell.getStringCellValue();
-            Map<String, String> titleMap = new HashMap<>();
-            String titleTrim = title.trim().replaceAll(" ", "");
-            titleMap.put(title, titleTrim);
-            titles.add(titleMap);
-        }
-
-        //去除合并表格
-        while (standardSheet.getNumMergedRegions() > 0) {
-            standardSheet.removeMergedRegion(0);
-        }
-        //宾栏写入
-        //获取宾栏数据
-        List<Object> bingTile = dataSheetDatas.get(0);
-
         //获取标准表格的宾栏
         /**
          * @修改点******************************************************************
          * */
-        Row bingRow = standardSheet.getRow(3);
+        int dataBeginRow = 4;  //从0开始算
+        int dataBeginCol = 1;  //从0开始算
 
-        //获取宾栏表格数
-        int bingCellNum = bingRow.getPhysicalNumberOfCells();
-        //获取宾栏的个数
-        int bingNum = bingTile.size();
 
-        //获取宾栏的样式
+        //原有数据行数
+        int originDataRows = standardSheetRows - dataBeginRow;
+        int writeDataRows = dataSheetDatas.size();
 
-        CellStyle csBing = bingRow.getCell(2).getCellStyle();
-        if (bingCellNum <= bingNum) {
-            for (int j = 0; j < bingNum; j++) {
-                Cell bingCell = bingRow.getCell(j);
-                if (bingCell == null) bingCell = bingRow.createCell(j); //超出的表格则创建
-                //设置样式
-                bingCell.setCellStyle(csBing);
-                Object value = bingTile.get(j);
-                if (value instanceof java.lang.String) bingCell.setCellValue(String.valueOf(value));
-                if (value instanceof java.lang.Double) bingCell.setCellValue((Double) value);
-            }
-        } else if (bingCellNum > bingNum) {
-            for (int i = 0; i < bingNum; i++) {
-                Cell bingCell = bingRow.getCell(i);
-                //设置样式
-                Object value = bingTile.get(i);
-                if (value instanceof java.lang.String) bingCell.setCellValue(String.valueOf(value));
-                if (value instanceof java.lang.Double) bingCell.setCellValue((Double) value);
-            }
-            for (int i = bingNum; i < bingCellNum; i++) {
-                Cell bingCell = bingRow.getCell(i);
-                bingRow.removeCell(bingCell);
+
+
+        /**
+         * 样式复制，获取主栏的样式(必须设置总计数据行字体加粗)
+         * @必须设置总计数据行字体加粗，否则无法加粗字体
+         */
+        /**
+         * @加粗样式
+         * */
+        CellStyle titleBold = standardSheet.getRow(dataBeginRow).getCell(0).getCellStyle();
+        CellStyle dataBold = standardSheet.getRow(dataBeginRow).getCell(1).getCellStyle();
+        /**
+         * @不加粗样式
+         * */
+        CellStyle titleNoBold = standardSheet.getRow(dataBeginRow+2).getCell(0).getCellStyle();
+        CellStyle dataNoBold = standardSheet.getRow(dataBeginRow+2).getCell(1).getCellStyle();
+        //写入数据
+        //清除数据
+        for (int i = dataBeginRow; i < standardSheetRows; i++) {
+            Row row = standardSheet.getRow(i);
+
+            for (int j = dataBeginCol; j < row.getPhysicalNumberOfCells(); j++) {
+                Cell cell = row.getCell(j);
+                cell.setCellValue(0);
             }
         }
-
-        //写入数据
-        //移除宾栏数据
-
-        dataSheetDatas.remove(0);
-        for (List<Object> data : dataSheetDatas) {
-            if (data == null) continue;
-            //遍历变革栏
-            for (int i = 0; i < standardSheetRows; i++) {
+        if (originDataRows > writeDataRows) {
+            for (int i = writeDataRows + dataBeginRow; i < standardSheetRows; i++) {
                 Row row = standardSheet.getRow(i);
-                Cell titleCell = row.getCell(0);
-                if (titleCell == null) continue;
-                String title = titleCell.getStringCellValue();
-                String titleTrim = title.trim().replaceAll(" ", "");
-                String dataTitle = String.valueOf(data.get(0));
-                if (StringUtils.isNotBlank(dataTitle)) dataTitle.trim().replaceAll(" ", "");
-                else continue;
-                if (StringUtils.isNotBlank(dataTitle) && StringUtils.equals(titleTrim, dataTitle)) {
-                    int writeNum = data.size();
-                    int rowNum = row.getPhysicalNumberOfCells();
-                    //获取样式
-                    CellStyle cs = (row.getCell(1) == null ? row.getCell(2) : row.getCell(1)).getCellStyle();
-                    if (writeNum >= rowNum) {
-                        for (int j = 1; j < writeNum; j++) {
-                            Cell cell = row.getCell(j);
-                            if (cell == null) cell = row.createCell(j);
-                            cell.setCellStyle(cs);
-                            Object value = data.get(j);
-                            if (value instanceof java.lang.String) cell.setCellValue(String.valueOf(value));
-                            if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
-                        }
-                    } else if (writeNum < rowNum) {
-                        for (int j = 0; j < writeNum; j++) {
-                            Cell cell = row.getCell(j);
-                            cell.setCellStyle(cs);
-                            Object value = data.get(j);
-                            if (value instanceof java.lang.String) cell.setCellValue(String.valueOf(value));
-                            if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
-                        }
-                        for (int j = writeNum; j < rowNum; j++) {
-                            Cell cell = row.getCell(j);
-                            row.removeCell(cell);
-                        }
-                    }
+                standardSheet.removeRow(row);
+            }
+        }
+        for (int i = 0; i < writeDataRows; i++) {
+            List<Object> data = dataSheetDatas.get(i);
+            Short hightdex = standardSheet.getRow(0).getHeight();
+            //遍历数据
+            Row row = standardSheet.getRow(i + dataBeginRow) == null ? standardSheet.createRow(i + dataBeginRow) : standardSheet.getRow(i + dataBeginRow);
+            row.setHeight(hightdex);
+            Cell title = row.getCell(0) == null ? row.createCell(0) : row.getCell(0);
+            String valueStr = String.valueOf(data.get(0));
+            if (!valueStr.startsWith(" ")) {
+                title.setCellStyle(titleBold);
+                //单独处理总计
+                if("总计".equals(valueStr.trim())) valueStr="总  计";
+                title.setCellValue(valueStr);
+                for (int j = 1; j < data.size(); j++) {
+                    Cell cell = row.getCell(j) == null ? row.createCell(j) : row.getCell(j);
+                    cell.setCellStyle(dataBold);
+                    Object value = data.get(j);
+                    if (value instanceof java.lang.String) cell.setCellValue(Double.valueOf(String.valueOf(value)));
+                    if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
+                }
+            } else {
+                title.setCellStyle(titleNoBold);
+                title.setCellValue("  "+valueStr.trim());
+                for (int j = 1; j < data.size(); j++) {
+                    Cell cell = row.getCell(j) == null ? row.createCell(j) : row.getCell(j);
+                    cell.setCellStyle(dataNoBold);
+                    Object value = data.get(j);
+                    if (value instanceof java.lang.String) cell.setCellValue(Double.valueOf(String.valueOf(value)));
+                    if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
                 }
             }
         }
 
 
-        /**
-         * @修改点******************************************************************
-         * */
-        //重新设置合并表格
-        standardSheet.addMergedRegion(new CellRangeAddress(0, 0, 0, bingNum - 1));
-        standardSheet.addMergedRegion(new CellRangeAddress(2, 3, 0, 0));
-        standardSheet.addMergedRegion(new CellRangeAddress(2, 3, 1, 1));
-        standardSheet.addMergedRegion(new CellRangeAddress(2, 2, 2, bingNum - 1));
         //写入表格
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
     }
 
-
     @Test
     public void test() {
-
+        todo();
     }
 }

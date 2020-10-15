@@ -106,6 +106,7 @@ public class Excel_1_05 {
                 Object dataValue = ExcelUtils.getCellValue(cell);
                 dataSheetRowDatas.add(dataValue); //保存Cell数据到行
             }
+            if (dataSheetRowDatas != null && StringUtils.isNotBlank(String.valueOf(dataSheetRowDatas.get(0))) && Double.valueOf(String.valueOf(dataSheetRowDatas.get(1))) != 0)
             dataSheetDatas.add(dataSheetRowDatas); //保存行数据到表数据中
         }
         return dataSheetDatas;
