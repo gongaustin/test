@@ -47,12 +47,6 @@ public class Excel_1_07 {
         List<List<Object>> dataOne = dataReadDos(excelPathOne, Arrays.asList(0, 1, 2, 4, 5, 6, 7, 8), deptsOne.size(), 2, 0);
         List<List<Object>> dataTwo = dataReadDos(excelPathTwo, Arrays.asList(0, 1, 2, 4, 5, 6, 7, 8), deptsTwo.size(), 2, 1);
 
-        for (List<Object> obj : dataOne) {
-            System.out.println(obj.toString());
-        }
-        for (List<Object> obj : dataTwo) {
-            System.out.println(obj.toString());
-        }
         dataOne.addAll(dataTwo);
         dataWriteDos(zones, dataOne);
 
