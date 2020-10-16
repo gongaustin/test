@@ -231,7 +231,7 @@ public class Excel_1_06 {
                 }
             } else {
                 title.setCellStyle(titleNoBold);
-                title.setCellValue("  "+valueStr.trim());
+                title.setCellValue(valueStr);
                 for (int j = 1; j < data.size(); j++) {
                     Cell cell = row.getCell(j) == null ? row.createCell(j) : row.getCell(j);
                     cell.setCellStyle(dataNoBold);
