@@ -51,7 +51,7 @@ public class Excel_2_04 {
                 System.out.println("没有符合条件的表格请重新检查！");
                 break;
             case 1: {
-                List<String> depts = readDepts(accordExcels.get(0),6,Arrays.asList(0,1,2,3,4));
+                List<String> depts = readDepts(accordExcels.get(0),6,Arrays.asList(0,1,3,4,5));
                 System.out.println(depts.toString());
                 List<List<Object>> dataSheetDatas = dataReadDos(accordExcels.get(0));
                 if (dataSheetDatas != null) dataWriteDos(depts,dataSheetDatas);
