@@ -51,7 +51,6 @@ public class Excel_2_05 {
                 break;
             case 1: {
                 List<String> depts = readDepts(accordExcels.get(0),6, Arrays.asList(0,1,3,4,5));
-                System.out.println(depts.toString());
                 List<List<Object>> dataSheetDatas = dataReadDos(accordExcels.get(0));
                 if (dataSheetDatas != null) dataWriteDos(depts,dataSheetDatas);
             }

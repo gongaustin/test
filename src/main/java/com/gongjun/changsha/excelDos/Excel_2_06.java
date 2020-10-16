@@ -48,10 +48,6 @@ public class Excel_2_06 {
         List<List<Object>> dataTwo = dataReadDos(excelPathTwo, Arrays.asList(0, 1, 2, 5, 6, 7, 8, 9), deptsTwo.size(), 2, 1);
 
         dataOne.addAll(dataTwo);
-
-        dataOne.forEach(e->{
-            System.out.println(e.toString());
-        });
         dataWriteDos(zones, dataOne);
 
     }
