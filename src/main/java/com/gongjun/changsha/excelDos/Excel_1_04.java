@@ -139,7 +139,7 @@ public class Excel_1_04 {
                 String title = titleCell.getStringCellValue();
                 String titleTrim = title.trim().replaceAll(" ", "");
                 String dataTitle = String.valueOf(data.get(0));
-                if (StringUtils.isNotBlank(dataTitle)) dataTitle.trim().replaceAll(" ", "");
+                if (StringUtils.isNotBlank(dataTitle)) dataTitle = dataTitle.trim().replaceAll(" ", "");
                 else continue;
                 if (StringUtils.isNotBlank(dataTitle) && StringUtils.equals(titleTrim, dataTitle)) {
                     int writeNum = data.size();
