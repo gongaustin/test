@@ -31,8 +31,10 @@ public class Excel_2_01 {
         //按地区分组
         List<List<Object>> dataSheetDatas = excelDos("(2-01A)", Arrays.asList(0,1,2,3,4,5,6,7,8),Arrays.asList(1),0);
         //按登记类型分组
-
-//        dataWriteDos(dataSheetDatas);
+        dataSheetDatas.forEach(e->{
+            System.out.println(e.toString());
+        });
+        dataWriteDos(dataSheetDatas);
 
     }
 
@@ -125,7 +127,21 @@ public class Excel_2_01 {
                 if(j == 0){
                     if(mark == 0){
                         if(count == 0) dataValue = "总  计";
-                        else dataValue = String.valueOf(dataValue) == null?"":"  "+String.valueOf(dataValue).trim();
+                        else{
+                            String valueStr = String.valueOf(dataValue) == null?"":String.valueOf(dataValue);
+
+                            if(neizi==0) {
+                                dataValue = valueStr == null?"":"  "+valueStr.trim().replaceAll(" ","");
+                            }
+                            if("内资企业".equals(valueStr)){
+                                neizi = count;
+                            }
+                            if(neizi != 0){
+                                if(!valueStr.startsWith(" ")) dataValue = "  "+valueStr;
+                                else if(valueStr.length()>2) dataValue = valueStr.substring(2,valueStr.length());
+                            }
+
+                        }
                     }
                     if(mark == 1){
                         dataValue = String.valueOf(dataValue);
@@ -145,7 +161,10 @@ public class Excel_2_01 {
 
             count++;
         }
-        if(mark == 0)dataSheetDatas.add(1,Arrays.asList("按地区分组",null,null,null,null,null));
+        if(mark == 0){
+            dataSheetDatas.add(1,Arrays.asList("按地区分组",null,null,null,null,null));
+            if(neizi != 0) dataSheetDatas.add(neizi+1,Arrays.asList("按登记注册类型分组",null,null,null,null,null));
+        }
         if(mark == 1)dataSheetDatas.add(0,Arrays.asList("按登记注册类型分组",null,null,null,null,null));
         return dataSheetDatas;
     }
@@ -228,7 +247,7 @@ public class Excel_2_01 {
                 }
             } else {
                 title.setCellStyle(titleNoBold);
-                title.setCellValue("  "+valueStr.trim());
+                title.setCellValue(valueStr);
                 for (int j = 1; j < data.size(); j++) {
                     Cell cell = row.getCell(j) == null ? row.createCell(j) : row.getCell(j);
                     cell.setCellStyle(dataNoBold);
