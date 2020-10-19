@@ -50,7 +50,7 @@ public class Excel_2_25 {
                 System.out.println("没有符合条件的表格请重新检查！");
                 break;
             case 1: {
-                List<String> depts = readDepts(accordExcels.get(0),6, Arrays.asList(0,1,3,4,5));
+                List<String> depts = readDepts(accordExcels.get(0),5, Arrays.asList(0,1,3,4,5));
                 List<List<Object>> dataSheetDatas = dataReadDos(accordExcels.get(0));
                 if (dataSheetDatas != null) dataWriteDos(depts,dataSheetDatas);
             }
@@ -99,7 +99,7 @@ public class Excel_2_25 {
         /**
          * @修改点******************************************************************
          * */
-        List exceptRows = Arrays.asList(0, 1, 2, 3, 4, 5,7,8);
+        List exceptRows = Arrays.asList(0, 1, 2, 3, 4, 5,7);
         //dataSheet排除的列数(0开始，合并的列算一列)
         /**
          * @修改点******************************************************************
@@ -211,9 +211,10 @@ public class Excel_2_25 {
         }
         for (int i = 0; i < writeDataRows; i++) {
             List<Object> data = dataSheetDatas.get(i);
+            Short hightdex = standardSheet.getRow(0).getHeight();
             //遍历数据
             Row row = standardSheet.getRow(i + dataBeginRow) == null ? standardSheet.createRow(i + dataBeginRow) : standardSheet.getRow(i + dataBeginRow);
-
+            row.setHeight(hightdex);
             Cell title = row.getCell(0) == null ? row.createCell(0) : row.getCell(0);
             String valueStr = String.valueOf(data.get(0));
             if (!valueStr.startsWith(" ")) {
