@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Description:处理表格922-2.xls中Sheet:"2-20",对应关系:2-20VS2-26AA（开放平台）
+ * @Description:处理表格922-2.xls中Sheet:"2-25",对应关系:2-25VS2-32AA（开放平台）
  * @Author: GongJun
  * @Date: Created in 10:42 2020/10/13
  */

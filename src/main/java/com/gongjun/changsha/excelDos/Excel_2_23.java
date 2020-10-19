@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Description:处理表格922-2.xls中Sheet:"2-20",对应关系:2-20VS2-26AA（开放平台）
+ * @Description:处理表格922-2.xls中Sheet:"2-23",对应关系:2-23VS2-30A（开放平台）
  * @Author: GongJun
  * @Date: Created in 10:41 2020/10/13
  */
