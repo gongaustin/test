@@ -97,6 +97,7 @@ public class Excel_4_06 {
             }
         }
         ExcelUtils.write2Excel(standarWorkbook,standardExcelPath);
+        System.out.println("**********表格Excel_4_06处理完毕**********");
     }
 
     @Test
