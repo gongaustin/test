@@ -42,5 +42,7 @@ public class Relationship {
         for(String key:map.keySet()){
             System.out.println("key= "+ key + " and value= " + map.get(key));
         }
+        map.containsKey("");
+        System.out.println(map.get("大型企业"));
     }
 }
