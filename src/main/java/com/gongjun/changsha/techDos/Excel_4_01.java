@@ -99,9 +99,14 @@ public class Excel_4_01 {
         System.out.println("**********表格Excel_4_01处理完毕**********");
     }
 
-    @Test
     public static void todo() {
 //        readDos();
         writeDataDos(readDos());
+    }
+
+
+    @Test
+    public void test (){
+        todo();
     }
 }
