@@ -43,7 +43,7 @@ public class Excel_4_06 {
             for (int j = 0; j < inCols.size(); j++) {
                 Cell cell = row.getCell(inCols.get(j));
                 Object value = ExcelUtils.getCellValue(cell);
-                if(j==0){
+                if (j == 0) {
                     if (value != null && value instanceof java.lang.String)
                         value = String.valueOf(value).trim().replaceAll(" ", "");
                 }
@@ -55,8 +55,8 @@ public class Excel_4_06 {
         return dataSheetDatas;
     }
 
-    public static void writeDataDos(List<List<Object>> dataSheetDatas){
-        if(dataSheetDatas == null) return;
+    public static void writeDataDos(List<List<Object>> dataSheetDatas) {
+        if (dataSheetDatas == null) return;
         Workbook standarWorkbook = ExcelUtils.getWorkbookFromExcel(new File(standardExcelPath));
         Sheet standardSheet = standarWorkbook.getSheet(keyword);
 
@@ -67,11 +67,11 @@ public class Excel_4_06 {
             Row row = standardSheet.getRow(i);
             standardSheet.removeRow(row);
         }
-        standardSheet.shiftRows(zoneEndRow+1,standardSheet.getLastRowNum(),-(zoneEndRow-zoneBeginRow+1));
+        standardSheet.shiftRows(zoneEndRow + 1, standardSheet.getLastRowNum(), -(zoneEndRow - zoneBeginRow + 1));
 
         //清除数据
 
-        for (int i = zoneBeginRow-1; i < standardSheet.getLastRowNum(); i++) {
+        for (int i = zoneBeginRow - 1; i < standardSheet.getLastRowNum(); i++) {
             Row row = standardSheet.getRow(i);
 
             for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
@@ -81,14 +81,14 @@ public class Excel_4_06 {
         }
 
         //写入数据
-        for (int i = zoneBeginRow-1; i < standardSheet.getLastRowNum(); i++) {
+        for (int i = zoneBeginRow - 1; i < standardSheet.getLastRowNum(); i++) {
             Row row = standardSheet.getRow(i);
-            if(row == null) continue;
+            if (row == null) continue;
             String title = row.getCell(0).getStringCellValue();
-            if(title == null) continue;
-            title = title.trim().replaceAll(" ","");
-            for (List<Object> data:dataSheetDatas){
-                if(title.equals(data.get(0))){
+            if (title == null) continue;
+            title = title.trim().replaceAll(" ", "");
+            for (List<Object> data : dataSheetDatas) {
+                if (title.equals(data.get(0))) {
                     for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                         Cell cell = row.getCell(j);
                         cell.setCellValue((Double) data.get(j));
@@ -96,13 +96,13 @@ public class Excel_4_06 {
                 }
             }
         }
-        ExcelUtils.write2Excel(standarWorkbook,standardExcelPath);
+        ExcelUtils.write2Excel(standarWorkbook, standardExcelPath);
         System.out.println("**********表格Excel_4_06处理完毕**********");
     }
 
     @Test
     public static void todo() {
-        readDos().forEach(e->{
+        readDos().forEach(e -> {
             System.out.println(e.toString());
         });
     }
