@@ -48,10 +48,9 @@ public class Excel_1_01 {
             case 0:
                 System.out.println("没有符合条件的表格请重新检查！");
                 break;
-            case 1:
-            {
+            case 1: {
                 List<List<Object>> dataSheetDatas = dataReadDos(accordExcels.get(0));
-                if(dataSheetDatas != null) dataWriteDos(dataSheetDatas);
+                if (dataSheetDatas != null) dataWriteDos(dataSheetDatas);
             }
             break;
             default:
@@ -252,6 +251,7 @@ public class Excel_1_01 {
         standardSheet.addMergedRegion(new CellRangeAddress(2, 2, 2, bingNum - 1));
         //写入表格
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
+        System.out.println("**********表格Excel_1_01处理完毕**********");
     }
 
 

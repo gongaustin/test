@@ -18,7 +18,6 @@ import java.util.List;
 public class Excel_2_20 {
 
 
-
     /**
      * @修改点******************************************************************
      */
@@ -203,6 +202,7 @@ public class Excel_2_20 {
 
         //写入表格
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
+        System.out.println("**********表格Excel_2_20处理完毕**********");
     }
 
     @Test

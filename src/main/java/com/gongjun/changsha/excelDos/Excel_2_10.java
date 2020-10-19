@@ -11,12 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Description:处理表格922-2.xls中Sheet:"2-10",对应关系:2-10VS2-12AA（开放平台）  不用处理宾栏
+ * @Description:处理表格922-2.xls中Sheet:"2-10",对应关系:2-10VS2-12AA（开放平台） 不用处理宾栏
  * @Author: GongJun
  * @Date: Created in 10:39 2020/10/13
  */
 public class Excel_2_10 {
-
 
 
     /**
@@ -203,6 +202,7 @@ public class Excel_2_10 {
 
         //写入表格
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
+        System.out.println("**********表格Excel_2_10处理完毕**********");
     }
 
     @Test

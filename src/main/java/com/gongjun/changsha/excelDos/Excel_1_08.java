@@ -49,7 +49,7 @@ public class Excel_1_08 {
         List<List<Object>> dataTwo = dataReadDos(excelPathTwo, Arrays.asList(0, 1, 2, 4, 5, 6, 7, 8), deptsTwo.size(), 2, 1);
 
         dataOne.addAll(dataTwo);
-        for(List<Object> obj:dataOne){
+        for (List<Object> obj : dataOne) {
             System.out.println(obj.toString());
         }
         dataWriteDos(zones, dataOne);
@@ -226,7 +226,7 @@ public class Excel_1_08 {
         Row rowBing = standardSheet.getRow(bingRow);
 
         //单独处理宾栏合并格
-        Cell firstBingCell = standardSheet.getRow(bingRow-1).getCell(bingBeginCol);
+        Cell firstBingCell = standardSheet.getRow(bingRow - 1).getCell(bingBeginCol);
         firstBingCell.setCellValue(bings.get(0));
         //遍历宾栏
         CellStyle bingStyle = rowBing.getCell(bingBeginCol + 1).getCellStyle();
@@ -237,7 +237,7 @@ public class Excel_1_08 {
             cell.setCellValue(bings.get(i));
         }
         int writeDataRows = dataSheetDatas.size();
-        int dataBeginRow = bingRow+1;
+        int dataBeginRow = bingRow + 1;
         int originDataRows = standardSheetRows - dataBeginRow;
 
         //遍历数据
@@ -245,13 +245,13 @@ public class Excel_1_08 {
         /**
          * @加粗样式
          * */
-        CellStyle titleBold = standardSheet.getRow(bingRow+1).getCell(0).getCellStyle();
-        CellStyle dataBold = standardSheet.getRow(bingRow+1).getCell(1).getCellStyle();
+        CellStyle titleBold = standardSheet.getRow(bingRow + 1).getCell(0).getCellStyle();
+        CellStyle dataBold = standardSheet.getRow(bingRow + 1).getCell(1).getCellStyle();
         /**
          * @不加粗样式
          * */
-        CellStyle titleNoBold = standardSheet.getRow(bingRow+2).getCell(0).getCellStyle();
-        CellStyle dataNoBold = standardSheet.getRow(bingRow+2).getCell(1).getCellStyle();
+        CellStyle titleNoBold = standardSheet.getRow(bingRow + 2).getCell(0).getCellStyle();
+        CellStyle dataNoBold = standardSheet.getRow(bingRow + 2).getCell(1).getCellStyle();
         //写入数据
 
         //清除数据
@@ -279,7 +279,7 @@ public class Excel_1_08 {
             if (!valueStr.startsWith(" ")) {
                 title.setCellStyle(titleBold);
                 //单独处理总计
-                if("总计".equals(valueStr.trim())) valueStr="总  计";
+                if ("总计".equals(valueStr.trim())) valueStr = "总  计";
                 title.setCellValue(valueStr);
                 for (int j = 1; j < data.size(); j++) {
                     Cell cell = row.getCell(j) == null ? row.createCell(j) : row.getCell(j);
@@ -290,7 +290,7 @@ public class Excel_1_08 {
                 }
             } else {
                 title.setCellStyle(titleNoBold);
-                title.setCellValue("  "+valueStr.trim());
+                title.setCellValue("  " + valueStr.trim());
                 for (int j = 1; j < data.size(); j++) {
                     Cell cell = row.getCell(j) == null ? row.createCell(j) : row.getCell(j);
                     cell.setCellStyle(dataNoBold);
@@ -302,12 +302,13 @@ public class Excel_1_08 {
         }
 
         //重新设置合并表格
-        standardSheet.addMergedRegion(new CellRangeAddress(0, 0, 0, rowBing.getPhysicalNumberOfCells()-1));
+        standardSheet.addMergedRegion(new CellRangeAddress(0, 0, 0, rowBing.getPhysicalNumberOfCells() - 1));
         standardSheet.addMergedRegion(new CellRangeAddress(1, 2, 0, 0));
         standardSheet.addMergedRegion(new CellRangeAddress(1, 2, 1, 1));
-        standardSheet.addMergedRegion(new CellRangeAddress(1, 1, 2, rowBing.getPhysicalNumberOfCells()-1));
+        standardSheet.addMergedRegion(new CellRangeAddress(1, 1, 2, rowBing.getPhysicalNumberOfCells() - 1));
 
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
+        System.out.println("**********表格Excel_1_08处理完毕**********");
     }
 
     @Test

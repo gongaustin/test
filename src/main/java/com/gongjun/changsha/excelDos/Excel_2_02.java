@@ -94,10 +94,10 @@ public class Excel_2_02 {
         for (int i = 0; i < dataSheetRows; i++) {
             Row row = dataSheet.getRow(i);
             Cell cell = row.getCell(0);
-            if(cell != null && cell.getStringCellValue().contains("其他")){
+            if (cell != null && cell.getStringCellValue().contains("其他")) {
                 count++;
-                if(count ==1 ) cell.setCellValue("  其他ONE");
-                if(count ==2 ) cell.setCellValue("  其他TWO");
+                if (count == 1) cell.setCellValue("  其他ONE");
+                if (count == 2) cell.setCellValue("  其他TWO");
             }
         }
 
@@ -145,10 +145,10 @@ public class Excel_2_02 {
 
             Row row = standardSheet.getRow(i);
             Cell cell = row.getCell(0);
-            if(cell != null && cell.getStringCellValue().contains("其他")){
+            if (cell != null && cell.getStringCellValue().contains("其他")) {
                 count++;
-                if(count == 1 ) cell.setCellValue("  其他ONE");
-                if(count == 2 ) cell.setCellValue("  其他TWO");
+                if (count == 1) cell.setCellValue("  其他ONE");
+                if (count == 2) cell.setCellValue("  其他TWO");
             }
         }
 
@@ -205,13 +205,14 @@ public class Excel_2_02 {
         for (int i = 0; i < standardSheetRows; i++) {
             Row row = standardSheet.getRow(i);
             Cell cell = row.getCell(0);
-            if(cell != null && StringUtils.containsAny(cell.getStringCellValue(),"其他ONE","其他TWO")){
+            if (cell != null && StringUtils.containsAny(cell.getStringCellValue(), "其他ONE", "其他TWO")) {
                 cell.setCellValue("  其他");
             }
         }
 
         //写入表格
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
+        System.out.println("**********表格Excel_2_02处理完毕**********");
     }
 
 

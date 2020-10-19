@@ -135,7 +135,6 @@ public class Excel_1_12 {
         int writeDataRows = dataSheetDatas.size();
 
 
-
         /**
          * 样式复制，获取主栏的样式(必须设置总计数据行字体加粗)
          * @必须设置总计数据行字体加粗，否则无法加粗字体
@@ -148,8 +147,8 @@ public class Excel_1_12 {
         /**
          * @不加粗样式
          * */
-        CellStyle titleNoBold = standardSheet.getRow(dataBeginRow+2).getCell(0).getCellStyle();
-        CellStyle dataNoBold = standardSheet.getRow(dataBeginRow+2).getCell(1).getCellStyle();
+        CellStyle titleNoBold = standardSheet.getRow(dataBeginRow + 2).getCell(0).getCellStyle();
+        CellStyle dataNoBold = standardSheet.getRow(dataBeginRow + 2).getCell(1).getCellStyle();
         //写入数据
         //清除数据
         for (int i = dataBeginRow; i < standardSheetRows; i++) {
@@ -176,7 +175,7 @@ public class Excel_1_12 {
             if (!valueStr.startsWith(" ")) {
                 title.setCellStyle(titleBold);
                 //单独处理总计
-                if("总计".equals(valueStr.trim())) valueStr="总  计";
+                if ("总计".equals(valueStr.trim())) valueStr = "总  计";
                 title.setCellValue(valueStr);
                 for (int j = 1; j < data.size(); j++) {
                     Cell cell = row.getCell(j) == null ? row.createCell(j) : row.getCell(j);
@@ -187,7 +186,7 @@ public class Excel_1_12 {
                 }
             } else {
                 title.setCellStyle(titleNoBold);
-                title.setCellValue("  "+valueStr.trim());
+                title.setCellValue("  " + valueStr.trim());
                 for (int j = 1; j < data.size(); j++) {
                     Cell cell = row.getCell(j) == null ? row.createCell(j) : row.getCell(j);
                     cell.setCellStyle(dataNoBold);
@@ -201,6 +200,7 @@ public class Excel_1_12 {
 
         //写入表格
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
+        System.out.println("**********表格Excel_1_12处理完毕**********");
     }
 
     @Test

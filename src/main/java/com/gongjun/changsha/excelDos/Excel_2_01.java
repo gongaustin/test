@@ -29,9 +29,9 @@ public class Excel_2_01 {
 
     public static void todo() {
         //按地区分组
-        List<List<Object>> dataSheetDatas = excelDos("(2-01A)", Arrays.asList(0,1,2,3,4,5,6,7,8),Arrays.asList(1),0);
+        List<List<Object>> dataSheetDatas = excelDos("(2-01A)", Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8), Arrays.asList(1), 0);
         //按登记类型分组
-        dataSheetDatas.forEach(e->{
+        dataSheetDatas.forEach(e -> {
             System.out.println(e.toString());
         });
         dataWriteDos(dataSheetDatas);
@@ -39,7 +39,7 @@ public class Excel_2_01 {
     }
 
 
-    public static List<List<Object>> excelDos(String keywords,List exceptRows,List exceptCols,int mark){
+    public static List<List<Object>> excelDos(String keywords, List exceptRows, List exceptCols, int mark) {
         //标准表格的路径
         List<List<Object>> dataSheetDatas = new ArrayList<>();
         File file = new File(todoExcelFilePath);        //获取其file对象
@@ -60,9 +60,8 @@ public class Excel_2_01 {
             case 0:
                 System.out.println("没有符合条件的表格请重新检查！");
                 break;
-            case 1:
-            {
-                dataSheetDatas = dataReadDos(accordExcels.get(0),exceptRows,exceptCols,mark);
+            case 1: {
+                dataSheetDatas = dataReadDos(accordExcels.get(0), exceptRows, exceptCols, mark);
             }
             break;
             default:
@@ -74,18 +73,16 @@ public class Excel_2_01 {
     }
 
 
-
-
     /**
      * @param: [dataExcelPath, exceptRows, exceptCols]
      * @description: 读取表格数据的方法
      * @author: GongJun
      * @time: Created in 9:13 2020/10/15
      * @modified:
-     * @return: java.util.List<java.util.List<java.lang.Object>>
+     * @return: java.util.List<java.util.List < java.lang.Object>>
      **/
 
-    public static List<List<Object>> dataReadDos(String dataExcelPath,List exceptRows,List exceptCols,int mark) {
+    public static List<List<Object>> dataReadDos(String dataExcelPath, List exceptRows, List exceptCols, int mark) {
 
 
         //获取数据表格的Workbook
@@ -124,30 +121,30 @@ public class Excel_2_01 {
                 Cell cell = dataSheetRow.getCell(j);
                 //获取数据
                 Object dataValue = ExcelUtils.getCellValue(cell);
-                if(j == 0){
-                    if(mark == 0){
-                        if(count == 0) dataValue = "总  计";
-                        else{
-                            String valueStr = String.valueOf(dataValue) == null?"":String.valueOf(dataValue);
+                if (j == 0) {
+                    if (mark == 0) {
+                        if (count == 0) dataValue = "总  计";
+                        else {
+                            String valueStr = String.valueOf(dataValue) == null ? "" : String.valueOf(dataValue);
 
-                            if(neizi==0) {
-                                dataValue = valueStr == null?"":"  "+valueStr.trim().replaceAll(" ","");
+                            if (neizi == 0) {
+                                dataValue = valueStr == null ? "" : "  " + valueStr.trim().replaceAll(" ", "");
                             }
-                            if("内资企业".equals(valueStr)){
+                            if ("内资企业".equals(valueStr)) {
                                 neizi = count;
                             }
-                            if(neizi != 0){
-                                if(!valueStr.startsWith(" ")) dataValue = "  "+valueStr;
-                                else if(valueStr.length()>2) dataValue = valueStr.substring(2,valueStr.length());
+                            if (neizi != 0) {
+                                if (!valueStr.startsWith(" ")) dataValue = "  " + valueStr;
+                                else if (valueStr.length() > 2) dataValue = valueStr.substring(2, valueStr.length());
                             }
 
                         }
                     }
-                    if(mark == 1){
+                    if (mark == 1) {
                         dataValue = String.valueOf(dataValue);
-                        if(StringUtils.isNotBlank((String)dataValue)){
-                            if(!((String) dataValue).startsWith(" ")) dataValue = "  "+dataValue;
-                            else dataValue = "    "+((String) dataValue).trim();
+                        if (StringUtils.isNotBlank((String) dataValue)) {
+                            if (!((String) dataValue).startsWith(" ")) dataValue = "  " + dataValue;
+                            else dataValue = "    " + ((String) dataValue).trim();
                         }
 
                     }
@@ -161,11 +158,11 @@ public class Excel_2_01 {
 
             count++;
         }
-        if(mark == 0){
-            dataSheetDatas.add(1,Arrays.asList("按地区分组",null,null,null,null,null));
-            if(neizi != 0) dataSheetDatas.add(neizi+1,Arrays.asList("按登记注册类型分组",null,null,null,null,null));
+        if (mark == 0) {
+            dataSheetDatas.add(1, Arrays.asList("按地区分组", null, null, null, null, null));
+            if (neizi != 0) dataSheetDatas.add(neizi + 1, Arrays.asList("按登记注册类型分组", null, null, null, null, null));
         }
-        if(mark == 1)dataSheetDatas.add(0,Arrays.asList("按登记注册类型分组",null,null,null,null,null));
+        if (mark == 1) dataSheetDatas.add(0, Arrays.asList("按登记注册类型分组", null, null, null, null, null));
         return dataSheetDatas;
     }
 
@@ -194,7 +191,6 @@ public class Excel_2_01 {
         int writeDataRows = dataSheetDatas.size();
 
 
-
         /**
          * 样式复制，获取主栏的样式(必须设置总计数据行字体加粗)
          * @必须设置总计数据行字体加粗，否则无法加粗字体
@@ -207,8 +203,8 @@ public class Excel_2_01 {
         /**
          * @不加粗样式
          * */
-        CellStyle titleNoBold = standardSheet.getRow(dataBeginRow+2).getCell(0).getCellStyle();
-        CellStyle dataNoBold = standardSheet.getRow(dataBeginRow+2).getCell(1).getCellStyle();
+        CellStyle titleNoBold = standardSheet.getRow(dataBeginRow + 2).getCell(0).getCellStyle();
+        CellStyle dataNoBold = standardSheet.getRow(dataBeginRow + 2).getCell(1).getCellStyle();
         //写入数据
         //清除数据
         for (int i = dataBeginRow; i < standardSheetRows; i++) {
@@ -236,7 +232,7 @@ public class Excel_2_01 {
             if (!valueStr.startsWith(" ")) {
                 title.setCellStyle(titleBold);
                 //单独处理总计
-                if("总计".equals(valueStr.trim())) valueStr="总  计";
+                if ("总计".equals(valueStr.trim())) valueStr = "总  计";
                 title.setCellValue(valueStr);
                 for (int j = 1; j < data.size(); j++) {
                     Cell cell = row.getCell(j) == null ? row.createCell(j) : row.getCell(j);
@@ -261,6 +257,7 @@ public class Excel_2_01 {
 
         //写入表格
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
+        System.out.println("**********表格Excel_2_01处理完毕**********");
     }
 
     @Test

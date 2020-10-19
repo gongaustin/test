@@ -6,7 +6,9 @@ import org.apache.poi.ss.usermodel.*;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Description:处理表格922-1.xls中Sheet:"1-04",对应关系:1-04VS1-04A（开放平台）
@@ -46,10 +48,9 @@ public class Excel_1_04 {
             case 0:
                 System.out.println("没有符合条件的表格请重新检查！");
                 break;
-            case 1:
-            {
+            case 1: {
                 List<List<Object>> dataSheetDatas = dataReadDos(accordExcels.get(0));
-                if(dataSheetDatas != null) dataWriteDos(dataSheetDatas);
+                if (dataSheetDatas != null) dataWriteDos(dataSheetDatas);
             }
             break;
             default:
@@ -61,10 +62,6 @@ public class Excel_1_04 {
         //待处理表格的文件夹
 
     }
-
-
-
-
 
 
     public static List<List<Object>> dataReadDos(String dataExcelPath) {
@@ -107,7 +104,7 @@ public class Excel_1_04 {
                 dataSheetRowDatas.add(dataValue); //保存Cell数据到行
             }
             if (dataSheetRowDatas != null && StringUtils.isNotBlank(String.valueOf(dataSheetRowDatas.get(0))) && Double.valueOf(String.valueOf(dataSheetRowDatas.get(1))) != 0)
-            dataSheetDatas.add(dataSheetRowDatas); //保存行数据到表数据中
+                dataSheetDatas.add(dataSheetRowDatas); //保存行数据到表数据中
         }
         return dataSheetDatas;
     }
@@ -152,7 +149,8 @@ public class Excel_1_04 {
                             if (cell == null) cell = row.createCell(j);
                             cell.setCellStyle(cs);
                             Object value = data.get(j);
-                            if (value instanceof java.lang.String) cell.setCellValue(Double.valueOf(String.valueOf(value)));
+                            if (value instanceof java.lang.String)
+                                cell.setCellValue(Double.valueOf(String.valueOf(value)));
                             if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
                         }
                     } else if (writeNum < rowNum) {
@@ -160,7 +158,8 @@ public class Excel_1_04 {
                             Cell cell = row.getCell(j);
                             cell.setCellStyle(cs);
                             Object value = data.get(j);
-                            if (value instanceof java.lang.String) cell.setCellValue(Double.valueOf(String.valueOf(value)));
+                            if (value instanceof java.lang.String)
+                                cell.setCellValue(Double.valueOf(String.valueOf(value)));
                             if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
                         }
                         for (int j = writeNum; j < rowNum; j++) {
@@ -174,6 +173,7 @@ public class Excel_1_04 {
 
         //写入表格
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
+        System.out.println("**********表格Excel_1_04处理完毕**********");
     }
 
 

@@ -304,6 +304,7 @@ public class Excel_2_06 {
         standardSheet.addMergedRegion(new CellRangeAddress(2, 2, 2, rowBing.getPhysicalNumberOfCells() - 1));
 
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
+        System.out.println("**********表格Excel_2_06处理完毕**********");
     }
 
     @Test
