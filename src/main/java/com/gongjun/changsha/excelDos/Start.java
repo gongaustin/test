@@ -5,9 +5,8 @@ package com.gongjun.changsha.excelDos;
  * @Author: GongJun
  * @Date: Created in 9:31 2020/10/19
  */
-public class start {
+public class Start {
     public static void main(String[] args) {
-//        Excel_1_01.todo();
         Excel_1_01.todo();
         Excel_1_02.todo();
         Excel_1_03.todo();

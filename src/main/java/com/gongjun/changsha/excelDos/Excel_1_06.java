@@ -33,11 +33,6 @@ public class Excel_1_06 {
         //按登记类型分组
         dataSheetDatas.addAll(excelDos("(1-06A)", Arrays.asList(0, 1, 2, 3, 4, 5, 6), Arrays.asList(1), 1));
 
-
-        for (List<Object> list : dataSheetDatas) {
-            System.out.println(list.toString());
-        }
-
         dataWriteDos(dataSheetDatas);
 
     }

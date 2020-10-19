@@ -31,9 +31,6 @@ public class Excel_2_01 {
         //按地区分组
         List<List<Object>> dataSheetDatas = excelDos("(2-01A)", Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8), Arrays.asList(1), 0);
         //按登记类型分组
-        dataSheetDatas.forEach(e -> {
-            System.out.println(e.toString());
-        });
         dataWriteDos(dataSheetDatas);
 
     }
