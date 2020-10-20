@@ -2,6 +2,7 @@ package com.gongjun.changsha.techDos;
 
 import com.gongjun.changsha.tools.ExcelUtils;
 import com.gongjun.changsha.tools.RegUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -52,7 +53,7 @@ public class Excel_4_02 {
                 }
                 rowData.add(value);
             }
-            if (rowData != null && StringUtils.isNotBlank(String.valueOf(rowData.get(0)))) dataSheetDatas.add(rowData);
+            if (!CollectionUtils.isEmpty(rowData) && StringUtils.isNotBlank(String.valueOf(rowData.get(0)))) dataSheetDatas.add(rowData);
         }
         return dataSheetDatas;
     }
@@ -107,10 +108,12 @@ public class Excel_4_02 {
         System.out.println("**********表格Excel_4_01处理完毕**********");
     }
 
-    @Test
     public static void todo() {
-        readDos().forEach(e -> {
-            System.out.println(e.toString());
-        });
+        writeDataDos(readDos());
+    }
+
+    @Test
+    public void test() {
+        todo();
     }
 }
