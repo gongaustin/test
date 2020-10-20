@@ -7,7 +7,9 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Description:处理表格922-1.xls中Sheet:"1-02",对应关系:1-02VS1-08A（开放平台）
@@ -120,18 +122,6 @@ public class Excel_1_02 {
 
         //获取标准表格的行数
         int standardSheetRows = standardSheet.getPhysicalNumberOfRows();
-        List<Map<String, String>> titles = new ArrayList<>();
-        //获取主栏标题
-        for (int i = 0; i < standardSheetRows; i++) {
-            Row row = standardSheet.getRow(i);
-            Cell titleCell = row.getCell(0);
-            if (titleCell == null) continue;
-            String title = titleCell.getStringCellValue();
-            Map<String, String> titleMap = new HashMap<>();
-            String titleTrim = title.trim().replaceAll(" ", "");
-            titleMap.put(title, titleTrim);
-            titles.add(titleMap);
-        }
 
         //去除合并表格
         while (standardSheet.getNumMergedRegions() > 0) {
@@ -204,9 +194,10 @@ public class Excel_1_02 {
                 Cell titleCell = row.getCell(0);
                 if (titleCell == null) continue;
                 String title = titleCell.getStringCellValue();
-                String titleTrim = title.trim().replaceAll(" ", "");
+                String titleTrim = title.trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");
                 String dataTitle = String.valueOf(data.get(0));
-                if (StringUtils.isNotBlank(dataTitle)) dataTitle.trim().replaceAll(" ", "");
+                if (StringUtils.isNotBlank(dataTitle))
+                    dataTitle.trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");
                 else continue;
                 if (StringUtils.isNotBlank(dataTitle) && StringUtils.equals(titleTrim, dataTitle)) {
                     int writeNum = data.size();

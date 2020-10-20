@@ -14,7 +14,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
  */
 public class CopySheet {
     /**
-     *新增sheet，并且复制sheet内容到新增的sheet里
+     * 新增sheet，并且复制sheet内容到新增的sheet里
      */
     private static void copySheet(HSSFWorkbook wb, HSSFSheet fromsheet, HSSFSheet newSheet, int firstrow, int lasttrow) {
         // 复制一个单元格样式到新建单元格

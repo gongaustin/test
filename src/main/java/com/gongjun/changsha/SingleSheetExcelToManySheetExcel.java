@@ -1,19 +1,15 @@
 package com.gongjun.changsha;
 
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.*;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Iterator;
-
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * @Description: 多个Excel文件整合成一个多Sheet的Excel文件
@@ -28,12 +24,12 @@ public class SingleSheetExcelToManySheetExcel {
         String Path = "D:\\ExcelTest";
         File file = new File(Path);
         File[] tempList = file.listFiles();
-        String TmpList [] = new String [2];
+        String TmpList[] = new String[2];
         System.out.println("该目录下对象个数：" + tempList.length);
         for (int i = 0; i < tempList.length; i++) {
             if (tempList[i].isFile()) {
                 TmpList[i] = tempList[i].toString();
-                System.out.println("文件:"+TmpList[i]+" 待处理");
+                System.out.println("文件:" + TmpList[i] + " 待处理");
             }
         }
         XSSFWorkbook newExcelCreat = new XSSFWorkbook();
@@ -41,11 +37,11 @@ public class SingleSheetExcelToManySheetExcel {
             InputStream in = new FileInputStream(fromExcelName);
             XSSFWorkbook fromExcel = new XSSFWorkbook(in);
             int length = fromExcel.getNumberOfSheets();
-            if(length<=1){       //长度为1时
+            if (length <= 1) {       //长度为1时
                 XSSFSheet oldSheet = fromExcel.getSheetAt(0);
                 XSSFSheet newSheet = newExcelCreat.createSheet(oldSheet.getSheetName());
                 copySheet(newExcelCreat, oldSheet, newSheet);
-            }else{
+            } else {
                 for (int i = 0; i < length; i++) {// 遍历每个sheet
                     XSSFSheet oldSheet = fromExcel.getSheetAt(i);
                     XSSFSheet newSheet = newExcelCreat.createSheet(oldSheet.getSheetName());
@@ -53,7 +49,7 @@ public class SingleSheetExcelToManySheetExcel {
                 }
             }
         }
-        String allFileName = Path+ "\\New.xlsx";    //定义新生成的xlx表格文件
+        String allFileName = Path + "\\New.xlsx";    //定义新生成的xlx表格文件
         FileOutputStream fileOut = new FileOutputStream(allFileName);
         newExcelCreat.write(fileOut);
         fileOut.flush();
@@ -100,6 +96,7 @@ public class SingleSheetExcelToManySheetExcel {
 
     /**
      * 合并单元格
+     *
      * @param fromSheet
      * @param toSheet
      */
@@ -114,6 +111,7 @@ public class SingleSheetExcelToManySheetExcel {
 
     /**
      * 复制单元格
+     *
      * @param wb
      * @param fromCell
      * @param toCell
@@ -153,13 +151,14 @@ public class SingleSheetExcelToManySheetExcel {
 
     /**
      * 行复制功能
+     *
      * @param wb
      * @param oldRow
      * @param toRow
      */
     public static void copyRow(XSSFWorkbook wb, XSSFRow oldRow, XSSFRow toRow) {
         toRow.setHeight(oldRow.getHeight());
-        for (Iterator cellIt = oldRow.cellIterator(); cellIt.hasNext();) {
+        for (Iterator cellIt = oldRow.cellIterator(); cellIt.hasNext(); ) {
             XSSFCell tmpCell = (XSSFCell) cellIt.next();
             XSSFCell newCell = toRow.createCell(tmpCell.getColumnIndex());
             copyCell(wb, tmpCell, newCell);
@@ -168,6 +167,7 @@ public class SingleSheetExcelToManySheetExcel {
 
     /**
      * Sheet复制
+     *
      * @param wb
      * @param fromSheet
      * @param toSheet
@@ -179,7 +179,7 @@ public class SingleSheetExcelToManySheetExcel {
         for (int i = 0; i <= length; i++) {
             toSheet.setColumnWidth(i, fromSheet.getColumnWidth(i));
         }
-        for (Iterator rowIt = fromSheet.rowIterator(); rowIt.hasNext();) {
+        for (Iterator rowIt = fromSheet.rowIterator(); rowIt.hasNext(); ) {
             XSSFRow oldRow = (XSSFRow) rowIt.next();
             XSSFRow newRow = toSheet.createRow(oldRow.getRowNum());
             copyRow(wb, oldRow, newRow);
@@ -189,7 +189,6 @@ public class SingleSheetExcelToManySheetExcel {
     public class XSSFDateUtil extends DateUtil {
 
     }
-
 
 
 }

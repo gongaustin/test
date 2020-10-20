@@ -85,7 +85,7 @@ public class Excel_4_07 {
             if (row == null) continue;
             String title = row.getCell(0).getStringCellValue();
             if (title == null) continue;
-            title = title.trim().replaceAll(" ", "");
+            title = title.trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");
             for (List<Object> data : dataSheetDatas) {
                 if (title.equals(data.get(0))) {
                     for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {

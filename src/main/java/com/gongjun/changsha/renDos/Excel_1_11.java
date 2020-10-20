@@ -74,7 +74,7 @@ public class Excel_1_11 {
             Cell cell = row.getCell(0);
             Object value = ExcelUtils.getCellValue(cell);
             if (value instanceof java.lang.String && StringUtils.isNotBlank(String.valueOf(value))) {
-                zones.add(((String) value).trim().replaceAll(" ", ""));
+                zones.add(((String) value).trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", ""));
             }
 
         }

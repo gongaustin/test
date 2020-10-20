@@ -134,11 +134,12 @@ public class Excel_1_05 {
                 Cell titleCell = row.getCell(0);
                 if (titleCell == null) continue;
                 String title = titleCell.getStringCellValue();
-                String titleTrim = title.trim().replaceAll(" ", "");
+                String titleTrim = title.trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");
                 String dataTitle = String.valueOf(data.get(0));
-                if (StringUtils.isNotBlank(dataTitle)) dataTitle.trim().replaceAll(" ", "");
+                if (StringUtils.isNotBlank(dataTitle))
+                    dataTitle = dataTitle.trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");
                 else continue;
-                if (StringUtils.isNotBlank(dataTitle) && StringUtils.equals(titleTrim, dataTitle)) {
+                if (StringUtils.isNotBlank(dataTitle) && dataTitle.equals(titleTrim)) {
                     int writeNum = data.size();
                     int rowNum = row.getPhysicalNumberOfCells();
                     //获取样式

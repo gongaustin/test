@@ -1,15 +1,15 @@
 package com.gongjun.changsha.tools;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
-import java.util.Map.Entry;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashSet;
 
 /**
  * @Description: excel读取工具类
@@ -64,9 +64,8 @@ public class ExcelReadUtils {
     }
 
 
-
     /**
-     * @param sheet Sheet
+     * @param sheet    Sheet
      * @param column   指定需要获取的列数，例如第一列 1
      * @param startRow 指定从第几行开始读取数据
      * @param endRow   指定结束行
@@ -74,7 +73,7 @@ public class ExcelReadUtils {
      */
     public static HashSet<String> getSheetColumnSet(Sheet sheet, int column, int startRow, int endRow) {
         HashSet<String> result = new HashSet<>();
-        if( null == sheet) return result;
+        if (null == sheet) return result;
         int rownum = sheet.getPhysicalNumberOfRows(); //行数
         Row row = null;
         String cellData = null;
@@ -94,7 +93,7 @@ public class ExcelReadUtils {
     }
 
     /**
-     * @param sheet Sheet
+     * @param sheet    Sheet
      * @param column   指定需要获取的列数，例如第一列 1
      * @param startRow 指定从第几行开始读取数据
      * @return 返回读取列数据的set
@@ -104,7 +103,6 @@ public class ExcelReadUtils {
         System.out.println("sumrows " + rownum);
         return getSheetColumnSet(sheet, column, startRow, rownum - 1);
     }
-
 
 
     //读取excel

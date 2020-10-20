@@ -5,7 +5,6 @@ import com.spire.xls.Worksheet;
 import com.spire.xls.core.spreadsheet.HTMLOptions;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -51,74 +50,6 @@ public class changshaXlsHandle {
         }
     }
 
-
-    /**
-     * @param: []
-     * @description: 拆分单个表格（含多个Sheet的表格）测试的方法
-     * @author: GongJun
-     * @time: Created in 10:13 2020/9/27
-     * @modified:
-     * @return: void
-     **/
-    @Test
-    public void splitSheetsToXls() throws Exception {
-        String filePath = "D:\\长沙项目\\9-22发统计局电子表\\922-11.xlsx";
-        // 第一步，创建一个webbook，对应一个Excel文件
-        XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(new File(filePath)));
-        int total = workbook.getNumberOfSheets();//3
-        workbook.close();
-        System.out.println(total);
-        for (int i = 0; i < total; i++) {
-            // 获取每个Sheet表
-            String filePath2 = "D:\\长沙项目\\拆分后\\12第十一篇 服务业\\"+i+".xlsx";
-            copyFile(filePath, filePath2);
-            File file = new File(filePath2);
-            XSSFWorkbook workbook2 = new XSSFWorkbook(new FileInputStream(file));
-            int total2 = workbook2.getNumberOfSheets();
-            for (int j = total2-1; j >= 0 ; j--) {
-                if (i == j) {
-                    continue;
-                }
-                workbook2.removeSheetAt(j);
-            }
-            String filePath3 = "D:\\长沙项目\\拆分后\\12第十一篇 服务业\\"+i+".xlsx";
-            FileOutputStream fout = new FileOutputStream(filePath3);
-            workbook2.write(fout);
-            workbook2.close();
-            fout.close();
-            //删除文件
-            //file.delete();
-        }
-        System.out.println("处理完成");
-    }
-
-    /**
-     * @param: [excelPath]
-     * @description: 获取表格的标题
-     * @author: GongJun
-     * @time: Created in 10:58 2020/9/27
-     * @modified:
-     * @return: java.lang.String
-     **/
-    public String achieveChangshaXlsTitle(String excelPath){
-        String title = new String("");
-        org.apache.poi.ss.usermodel.Workbook workbook= null;
-        try {
-            workbook = WorkbookFactory.create(new File(excelPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Sheet sheet=workbook.getSheetAt(0);
-            //获取第一行
-            Row titlerow=sheet.getRow(0);
-            Cell cell=titlerow.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            title = this.achieveMergedRegionValue(sheet,cell);
-            if(StringUtils.isBlank(title)) title = cell.getStringCellValue();
-        return title;
-    }
-
-
-
     /**
      * @param: [sheet, cell]
      * @description: 获取合并表格的内容
@@ -146,7 +77,70 @@ public class changshaXlsHandle {
         return "";
     }
 
+    /**
+     * @param: []
+     * @description: 拆分单个表格（含多个Sheet的表格）测试的方法
+     * @author: GongJun
+     * @time: Created in 10:13 2020/9/27
+     * @modified:
+     * @return: void
+     **/
+    @Test
+    public void splitSheetsToXls() throws Exception {
+        String filePath = "D:\\长沙项目\\9-22发统计局电子表\\922-11.xlsx";
+        // 第一步，创建一个webbook，对应一个Excel文件
+        XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(new File(filePath)));
+        int total = workbook.getNumberOfSheets();//3
+        workbook.close();
+        System.out.println(total);
+        for (int i = 0; i < total; i++) {
+            // 获取每个Sheet表
+            String filePath2 = "D:\\长沙项目\\拆分后\\12第十一篇 服务业\\" + i + ".xlsx";
+            copyFile(filePath, filePath2);
+            File file = new File(filePath2);
+            XSSFWorkbook workbook2 = new XSSFWorkbook(new FileInputStream(file));
+            int total2 = workbook2.getNumberOfSheets();
+            for (int j = total2 - 1; j >= 0; j--) {
+                if (i == j) {
+                    continue;
+                }
+                workbook2.removeSheetAt(j);
+            }
+            String filePath3 = "D:\\长沙项目\\拆分后\\12第十一篇 服务业\\" + i + ".xlsx";
+            FileOutputStream fout = new FileOutputStream(filePath3);
+            workbook2.write(fout);
+            workbook2.close();
+            fout.close();
+            //删除文件
+            //file.delete();
+        }
+        System.out.println("处理完成");
+    }
 
+    /**
+     * @param: [excelPath]
+     * @description: 获取表格的标题
+     * @author: GongJun
+     * @time: Created in 10:58 2020/9/27
+     * @modified:
+     * @return: java.lang.String
+     **/
+    public String achieveChangshaXlsTitle(String excelPath) {
+        String title = new String("");
+        org.apache.poi.ss.usermodel.Workbook workbook = null;
+        try {
+            workbook = WorkbookFactory.create(new File(excelPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Sheet sheet = workbook.getSheetAt(0);
+        //获取第一行
+        Row titlerow = sheet.getRow(0);
+        Cell cell = titlerow.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+        title = this.achieveMergedRegionValue(sheet, cell);
+        if (StringUtils.isBlank(title)) title = cell.getStringCellValue();
+        return title;
+    }
 
     /**
      * @param: [path]
@@ -157,7 +151,7 @@ public class changshaXlsHandle {
      * @modified:
      * @return: void
      **/
-    public void renameChangshaExcel(String path){
+    public void renameChangshaExcel(String path) {
         File file = new File(path);
         if (file.exists()) {
             File[] files = file.listFiles();
@@ -173,11 +167,11 @@ public class changshaXlsHandle {
 
                         String fileName = file2.getName();//文件名
                         //过滤不处理的文件
-                        boolean flag = StringUtils.endsWith(fileName,"xlsx") && !StringUtils.startsWith(fileName,"0.xlsx");
-                        if(flag){
+                        boolean flag = StringUtils.endsWith(fileName, "xlsx") && !StringUtils.startsWith(fileName, "0.xlsx");
+                        if (flag) {
                             String filePath = file2.getAbsolutePath();
                             //新文件夹
-                            String newPath = filePath.replaceAll("长沙项目","长沙项目_处理后");
+                            String newPath = filePath.replaceAll("长沙项目", "长沙项目_处理后");
                             try {
                                 FileUtils.copyFile(file2, new File(newPath));
                             } catch (Exception e) {
@@ -202,15 +196,15 @@ public class changshaXlsHandle {
      * @modified:
      * @return: void
      **/
-    public void excelToPng(String path,String name){
+    public void excelToPng(String path, String name) {
         //加载Excel文档
         Workbook workbook = new Workbook();
-        workbook.loadFromFile(path+"\\"+name);
+        workbook.loadFromFile(path + "\\" + name);
         Worksheet ws = workbook.getActiveSheet();
         BufferedImage bufferedImage = ws.toImage(2, 1, ws.getLastRow(), ws.getLastColumn());
         String picName = name.substring(0, name.lastIndexOf("."));
         try {
-            ImageIO.write(bufferedImage, "PNG", new File(path+"\\"+picName+".png"));
+            ImageIO.write(bufferedImage, "PNG", new File(path + "\\" + picName + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -225,11 +219,11 @@ public class changshaXlsHandle {
      * @modified:
      * @return: void
      **/
-    public void excelToHtml(String path,String name){
+    public void excelToHtml(String path, String name) {
 
         //加载Excel文档
         Workbook workbook = new Workbook();
-        workbook.loadFromFile(path+"\\"+name);
+        workbook.loadFromFile(path + "\\" + name);
         Worksheet ws = workbook.getActiveSheet();
         int a = ws.getLastColumn();
         for (int i = 1; i <= a; i++) {
@@ -239,10 +233,9 @@ public class changshaXlsHandle {
         String htmlName = name.substring(0, name.lastIndexOf("."));
         //操作html，去掉水印
 
-        ws.saveToHtml(path+"\\"+htmlName+".html",HTMLOptions.Default);
+        ws.saveToHtml(path + "\\" + htmlName + ".html", HTMLOptions.Default);
 
     }
-
 
 
     /**
@@ -253,7 +246,7 @@ public class changshaXlsHandle {
      * @modified:
      * @return: void
      **/
-    public void captureChangshaExcelToPng(String path){
+    public void captureChangshaExcelToPng(String path) {
         File file = new File(path);
         if (file.exists()) {
             File[] files = file.listFiles();
@@ -268,9 +261,9 @@ public class changshaXlsHandle {
                     } else {
                         String fileName = file2.getName();     //获取文件的文件名
                         String directory = file2.getParent();  //获取文件的路径
-                        if(fileName.endsWith("xlsx")&&!fileName.startsWith("0.xlsx")){
-                                System.out.println(fileName);
-                                this.excelToPng(directory,fileName);
+                        if (fileName.endsWith("xlsx") && !fileName.startsWith("0.xlsx")) {
+                            System.out.println(fileName);
+                            this.excelToPng(directory, fileName);
                         }
                     }
                 }
@@ -280,79 +273,80 @@ public class changshaXlsHandle {
         }
 
     }
-    
+
     /**
      * @param: []
      * @description: 拆分表格的测试方法
      * @author: GongJun
      * @time: Created in 11:37 2020/9/27
-     * @modified: 
+     * @modified:
      * @return: void
      **/
     @Test
-    public void splitExcels() throws Exception{
+    public void splitExcels() throws Exception {
         this.splitSheetsToXls();
     }
-    
-    
+
+
     /**
      * @param: []
      * @description: 批量重命名表格的测试方法
      * @author: GongJun
      * @time: Created in 11:38 2020/9/27
-     * @modified: 
+     * @modified:
      * @return: void
      **/
     @Test
-    public void renameExcel() throws Exception{
+    public void renameExcel() throws Exception {
         this.renameChangshaExcel("");
     }
-    
+
     /**
      * @param: []
      * @description: 批量表格截图的测试方法
      * @author: GongJun
      * @time: Created in 11:40 2020/9/27
-     * @modified: 
+     * @modified:
      * @return: void
      **/
     @Test
-    public void xlsToPng(){
+    public void xlsToPng() {
         this.captureChangshaExcelToPng("");
     }
-    
+
     /**
      * @param: []
      * @description: 表格转html的测试方法
      * @author: GongJun
      * @time: Created in 14:36 2020/9/27
-     * @modified: 
+     * @modified:
      * @return: void
      **/
     @Test
-    public void xlsToHtml(){
+    public void xlsToHtml() {
 
-        this.excelToHtml("D:","1.xlsx");
-        
+        this.excelToHtml("D:", "1.xlsx");
+
     }
-    
-    
+
+
     /**
      * @param: [cell]
      * @description: 获取指定表格的值
      * @author: GongJun
      * @time: Created in 14:14 2020/9/28
-     * @modified: 
+     * @modified:
      * @return: java.lang.String
      **/
-    public String achieveCellValue(Cell cell){
+    public String achieveCellValue(Cell cell) {
 
         //return StringUtils.isBlank((cell==null?"":cell.getStringCellValue()))?"0":cell.getStringCellValue().replaceAll(" ","");
 
         if (null == cell) return "0";
         String value = cell.getStringCellValue();
         //去除空格
-        if(StringUtils.isNotBlank(value)) value = value.replaceAll(" ","");
+        if (StringUtils.isNotBlank(value))
+            value = value.replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");
         else return "0";
         return value;
     }
@@ -363,17 +357,13 @@ public class changshaXlsHandle {
      * @description: 用用测试方法
      * @author: GongJun
      * @time: Created in 17:27 2020/9/27
-     * @modified: 
+     * @modified:
      * @return: void
      **/
     @Test
-    public void test(){
-        this.excelToPng("D:","1.xlsx");
+    public void test() {
+        this.excelToPng("D:", "1.xlsx");
     }
-
-
-
-
 
 
 }

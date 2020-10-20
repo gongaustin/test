@@ -57,7 +57,7 @@ public class excelStyleReuse {
         for (int i = rowBeginModelNum; i < rowModelNum; i++) {
             Row rowModel = sheetModel.getRow(i);
             Cell cell = rowModel.getCell(0);
-            String hang = cell.getStringCellValue()==null?"":cell.getStringCellValue();
+            String hang = cell.getStringCellValue() == null ? "" : cell.getStringCellValue();
             hangModelName.add(hang);
             hangModelNameTrim.add(hang == null ? "" : hang.trim());
         }
@@ -98,10 +98,10 @@ public class excelStyleReuse {
             if (i == 0) {
 
                 //设置下划线样式
-                int  physicalNumberOfCells = row.getPhysicalNumberOfCells();
+                int physicalNumberOfCells = row.getPhysicalNumberOfCells();
                 for (int j = 0; j < physicalNumberOfCells; j++) {
                     Cell cell = row.getCell(j);
-                    if(cell != null && cell.getStringCellValue() != null){
+                    if (cell != null && cell.getStringCellValue() != null) {
                         cellhangStyle = cell.getCellStyle();
                     }
 
@@ -110,18 +110,18 @@ public class excelStyleReuse {
                 //并非多此一举，复用样式
                 hang = xlsxData.get(1);
 
-                if(hang.size() > physicalNumberOfCells){
+                if (hang.size() > physicalNumberOfCells) {
                     for (int j = physicalNumberOfCells; j < hang.size(); j++) {
                         Cell cell = row.getCell(j);
-                        if(cell == null) cell = row.createCell(j);
+                        if (cell == null) cell = row.createCell(j);
                         cell.setCellStyle(cellhangStyle);
                     }
                 }
 
-                if(hang.size() < physicalNumberOfCells){
+                if (hang.size() < physicalNumberOfCells) {
                     for (int j = hang.size(); j < physicalNumberOfCells; j++) {
                         Cell cell = row.getCell(j);
-                        if(cell == null) cell = row.createCell(j);
+                        if (cell == null) cell = row.createCell(j);
                     }
                 }
 
@@ -138,7 +138,7 @@ public class excelStyleReuse {
                 cellhangStyle = row.getCell(2).getCellStyle();
                 for (int j = row.getPhysicalNumberOfCells(); j < hang.size(); j++) {
                     Cell cell = row.getCell(j);
-                    if(cell == null) cell = row.createCell(j);
+                    if (cell == null) cell = row.createCell(j);
                     cell.setCellStyle(cellhangStyle);
                 }
                 //设置合并的单元格
@@ -175,7 +175,7 @@ public class excelStyleReuse {
                 Cell cell0 = row.getCell(0);
                 String cell0Value = "";
                 if (cell0 != null) {
-                    cell0Value = cell0.getStringCellValue().trim().replaceAll(" ", "");
+                    cell0Value = cell0.getStringCellValue().trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");
                 }
 
                 //获取数据的样式

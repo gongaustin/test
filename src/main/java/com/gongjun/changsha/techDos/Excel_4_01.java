@@ -12,6 +12,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:规模以上工业企业R&D活动人员情况
@@ -79,23 +80,29 @@ public class Excel_4_01 {
             }
         }
 
+        //获取对应关系
+        Map<String, String> relations = Relationship.readRelationshipFile();
+
         //写入数据
         for (int i = zoneBeginRow - 1; i < standardSheet.getLastRowNum(); i++) {
             Row row = standardSheet.getRow(i);
             if (row == null) continue;
             String title = row.getCell(0).getStringCellValue();
             if (title == null) continue;
-            title = title.trim().replaceAll(" ", "");
+            title = title.trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");//中英文的空格全部替换
+            String value = relations.get(title); //获取key对应的value值
+            if (value != null) System.out.println(value);
             for (List<Object> data : dataSheetDatas) {
-                if (title.equals(data.get(0))) {
+                if (value != null && value.equals(data.get(0))) {
                     for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                         Cell cell = row.getCell(j);
                         cell.setCellValue((Double) data.get(j));
+                        System.out.println(data.get(j));
                     }
                 }
             }
         }
-        ExcelUtils.write2Excel(standarWorkbook, standardExcelPath);
+//        ExcelUtils.write2Excel(standarWorkbook, standardExcelPath);
         System.out.println("**********表格Excel_4_01处理完毕**********");
     }
 
@@ -106,7 +113,7 @@ public class Excel_4_01 {
 
 
     @Test
-    public void test (){
+    public void test() {
         todo();
     }
 }

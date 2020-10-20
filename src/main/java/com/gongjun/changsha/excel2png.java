@@ -1,6 +1,5 @@
 package com.gongjun.changsha;
 
-import com.spire.xls.FileFormat;
 import com.spire.xls.Workbook;
 import com.spire.xls.Worksheet;
 import org.junit.Test;
@@ -18,7 +17,7 @@ public class excel2png {
 
 
     @Test
-    public void toPng() throws Exception{
+    public void toPng() throws Exception {
         //加载Excel文档
         Workbook workbook = new Workbook();
 

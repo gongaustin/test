@@ -1,11 +1,8 @@
 package com.gongjun.changsha;
 
 import com.gongjun.changsha.tools.ExcelUtils;
-import javafx.beans.DefaultProperty;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.junit.Test;
 
 import java.io.File;
@@ -13,7 +10,6 @@ import java.io.FileOutputStream;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @Description: 从多个sheet中获取数据写入另一个Sheet中
@@ -29,7 +25,7 @@ public class excelDataBinding {
      * @modified:
      * @return: void
      **/
-    public void todo() throws Exception{
+    public void todo() throws Exception {
 
         String excelPath = "D:\\长沙项目\\测试数据\\测试表格.xlsx";
 
@@ -40,18 +36,18 @@ public class excelDataBinding {
         System.out.println(numOfSheet);
 
         //获取最后一张表的Sheet
-        Sheet sl = wb.getSheetAt(numOfSheet-1);
+        Sheet sl = wb.getSheetAt(numOfSheet - 1);
 
         List<CellRangeAddress> cras = sl.getMergedRegions();
 
         Iterator<Row> it = sl.iterator();
-        while (it.hasNext()){
+        while (it.hasNext()) {
             Row rw = it.next();
             Iterator<Cell> cells = rw.iterator();
-            while (cells.hasNext()){
+            while (cells.hasNext()) {
                 Cell cell = cells.next();
                 Object value = "";
-                switch (cell.getCellTypeEnum()){
+                switch (cell.getCellTypeEnum()) {
                     case STRING:
                         value = cell.getStringCellValue();
                         break;
@@ -87,14 +83,8 @@ public class excelDataBinding {
 //        });
 
 
-
-        
-        
-
-
-
-
     }
+
     /**
      * @param: []
      * @description: 读取前几个表格的数据，并写入新的表格中
@@ -104,7 +94,7 @@ public class excelDataBinding {
      * @return: void
      **/
     //获取几个表格的数据写入样表
-    public void taskOne() throws Exception{
+    public void taskOne() throws Exception {
 
         String excelPath = "D:\\长沙项目\\测试数据\\测试表格.xlsx";
         //获取Workbook
@@ -125,7 +115,7 @@ public class excelDataBinding {
         cellStyle.setFont(font);
         //设置样式垂直居中
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-        
+
         //获取样表的行
         int rowYangBiao = sheetYangBiao.getPhysicalNumberOfRows();
 
@@ -138,37 +128,36 @@ public class excelDataBinding {
             hangyes.add(hangye);
 
         }
-        
-        
+
 
         //获取F35120_2018年的表格的行数
-        int rowOne =  sheetOne.getPhysicalNumberOfRows();
+        int rowOne = sheetOne.getPhysicalNumberOfRows();
 
         for (int i = 6; i < rowOne; i++) {
 
             Row row = sheetOne.getRow(i);
 
             Cell 指标名称 = row.getCell(1);
-            
+
             Cell 期末使用计算机_总数量 = row.getCell(3);
 
             Cell 期末使用计算机_百家企业拥有数量 = row.getCell(4);
 
-            String hangye = (String)ExcelUtils.getCellValue(指标名称);
+            String hangye = (String) ExcelUtils.getCellValue(指标名称);
             hangye = hangye.trim();
             Object 期末使用计算机_总数量_value = ExcelUtils.getCellValue(期末使用计算机_总数量);
             Object 期末使用计算机_百家企业拥有数量_value = ExcelUtils.getCellValue(期末使用计算机_百家企业拥有数量);
-            if(hangyes.contains(hangye))
+            if (hangyes.contains(hangye))
 
-            //测试打印数据
-            System.out.println("行业"+hangye+"--"+"总数量"+期末使用计算机_总数量_value+"--"+期末使用计算机_百家企业拥有数量_value);
+                //测试打印数据
+                System.out.println("行业" + hangye + "--" + "总数量" + 期末使用计算机_总数量_value + "--" + 期末使用计算机_百家企业拥有数量_value);
 
 
             for (int j = 8; j < rowYangBiao; j++) {
                 Row rowWrite = sheetYangBiao.getRow(j);
                 Cell 样表_行业 = rowWrite.getCell(0);
                 String hangyeName = 样表_行业.getStringCellValue().trim();
-                if(hangyeName.equals(hangye)){
+                if (hangyeName.equals(hangye)) {
                     Cell cellOne = rowWrite.getCell(1);
                     Cell cellTwo = rowWrite.getCell(2);
                     //判断数据类型，根据数据类型写入
@@ -184,12 +173,15 @@ public class excelDataBinding {
                     cellOne.setCellStyle(cellStyle);
                     cellTwo.setCellStyle(cellStyle);
 
-                    if(期末使用计算机_总数量_value instanceof java.lang.String)  cellOne.setCellValue(String.valueOf(期末使用计算机_总数量_value));
-                    if(期末使用计算机_总数量_value instanceof java.lang.Double)  cellOne.setCellValue((Double) 期末使用计算机_总数量_value);
+                    if (期末使用计算机_总数量_value instanceof java.lang.String)
+                        cellOne.setCellValue(String.valueOf(期末使用计算机_总数量_value));
+                    if (期末使用计算机_总数量_value instanceof java.lang.Double) cellOne.setCellValue((Double) 期末使用计算机_总数量_value);
 
                     //判断数据类型，根据数据类型写入
-                    if(期末使用计算机_百家企业拥有数量_value instanceof java.lang.String)  cellTwo.setCellValue(String.valueOf(期末使用计算机_百家企业拥有数量_value));
-                    if(期末使用计算机_百家企业拥有数量_value instanceof java.lang.Double)  cellTwo.setCellValue((Double) 期末使用计算机_百家企业拥有数量_value);
+                    if (期末使用计算机_百家企业拥有数量_value instanceof java.lang.String)
+                        cellTwo.setCellValue(String.valueOf(期末使用计算机_百家企业拥有数量_value));
+                    if (期末使用计算机_百家企业拥有数量_value instanceof java.lang.Double)
+                        cellTwo.setCellValue((Double) 期末使用计算机_百家企业拥有数量_value);
 
                 }
             }
@@ -204,27 +196,21 @@ public class excelDataBinding {
         workbook.close();
 
 
-
     }
 
 
-
-
-    
-    
     /**
      * @param: []
      * @description: 通用单元测试方法
      * @author: GongJun
      * @time: Created in 10:43 2020/9/29
-     * @modified: 
+     * @modified:
      * @return: void
      **/
     @Test
-    public void test() throws Exception{
+    public void test() throws Exception {
         taskOne();
     }
-
 
 
 }

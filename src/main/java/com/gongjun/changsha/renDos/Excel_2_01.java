@@ -125,7 +125,7 @@ public class Excel_2_01 {
                             String valueStr = String.valueOf(dataValue) == null ? "" : String.valueOf(dataValue);
 
                             if (neizi == 0) {
-                                dataValue = valueStr == null ? "" : "  " + valueStr.trim().replaceAll(" ", "");
+                                dataValue = valueStr == null ? "" : "  " + valueStr.trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");
                             }
                             if ("内资企业".equals(valueStr)) {
                                 neizi = count;
