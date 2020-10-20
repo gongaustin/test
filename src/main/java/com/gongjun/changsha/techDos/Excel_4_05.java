@@ -108,7 +108,6 @@ public class Excel_4_05 {
 
     @Test
     public static void todo() {
-        System.out.println("**********"+standardExcelPath+"***********开始处理**********");
         writeDataDos(readDos());
     }
 }

@@ -3,14 +3,11 @@ package com.gongjun.changsha.techDos;
 import com.gongjun.changsha.tools.ExcelUtils;
 import com.gongjun.changsha.tools.FileUtils;
 import com.gongjun.changsha.tools.RegUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * @Description: 科技批处理类
@@ -52,6 +49,7 @@ public class Start {
                     FileUtils.copyFile(standardExcelPath,standardOutExcelFilePath);
                     CommonSet.dataExcelPathSet(dataExcelPath);
                     CommonSet.standardExcelPathSet(standardOutExcelFilePath);
+                    System.out.println("**********["+zone+"]开始处理"+"**********");
                     todo();
                 }
             }
