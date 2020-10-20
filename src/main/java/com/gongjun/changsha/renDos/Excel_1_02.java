@@ -52,6 +52,9 @@ public class Excel_1_02 {
                 break;
             case 1: {
                 List<List<Object>> dataSheetDatas = dataReadDos(accordExcels.get(0));
+                dataSheetDatas.forEach(e->{
+                    System.out.println(e.toString());
+                });
                 if (dataSheetDatas != null) dataWriteDos(dataSheetDatas);
             }
             break;
@@ -105,7 +108,7 @@ public class Excel_1_02 {
                 Object dataValue = ExcelUtils.getCellValue(cell);
                 dataSheetRowDatas.add(dataValue); //保存Cell数据到行
             }
-            if (dataSheetRowDatas != null && StringUtils.isNotBlank(String.valueOf(dataSheetRowDatas.get(0))) && Double.valueOf(String.valueOf(dataSheetRowDatas.get(1))) != 0)
+            if (dataSheetRowDatas != null )
                 dataSheetDatas.add(dataSheetRowDatas); //保存行数据到表数据中
         }
         return dataSheetDatas;
