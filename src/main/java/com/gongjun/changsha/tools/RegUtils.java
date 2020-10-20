@@ -9,7 +9,14 @@ import org.junit.Test;
  */
 public class RegUtils {
 
-    //去除字符串的空格
+    /**
+     * @param: [s]
+     * @description: 字符串去除空格
+     * @author: GongJun
+     * @time: Created in 16:01 2020/10/20
+     * @modified: 
+     * @return: java.lang.String
+     **/
     public static String delAllSpaceForString(String s){
         if(s==null) return null;
         return s.replaceAll("[　*| *| *|//s*]*", "")
