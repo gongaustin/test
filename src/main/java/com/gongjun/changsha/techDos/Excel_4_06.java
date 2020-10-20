@@ -109,8 +109,6 @@ public class Excel_4_06 {
 
     @Test
     public static void todo() {
-        readDos().forEach(e -> {
-            System.out.println(e.toString());
-        });
+        writeDataDos(readDos());
     }
 }

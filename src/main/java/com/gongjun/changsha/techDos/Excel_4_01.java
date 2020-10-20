@@ -106,7 +106,6 @@ public class Excel_4_01 {
     }
 
     public static void todo() {
-//        readDos();
         writeDataDos(readDos());
     }
 
