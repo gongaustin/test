@@ -47,7 +47,7 @@ public class Excel_4_06 {
                 Object value = ExcelUtils.getCellValue(cell);
                 if (j == 0) {
                     if (value != null && value instanceof java.lang.String)
-                        value = String.valueOf(value).trim().replaceAll(" ", "");
+                        value = RegUtils.delAllSpaceForString(String.valueOf(value).trim());
                 }
                 rowData.add(value);
             }
