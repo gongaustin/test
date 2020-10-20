@@ -79,7 +79,7 @@ public class Excel_4_02 {
 
             for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
-                cell.setCellValue(0);
+                cell.setCellValue((String)null);
             }
         }
 

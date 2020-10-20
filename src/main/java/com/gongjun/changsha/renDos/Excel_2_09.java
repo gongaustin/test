@@ -189,7 +189,7 @@ public class Excel_2_09 {
 
             for (int j = dataBeginCol; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
-                cell.setCellValue(0);
+                cell.setCellValue((String)null);
             }
         }
         if (originDataRows > writeDataRows) {
