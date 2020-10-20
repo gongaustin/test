@@ -1,6 +1,7 @@
 package com.gongjun.changsha.renDos;
 
 import com.gongjun.changsha.tools.ExcelUtils;
+import com.gongjun.changsha.tools.RegUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.junit.Test;
@@ -125,7 +126,7 @@ public class Excel_2_01 {
                             String valueStr = String.valueOf(dataValue) == null ? "" : String.valueOf(dataValue);
 
                             if (neizi == 0) {
-                                dataValue = valueStr == null ? "" : "  " + valueStr.trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");
+                                dataValue = valueStr == null ? "" : "  " + RegUtils.delAllSpaceForString(valueStr);
                             }
                             if ("内资企业".equals(valueStr)) {
                                 neizi = count;

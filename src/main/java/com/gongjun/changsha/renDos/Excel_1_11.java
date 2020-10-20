@@ -1,6 +1,7 @@
 package com.gongjun.changsha.renDos;
 
 import com.gongjun.changsha.tools.ExcelUtils;
+import com.gongjun.changsha.tools.RegUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -74,7 +75,7 @@ public class Excel_1_11 {
             Cell cell = row.getCell(0);
             Object value = ExcelUtils.getCellValue(cell);
             if (value instanceof java.lang.String && StringUtils.isNotBlank(String.valueOf(value))) {
-                zones.add(((String) value).trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", ""));
+                zones.add(RegUtils.delAllSpaceForString((String) value).trim());
             }
 
         }

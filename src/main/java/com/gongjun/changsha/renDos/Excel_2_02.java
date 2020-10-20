@@ -1,6 +1,7 @@
 package com.gongjun.changsha.renDos;
 
 import com.gongjun.changsha.tools.ExcelUtils;
+import com.gongjun.changsha.tools.RegUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.junit.Test;
@@ -161,12 +162,12 @@ public class Excel_2_02 {
                 Cell titleCell = row.getCell(0);
                 if (titleCell == null) continue;
                 String title = titleCell.getStringCellValue();
-                String titleTrim = title.trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");
+                String titleTrim = RegUtils.delAllSpaceForString(title.trim());
                 String dataTitle = String.valueOf(data.get(0));
 
 
                 if (StringUtils.isNotBlank(dataTitle))
-                    dataTitle = dataTitle.trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");
+                    dataTitle = RegUtils.delAllSpaceForString(dataTitle.trim());
                 else continue;
                 if (StringUtils.isNotBlank(dataTitle) && StringUtils.equals(titleTrim, dataTitle)) {
                     int writeNum = data.size();
