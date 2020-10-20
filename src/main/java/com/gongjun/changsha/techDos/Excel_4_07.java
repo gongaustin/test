@@ -1,6 +1,7 @@
 package com.gongjun.changsha.techDos;
 
 import com.gongjun.changsha.tools.ExcelUtils;
+import com.gongjun.changsha.tools.RegUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -79,15 +81,20 @@ public class Excel_4_07 {
             }
         }
 
+        //获取对应关系
+        Map<String, String> relations = Relationship.readRelationshipFile();
+
         //写入数据
         for (int i = zoneBeginRow - 1; i < standardSheet.getLastRowNum(); i++) {
             Row row = standardSheet.getRow(i);
             if (row == null) continue;
             String title = row.getCell(0).getStringCellValue();
             if (title == null) continue;
-            title = title.trim().replaceAll("[　*| *| *|//s*]*", "").replaceAll("^[　*| *| *|//s*]*", "").replaceAll("[　*| *| *|//s*]*$", "");
+            title = RegUtils.delAllSpaceForString(title.trim());//中英文的空格全部替换
+            String value = relations.get(title); //获取key对应的value值
+            if (value == null) continue;
             for (List<Object> data : dataSheetDatas) {
-                if (title.equals(data.get(0))) {
+                if (value != null && value.equals(data.get(0))) {
                     for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                         Cell cell = row.getCell(j);
                         cell.setCellValue((Double) data.get(j));
@@ -96,7 +103,7 @@ public class Excel_4_07 {
             }
         }
         ExcelUtils.write2Excel(standarWorkbook, standardExcelPath);
-        System.out.println("**********表格Excel_4_07处理完毕**********");
+        System.out.println("**********表格Excel_4_01处理完毕**********");
     }
 
     @Test
