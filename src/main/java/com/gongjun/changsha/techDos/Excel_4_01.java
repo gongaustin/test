@@ -72,9 +72,8 @@ public class Excel_4_01 {
 
         //清除数据
 
-        for (int i = zoneBeginRow - 1; i < standardSheet.getLastRowNum(); i++) {
+        for (int i = zoneBeginRow - 1; i < standardSheet.getPhysicalNumberOfRows(); i++) {
             Row row = standardSheet.getRow(i);
-
             for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
                 cell.setCellValue((String)null);
@@ -82,10 +81,10 @@ public class Excel_4_01 {
         }
 
         //获取对应关系
-        Map<String, String> relations = Relationship.readRelationshipFile();
+        Map<String, String> relations = Relationship.readExcelRelationshipFile();
 
         //写入数据
-        for (int i = zoneBeginRow - 1; i < standardSheet.getLastRowNum(); i++) {
+        for (int i = zoneBeginRow - 1; i < standardSheet.getPhysicalNumberOfRows(); i++) {
             Row row = standardSheet.getRow(i);
             if (row == null) continue;
             String title = row.getCell(0).getStringCellValue();
