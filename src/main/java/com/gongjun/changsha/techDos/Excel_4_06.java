@@ -104,11 +104,12 @@ public class Excel_4_06 {
             }
         }
         ExcelUtils.write2Excel(standarWorkbook, standardExcelPath);
-        System.out.println("**********表格Excel_4_01处理完毕**********");
+        System.out.println("**********表格Excel_4_06处理完毕**********");
     }
 
     @Test
     public static void todo() {
+        System.out.println("**********"+standardExcelPath+"***********开始处理**********");
         writeDataDos(readDos());
     }
 }

@@ -61,8 +61,8 @@ public class Excel_4_07 {
         Workbook standarWorkbook = ExcelUtils.getWorkbookFromExcel(new File(standardExcelPath));
         Sheet standardSheet = standarWorkbook.getSheet(keyword);
 
-        int zoneBeginRow = 5;
-        int zoneEndRow = 14;
+        int zoneBeginRow = 4;
+        int zoneEndRow = 13;
         //删除地区
         for (int i = zoneBeginRow; i <= zoneEndRow; i++) {
             Row row = standardSheet.getRow(i);
@@ -103,11 +103,12 @@ public class Excel_4_07 {
             }
         }
         ExcelUtils.write2Excel(standarWorkbook, standardExcelPath);
-        System.out.println("**********表格Excel_4_01处理完毕**********");
+        System.out.println("**********表格Excel_4_07处理完毕**********");
     }
 
     @Test
     public static void todo() {
+        System.out.println("**********"+standardExcelPath+"***********开始处理**********");
         writeDataDos(readDos());
     }
 }
