@@ -13,7 +13,7 @@ public class RegUtils {
      * @param: [s]
      * @description: 字符串去除空格
      * @author: GongJun
-     * @time: Created in 16:01 2020/10/20
+     * @time: Created in 16:48 2020/10/20
      * @modified: 
      * @return: java.lang.String
      **/

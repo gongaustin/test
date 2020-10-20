@@ -32,10 +32,14 @@ public class quiCKSort {
     public static void main(String[] args) {
 //        sort(new int[]{1,78,5,3,9});
         System.out.println(Math.round(1.5));
-        float a = 6.56f;
+        float a = 6.99f;
         int b = (int)a;
         System.out.println("a="+a);
         System.out.println("b="+b);
+
+        double c = 8.99;
+
+        System.out.println((int)c);  //强转直接丢掉小数点后面的
 
         double d = 5.7687654365645765768768679879789870;   //双精度
 

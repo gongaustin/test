@@ -50,7 +50,7 @@ public class Start {
                     CommonSet.dataExcelPathSet(dataExcelPath);
                     CommonSet.standardExcelPathSet(standardOutExcelFilePath);
                     System.out.println("**********["+zone+"]开始处理"+"**********");
-                    todo();
+                    Start.todo();
                 }
             }
         }
