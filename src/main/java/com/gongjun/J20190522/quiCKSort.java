@@ -39,8 +39,6 @@ public class quiCKSort {
 
         double d = 5.7687654365645765768768679879789870;   //双精度
 
-        double c = a;
-
         float e = (float) d; //单精度
         System.out.println("d="+d);
         System.out.println("e="+e);
