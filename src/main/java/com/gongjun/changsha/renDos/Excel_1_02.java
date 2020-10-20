@@ -52,9 +52,6 @@ public class Excel_1_02 {
                 break;
             case 1: {
                 List<List<Object>> dataSheetDatas = dataReadDos(accordExcels.get(0));
-                dataSheetDatas.forEach(e->{
-                    System.out.println(e.toString());
-                });
                 if (dataSheetDatas != null) dataWriteDos(dataSheetDatas);
             }
             break;
