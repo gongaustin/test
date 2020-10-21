@@ -27,16 +27,15 @@ public class dataSumJudgement {
     //区县数据表格路径
     private static String downLevel = "D:\\长沙项目\\贸易\\地区";
 
+    static List<File> files = new ArrayList<>();
+
     public static List<File> readFileList(String excelPath) {
-        List<File> files = new ArrayList<>();
         if (excelPath == null) return files;
         File file = new File(excelPath);
         File[] fs = file.listFiles();
         for (File f : fs) {
-            if (f.isDirectory()) {
-                files.addAll(readFileList(f.getAbsolutePath()));
-            }
-            else files.add(f);
+            if (!f.isDirectory()&&StringUtils.endsWithAny(f.getName(),"XLS","xls","XLSX","xlsx")) files.add(f);
+            else if(f.isDirectory()) readFileList(f.getAbsolutePath());
         }
         return files;
     }
@@ -104,5 +103,6 @@ public class dataSumJudgement {
     public void aa() {
         dataJudge();
     }
+
 
 }
