@@ -6,6 +6,7 @@ package com.gongjun.changsha.tools;
  * @Date: Created in 10:11 2020/9/28
  */
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -61,13 +62,13 @@ public class ExcelUtils {
             e.printStackTrace();
         }
 
-        if (excelFile.getName().endsWith(XLS)) {
+        if (StringUtils.endsWithIgnoreCase(excelFile.getName(),"XLS")) {
             try {
                 return new HSSFWorkbook(is);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if (excelFile.getName().endsWith(XLSX)) {
+        } else if (StringUtils.endsWithIgnoreCase(excelFile.getName(),"XLSX")) {
             try {
                 return new XSSFWorkbook(is);
             } catch (IOException e) {
