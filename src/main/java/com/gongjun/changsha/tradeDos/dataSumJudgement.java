@@ -76,8 +76,8 @@ public class dataSumJudgement {
                     for (int k = 0; k < upRow.getPhysicalNumberOfCells(); k++) {
                         Cell upCell = upRow.getCell(k);
                         if (upCell == null) continue;
-                        Object value = ExcelUtils.getCellValue(upCell);
-                        if (!(value instanceof java.lang.Double)) continue;
+                        Object valueOne = ExcelUtils.getCellValue(upCell);
+                        if (!(valueOne instanceof java.lang.Double)) continue;
                         Double valueTwo = 0d;
                         for (File fileTwo : downExelList) {
                             if (StringUtils.endsWithIgnoreCase(fileTwo.getName(), fileName)) {
@@ -87,10 +87,12 @@ public class dataSumJudgement {
                                 if(downCellValue instanceof java.lang.Double) valueTwo +=  (Double) downCellValue;
                             }
                         }
-                        value = new BigDecimal((double)value).setScale(1,BigDecimal.ROUND_HALF_UP).doubleValue();
-                        valueTwo = new BigDecimal(valueTwo).setScale(1,BigDecimal.ROUND_HALF_UP).doubleValue();
-                        if(((Double) value - valueTwo) == 0.0d) System.out.println("["+fileName+":"+upSheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据一致,地方总和:"+valueTwo+",全市数据:"+value);
-                        //else System.out.println("["+fileName+":"+upSheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据不一致,地方总和:"+valueTwo+",全市数据:"+value);
+                        valueOne = new BigDecimal((double)valueOne).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
+                        int valueTwoInt = new BigDecimal(valueTwo).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
+                        //if(((int) valueOne - valueTwoInt) < 1) System.out.println("["+fileName+":"+upSheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据一致,地方总和:"+valueTwoInt+",全市数据:"+valueOne);
+                        if(((int) valueOne - valueTwoInt) > 1) {
+                            System.out.println("["+fileName+":"+upSheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据不一致,地方总和:"+valueTwoInt+",全市数据:"+valueOne);
+                        }
                     }
                 }
             }
