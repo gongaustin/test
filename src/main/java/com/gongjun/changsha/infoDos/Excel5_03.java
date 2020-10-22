@@ -25,49 +25,76 @@ public class Excel5_03 {
         if (excelPath == null) return;
         //获取Workbook
         Workbook workbook = ExcelUtils.getWorkbookFromExcel(new File(excelPath));
-        //获取Sheet
-        Sheet sheetDataOne = workbook.getSheetAt(1);
-        int dataBeginRowOne = 6;
-        //取列数
-        List<Integer> inColsOne = Arrays.asList(1, 3, 8, 9);
         List<List<Object>> data = new ArrayList<>();
-        //获取第一张表数据
-        for (int i = dataBeginRowOne; i < sheetDataOne.getPhysicalNumberOfRows(); i++) {
-            Row row = sheetDataOne.getRow(i);
-            List<Object> rowData = new ArrayList<>();
-            for (int j = 0; j < inColsOne.size(); j++) {
-                Cell cell = row.getCell(inColsOne.get(j));
-                Object value = ExcelUtils.getCellValue(cell);
-                if (value != null && value instanceof java.lang.String)
-                    value = RegUtils.delAllSpaceForString((String) value);
-                rowData.add(value);
+
+        //获取Sheet数量
+        int sheetNum = workbook.getNumberOfSheets();
+        if(sheetNum == 3){
+            //获取Sheet
+            Sheet sheetDataOne = workbook.getSheetAt(0);
+            int dataBeginRowOne = 6;
+            //取列数
+            List<Integer> inColsOne = Arrays.asList(1, 3, 8, 9);
+            //获取第一张表数据
+            for (int i = dataBeginRowOne; i < sheetDataOne.getPhysicalNumberOfRows(); i++) {
+                Row row = sheetDataOne.getRow(i);
+                List<Object> rowData = new ArrayList<>();
+                for (int j = 0; j < inColsOne.size(); j++) {
+                    Cell cell = row.getCell(inColsOne.get(j));
+                    Object value = ExcelUtils.getCellValue(cell);
+                    if (value != null && value instanceof java.lang.String)
+                        value = RegUtils.delAllSpaceForString((String) value);
+                    rowData.add(value);
+                }
+                if (!CollectionUtils.isEmpty(rowData)) data.add(rowData);
             }
-            if (!CollectionUtils.isEmpty(rowData)) data.add(rowData);
-        }
 
 
-        Sheet sheetDataTwo = workbook.getSheetAt(0);
-        int dataBeginRow = 7;
-        List<Integer> inColsTwo = Arrays.asList(1, 4, 5);
-        for (int i = dataBeginRow; i < sheetDataTwo.getPhysicalNumberOfRows(); i++) {
-            Row row = sheetDataTwo.getRow(i);
-            for (int j = 1; j < inColsTwo.size(); j++) {
-                Cell cellTitle = row.getCell(inColsTwo.get(0));
-                Object titleValue = ExcelUtils.getCellValue(cellTitle);
-                if (titleValue != null && titleValue instanceof java.lang.String)
-                    titleValue = RegUtils.delAllSpaceForString((String) titleValue);
-                else return;
-                for (int k = 0; k < data.size(); k++) {
-                    List<Object> rowData = data.get(k);
-                    if (!CollectionUtils.isEmpty(rowData)) {
-                        Object title = rowData.get(0);
-                        if (title != null && title.equals(titleValue)) {
-                            rowData.add(ExcelUtils.getCellValue(row.getCell(inColsTwo.get(j))));
+            Sheet sheetDataTwo = workbook.getSheetAt(1);
+            int dataBeginRow = 7;
+            List<Integer> inColsTwo = Arrays.asList(1, 4, 5);
+            for (int i = dataBeginRow; i < sheetDataTwo.getPhysicalNumberOfRows(); i++) {
+                Row row = sheetDataTwo.getRow(i);
+                for (int j = 1; j < inColsTwo.size(); j++) {
+                    Cell cellTitle = row.getCell(inColsTwo.get(0));
+                    Object titleValue = ExcelUtils.getCellValue(cellTitle);
+                    if (titleValue != null && titleValue instanceof java.lang.String)
+                        titleValue = RegUtils.delAllSpaceForString((String) titleValue);
+                    else return;
+                    for (int k = 0; k < data.size(); k++) {
+                        List<Object> rowData = data.get(k);
+                        if (!CollectionUtils.isEmpty(rowData)) {
+                            Object title = rowData.get(0);
+                            if (title != null && title.equals(titleValue)) {
+                                rowData.add(ExcelUtils.getCellValue(row.getCell(inColsTwo.get(j))));
+                            }
                         }
                     }
                 }
             }
         }
+
+        if(sheetNum == 2){
+            //获取Sheet
+            Sheet sheetDataOne = workbook.getSheetAt(0);
+            int dataBeginRowOne = 6;
+            //取列数
+            List<Integer> inColsOne = Arrays.asList(1, 3, 8, 9,14,15);
+            //获取第一张表数据
+            for (int i = dataBeginRowOne; i < sheetDataOne.getPhysicalNumberOfRows(); i++) {
+                Row row = sheetDataOne.getRow(i);
+                List<Object> rowData = new ArrayList<>();
+                for (int j = 0; j < inColsOne.size(); j++) {
+                    Cell cell = row.getCell(inColsOne.get(j));
+                    Object value = ExcelUtils.getCellValue(cell);
+                    if (value != null && value instanceof java.lang.String)
+                        value = RegUtils.delAllSpaceForString((String) value);
+                    rowData.add(value);
+                }
+                if (!CollectionUtils.isEmpty(rowData)) data.add(rowData);
+            }
+        }
+
 
 
         for (int i = 0; i < data.size(); i++) {
@@ -88,12 +115,6 @@ public class Excel5_03 {
                 cell.setCellValue((String) null);
             }
         }
-
-        data.forEach(e->{
-            System.out.println(e.toString());
-        });
-        if(true) return;
-
         for (int i = writeBeginRow; i <= sheetWrite.getPhysicalNumberOfRows(); i++) {
             Row row = sheetWrite.getRow(i);
             if (row == null) continue;
