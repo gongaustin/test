@@ -33,7 +33,7 @@ public class Excel_4_06 {
         Sheet dataSheet = dataWorkbook.getSheetAt(0);
         int dataSheetRowNum = dataSheet.getPhysicalNumberOfRows();
         List exceptRows = Arrays.asList(0, 1, 2, 3, 4);  //排除的行
-        List<Integer> inCols = Arrays.asList(1, 174, 177, 180, 150, 153);  //包含的列
+        List<Integer> inCols = Arrays.asList(1, 174, 177, 180, 150, 159);  //包含的列
         List<List<Object>> dataSheetDatas = new ArrayList<>();
         for (int i = 0; i < dataSheetRowNum; i++) {
             if (exceptRows.contains(i)) continue;
@@ -86,7 +86,7 @@ public class Excel_4_06 {
         Map<String, String> relations = Relationship.readExcelRelationshipFile();
 
         //写入数据
-        for (int i = zoneBeginRow - 1; i < standardSheet.getLastRowNum(); i++) {
+        for (int i = zoneBeginRow - 1; i < standardSheet.getPhysicalNumberOfRows(); i++) {
             Row row = standardSheet.getRow(i);
             if (row == null) continue;
             String title = row.getCell(0).getStringCellValue();
