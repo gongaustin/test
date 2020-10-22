@@ -122,7 +122,15 @@ public class Excel_1_04 {
 
         //获取标准表格的行数
         int standardSheetRows = standardSheet.getPhysicalNumberOfRows();
+        //清除数据
+        for (int i = 4; i < standardSheetRows; i++) {
+            Row row = standardSheet.getRow(i);
 
+            for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
+                Cell cell = row.getCell(j);
+                cell.setCellValue((String)null);
+            }
+        }
         //获取标准表格的宾栏
         /**
          * @修改点******************************************************************
