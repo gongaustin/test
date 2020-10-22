@@ -21,12 +21,12 @@ import java.util.List;
  * @Date: Created in 11:15 2020/10/22
  */
 public class Excel5_03 {
-    public static void todo(String excelPath) {
+    public static void todo(String excelPath,String standardPath) {
         if (excelPath == null) return;
         //获取Workbook
         Workbook workbook = ExcelUtils.getWorkbookFromExcel(new File(excelPath));
         //获取Sheet
-        Sheet sheetDataOne = workbook.getSheetAt(0);
+        Sheet sheetDataOne = workbook.getSheetAt(1);
         int dataBeginRowOne = 6;
         //取列数
         List<Integer> inColsOne = Arrays.asList(1, 3, 8, 9);
@@ -46,7 +46,7 @@ public class Excel5_03 {
         }
 
 
-        Sheet sheetDataTwo = workbook.getSheetAt(1);
+        Sheet sheetDataTwo = workbook.getSheetAt(0);
         int dataBeginRow = 7;
         List<Integer> inColsTwo = Arrays.asList(1, 4, 5);
         for (int i = dataBeginRow; i < sheetDataTwo.getPhysicalNumberOfRows(); i++) {
@@ -75,17 +75,24 @@ public class Excel5_03 {
         }
 
 
-        Sheet sheetWrite = workbook.getSheetAt(2);
-        int writeBeginRow = 7;
+        Workbook standardWorkbook = ExcelUtils.getWorkbookFromExcel(new File(standardPath));
+        Sheet sheetWrite = standardWorkbook.getSheet("5-03");
+        int writeBeginRow = 4;
         //写入前清除数据
         for (int i = writeBeginRow; i < sheetWrite.getPhysicalNumberOfRows(); i++) {
             Row row = sheetWrite.getRow(i);
+            if(row == null)continue;
             for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
+                if(cell == null) continue;
                 cell.setCellValue((String) null);
             }
         }
 
+        data.forEach(e->{
+            System.out.println(e.toString());
+        });
+        if(true) return;
 
         for (int i = writeBeginRow; i <= sheetWrite.getPhysicalNumberOfRows(); i++) {
             Row row = sheetWrite.getRow(i);
@@ -97,19 +104,25 @@ public class Excel5_03 {
                 if (rowData.get(0) != null && rowData.get(0) instanceof java.lang.String && hangye.equals(rowData.get(0))) {
                     for (int j = 1; j < 6; j++) {
                         Cell cell = row.getCell(j);
-                        if (rowData.get(j) instanceof java.lang.Double) cell.setCellValue((double) rowData.get(j));
-                        if (rowData.get(j) instanceof java.lang.String) cell.setCellValue((String) rowData.get(j));
+                        if(rowData.size()<=j){
+                            System.out.println(rowData.toString());
+                            cell.setCellValue(0);
+                        }
+                        else{
+                            if (rowData.get(j) instanceof java.lang.Double) cell.setCellValue((double) rowData.get(j));
+                            if (rowData.get(j) instanceof java.lang.String) cell.setCellValue((String) rowData.get(j));
+                        }
                     }
                 }
             }
         }
-        ExcelUtils.write2Excel(workbook, excelPath);
+        ExcelUtils.write2Excel(standardWorkbook, standardPath);
         System.out.println(excelPath+"--处理完毕");
     }
 
 
     @Test
     public void test() {
-        todo("D:\\长沙项目\\信息化业\\430103信息化经普公报\\5-03.xls");
+        todo("D:\\长沙项目\\信息化业\\430103信息化经普公报\\5-03.xls","D:\\长沙项目\\信息化业\\430103信息化经普公报\\922-5.xls");
     }
 }

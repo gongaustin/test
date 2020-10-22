@@ -19,13 +19,13 @@ public class Start {
         List<File> files = new ArrayList();
         files = Start.getFiles(filePath,files);
         files.forEach(e->{
-            if(StringUtils.contains(e.getName(),"5-01.xls")) Excel5_01.todo(e.getAbsolutePath());
-            if(StringUtils.contains(e.getName(),"5-02.xls")) Excel5_02.todo(e.getAbsolutePath());
-            if(StringUtils.contains(e.getName(),"5-03.xls")) Excel5_03.todo(e.getAbsolutePath());
-            if(StringUtils.contains(e.getName(),"5-04.xls")) Excel5_04.todo(e.getAbsolutePath());
-            if(StringUtils.contains(e.getName(),"5-05.xls")) Excel5_05.todo(e.getAbsolutePath());
-            if(StringUtils.contains(e.getName(),"5-06.xls")) Excel5_06.todo(e.getAbsolutePath());
-            if(StringUtils.contains(e.getName(),"5-07.xls")) Excel5_07.todo(e.getAbsolutePath());
+            if(StringUtils.contains(e.getName(),"5-01.xls")) Excel5_01.todo(e.getAbsolutePath(),e.getParent()+"\\922-5.xls");
+            if(StringUtils.contains(e.getName(),"5-02.xls")) Excel5_02.todo(e.getAbsolutePath(),e.getParent()+"\\922-5.xls");
+            if(StringUtils.contains(e.getName(),"5-03.xls")) Excel5_03.todo(e.getAbsolutePath(),e.getParent()+"\\922-5.xls");
+            if(StringUtils.contains(e.getName(),"5-04.xls")) Excel5_04.todo(e.getAbsolutePath(),e.getParent()+"\\922-5.xls");
+            if(StringUtils.contains(e.getName(),"5-05.xls")) Excel5_05.todo(e.getAbsolutePath(),e.getParent()+"\\922-5.xls");
+            if(StringUtils.contains(e.getName(),"5-06.xls")) Excel5_06.todo(e.getAbsolutePath(),e.getParent()+"\\922-5.xls");
+            if(StringUtils.contains(e.getName(),"5-07.xls")) Excel5_07.todo(e.getAbsolutePath(),e.getParent()+"\\922-5.xls");
         });
     }
 
