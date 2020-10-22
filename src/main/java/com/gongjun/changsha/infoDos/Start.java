@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Description: 批量处理类
+ * @Description: 批量处理类 （信息化）
  * @Author: GongJun
  * @Date: Created in 11:16 2020/10/22
  */
@@ -17,7 +17,7 @@ public class Start {
 
     public static void main(String[] args) {
         List<File> files = new ArrayList();
-        files = getFiles(filePath,files);
+        files = Start.getFiles(filePath,files);
         files.forEach(e->{
             if(StringUtils.contains(e.getName(),"5-01.xls")) Excel5_01.todo(e.getAbsolutePath());
             if(StringUtils.contains(e.getName(),"5-02.xls")) Excel5_02.todo(e.getAbsolutePath());
