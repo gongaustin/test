@@ -29,7 +29,7 @@ public class Excel_2_22 {
 
     public static void todo() {
         //按地区分组
-        List<List<Object>> dataSheetDatas = excelDos("(2-28A)", Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8), Arrays.asList(1), 0);
+        List<List<Object>> dataSheetDatas = excelDos("(2-28A)", Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7), Arrays.asList(1), 0);
         //按登记类型分组
         dataSheetDatas.addAll(excelDos("(2-29A)", Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8), Arrays.asList(1), 1));
 
