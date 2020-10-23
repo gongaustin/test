@@ -141,6 +141,17 @@ public class Excel_2_02 {
         /**
          * @修改点******************************************************************
          * */
+        //写入前清除数据
+        for (int i = 4; i < standardSheetRows; i++) {
+            Row row = standardSheet.getRow(i);
+
+            for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
+                Cell cell = row.getCell(j);
+                cell.setCellValue((String)null);
+            }
+
+        }
+
         int count = 0;
         for (int i = 0; i < standardSheetRows; i++) {
 
