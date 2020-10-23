@@ -29,7 +29,7 @@ public class Excel5_07 {
         Sheet sheetDataOne = workbook.getSheetAt(0);
         int dataBeginRowOne = 6;
         //取列数
-        List<Integer> inColsOne = Arrays.asList(1, 4, 6, 12, 18, 24, 30, 36, 49, 52, 55, 58, 61, 64);
+        List<Integer> inColsOne = Arrays.asList(1, 4, 6, 49, 12, 52, 18, 55, 24, 58, 30, 61, 36, 64);
         List<List<Object>> data = new ArrayList<>();
         //获取第一张表数据
         for (int i = dataBeginRowOne; i < sheetDataOne.getPhysicalNumberOfRows(); i++) {

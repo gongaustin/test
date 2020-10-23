@@ -26,7 +26,7 @@ public class Excel5_04 {
         //获取Workbook
         Workbook workbook = ExcelUtils.getWorkbookFromExcel(new File(excelPath));
         //获取Sheet
-        Sheet sheetDataOne = workbook.getSheetAt(1);
+        Sheet sheetDataOne = workbook.getSheetAt(0);
         int dataBeginRowOne = 6;
         //取列数
         List<Integer> inColsOne = Arrays.asList(1, 3, 20, 21);
@@ -46,7 +46,7 @@ public class Excel5_04 {
         }
 
 
-        Sheet sheetDataTwo = workbook.getSheetAt(0);
+        Sheet sheetDataTwo = workbook.getSheetAt(1);
         int dataBeginRowTwo = 6;
         List<Integer> inColsTwo = Arrays.asList(1, 9, 10);
         for (int i = dataBeginRowTwo; i < sheetDataTwo.getPhysicalNumberOfRows(); i++) {
@@ -68,7 +68,6 @@ public class Excel5_04 {
                 }
             }
         }
-
 
         Workbook standardWorkbook = ExcelUtils.getWorkbookFromExcel(new File(standardPath));
         Sheet sheetWrite = standardWorkbook.getSheet("5-04");
@@ -108,7 +107,7 @@ public class Excel5_04 {
 
     @Test
     public void test() {
-        todo("D:\\长沙项目\\信息化业\\430103信息化经普公报\\5-04.xls","D:\\长沙项目\\信息化业\\430103信息化经普公报\\922-5.xls");
+        todo("D:\\长沙项目\\信息化业\\430102信息化经普公报\\5-04.xls","D:\\长沙项目\\信息化\\全市\\5-04.XLS");
     }
 
 }

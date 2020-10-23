@@ -72,13 +72,6 @@ public class dataSumJudgement {
             for (int i = 1; i < sheetNumber; i++) {
                 Sheet upSheet = upWorkbook.getSheetAt(i);
 
-                //删除地区
-                for (int n = 5; n <= 14; n++) {
-                    Row row = upSheet.getRow(n);
-                    upSheet.removeRow(row);
-                }
-                upSheet.shiftRows(15, upSheet.getLastRowNum(), -(14 - 5 + 1));
-
                 for (int j = 0; j < upSheet.getPhysicalNumberOfRows(); j++) {
                     Row upRow = upSheet.getRow(j);
                     if (upRow == null) continue;
@@ -99,7 +92,7 @@ public class dataSumJudgement {
                         valueOne = new BigDecimal((double)valueOne).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
                         int valueTwoInt = new BigDecimal(valueTwo).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
                         //if(((int) valueOne - valueTwoInt) < 1) System.out.println("["+fileName+":"+upSheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据一致,地方总和:"+valueTwoInt+",全市数据:"+valueOne);
-                        if(((int) valueOne - valueTwoInt) > 5) {
+                        if(((int) valueOne - valueTwoInt) > 1) {
                             System.out.println("["+fileName+":"+upSheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据不一致,地方总和:"+valueTwoInt+",全市数据:"+valueOne);
                         }
                     }

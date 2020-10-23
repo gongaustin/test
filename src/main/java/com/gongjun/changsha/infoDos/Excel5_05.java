@@ -70,7 +70,7 @@ public class Excel5_05 {
             for (List<Object> rowData : data) {
                 if (rowData == null) return;
                 if (rowData.get(0) != null && rowData.get(0) instanceof java.lang.String && hangye.equals(rowData.get(0))) {
-                    for (int j = 1; j < 18; j++) {
+                    for (int j = 1; j < 28; j++) {
                         Cell cell = row.getCell(j);
                         if (rowData.get(j) instanceof java.lang.Double) cell.setCellValue((double) rowData.get(j));
                         if (rowData.get(j) instanceof java.lang.String) cell.setCellValue((String) rowData.get(j));
