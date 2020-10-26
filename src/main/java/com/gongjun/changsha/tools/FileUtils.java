@@ -59,16 +59,11 @@ public class FileUtils {
             File[] files = file.listFiles();
             for (int i = 0; i < files.length; i++) {
                 // 如果还是文件夹 递归获取里面的文件 文件夹
-                if (files[i].isDirectory()) {
-                    getFiles(files[i].getPath(),list);
-                } else {
-                    list.add(files[i]);
-                }
+                if (files[i].isDirectory()) getFiles(files[i].getPath(),list);
+                else list.add(files[i]);
             }
-        } else {
-            list.add(file);
         }
+        else list.add(file);
         return list;
     }
-
 }
