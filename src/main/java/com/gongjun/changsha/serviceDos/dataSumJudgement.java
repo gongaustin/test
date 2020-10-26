@@ -76,7 +76,6 @@ public class dataSumJudgement {
                    }
                }
                if(dataBeginRow == 0) continue;
-               System.out.println(dataBeginRow);
                for (int j = dataBeginRow; j < sheet.getPhysicalNumberOfRows(); j++) {
                    Row row = sheet.getRow(j);
                    if(row == null) continue;
@@ -131,7 +130,7 @@ public class dataSumJudgement {
 
                        int valueOne = new BigDecimal((double)upValue).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
                        int valueTwoInt = new BigDecimal(valueSum).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
-                       System.out.println("项目:"+title+"--valueOne:"+valueOne+"--valueTwoInt:"+valueTwoInt);
+//                       System.out.println("项目:"+title+"--valueOne:"+valueOne+"--valueTwoInt:"+valueTwoInt);
                        if((valueOne - valueTwoInt) > 5 || (valueTwoInt-valueOne) > 5) {
                            System.out.println("["+f.getAbsolutePath()+":"+sheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(row.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据不一致,地方总和:"+valueTwoInt+",全市数据:"+valueOne);
                        }
