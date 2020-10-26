@@ -92,7 +92,7 @@ public class dataSumJudgement {
                         valueOne = new BigDecimal((double)valueOne).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
                         int valueTwoInt = new BigDecimal(valueTwo).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
                         //if(((int) valueOne - valueTwoInt) < 1) System.out.println("["+fileName+":"+upSheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据一致,地方总和:"+valueTwoInt+",全市数据:"+valueOne);
-                        if(((int) valueOne - valueTwoInt) > 1 || (valueTwoInt - (int)valueOne)>1) {
+                        if((Math.abs((int) valueOne - valueTwoInt)) > 1) {
                             System.out.println("["+fileName+":"+upSheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据不一致,地方总和:"+valueTwoInt+",全市数据:"+valueOne);
                         }
                     }
