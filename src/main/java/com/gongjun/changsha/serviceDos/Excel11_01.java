@@ -47,9 +47,7 @@ public class Excel11_01 {
             }
         }
         if(dataBeginRow == 0) return;
-        System.out.println(dataBeginRow);
         List<List<Object>> data = new ArrayList<>();
-        boolean flag = false;
         for (int i = dataBeginRow; i < sourceSheet.getPhysicalNumberOfRows(); i++) {
             Row row = sourceSheet.getRow(i);
             if(row == null) continue;
@@ -86,15 +84,23 @@ public class Excel11_01 {
         if(a != 0) data.add(a,Arrays.asList("按登记注册类型分组",null,null,null,null,null,null));
         if(b != 0) data.add(b,Arrays.asList("按国民经济行业分组",null,null,null,null,null,null));
 
-        data.forEach(e->{
-            System.out.println(e.toString());
-        });
         //目标表
         Workbook targetWorkbook = ExcelUtils.getWorkbookFromExcel(new File(targetExcelPath));
 
         Sheet targetSheet = targetWorkbook.getSheet("11-01");
-        System.out.println(targetSheet);
         int targetSheetDataBeginRow = 3;
+
+        /**
+         * @加粗样式
+         * */
+        CellStyle titleBold = targetSheet.getRow(targetSheetDataBeginRow).getCell(0).getCellStyle();
+        CellStyle dataBold = targetSheet.getRow(targetSheetDataBeginRow).getCell(1).getCellStyle();
+        /**
+         * @不加粗样式
+         * */
+        CellStyle titleNoBold = targetSheet.getRow(targetSheetDataBeginRow + 2).getCell(0).getCellStyle();
+        CellStyle dataNoBold = targetSheet.getRow(targetSheetDataBeginRow + 2).getCell(1).getCellStyle();
+
         //清除数据
         for (int i = targetSheetDataBeginRow; i < targetSheet.getPhysicalNumberOfRows(); i++) {
             Row row = targetSheet.getRow(i);
@@ -125,9 +131,6 @@ public class Excel11_01 {
                 targetSheet.removeRow(row);
             }
         }
-
-        CellStyle boldStyle = targetSheet.getRow(targetSheetDataBeginRow).getRowStyle();
-        CellStyle normalStyle = targetSheet.getRow(targetSheetDataBeginRow+3).getRowStyle();
         for (int i = 0; i < writeDataRows; i++) {
             List<Object> dataRow = data.get(i);
             //遍历数据
@@ -136,19 +139,23 @@ public class Excel11_01 {
             row.setHeight(height);
 
             for (int j = 0; j < dataRow.size(); j++) {
-                if(j==0 && row != null){
-                    Object value = dataRow.get(0);
-                    if(value != null && value instanceof String &&  StringUtils.containsAny(RegUtils.delAllSpaceForString((String) value),"总计","按地区分组","按登记注册类型分组","按国民经济行业分组"))  row.setRowStyle(boldStyle);
-                    else {if( null != normalStyle)row.setRowStyle(normalStyle);}
-                }
                 Cell cell  = row.getCell(j) == null?row.createCell(j): row.getCell(j);
+                if(j==0){
+                    Object value = dataRow.get(0);
+                    if(value != null && value instanceof String &&  StringUtils.containsAny(RegUtils.delAllSpaceForString((String) value),"总计","按地区分组","按登记注册类型分组","按国民经济行业分组"))  row.getCell(0).setCellStyle(titleBold);
+                    else row.getCell(0).setCellStyle(titleNoBold);
+                }
+                if(j>0){
+                    if(StringUtils.containsAny(RegUtils.delAllSpaceForString((String)  dataRow.get(0)),"总计")) row.getCell(j).setCellStyle(dataBold);
+                    else row.getCell(j).setCellStyle(dataNoBold);
+                }
                 if(dataRow.get(j) instanceof String) cell.setCellValue((String)dataRow.get(j));
                 if(dataRow.get(j) instanceof Double) cell.setCellValue((double)dataRow.get(j));
             }
         }
 
         ExcelUtils.write2Excel(targetWorkbook,targetExcelPath);
-
+        System.out.println("文件["+sourceExcelPath+"]--处理完毕");
 
     }
 
