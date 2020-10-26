@@ -66,7 +66,7 @@ public class CopySheet {
                 }
                 newCell = newRow.createCell((short) j);
                 newCell.setCellStyle(fromCell.getCellStyle());
-                CellType cType = fromCell.getCellTypeEnum();
+                CellType cType = fromCell.getCellType();
                 newCell.setCellType(cType);
                 switch (cType) {
                     case STRING:
