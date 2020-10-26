@@ -83,8 +83,8 @@ public class Excel11_01 {
             if ("内资企业".equals(data.get(i).get(0))) a = i;
             if ("交通运输、仓储和邮政业".equals(data.get(i).get(0))) b = i+1;
         }
-        data.add(a,Arrays.asList("按登记注册类型分组",null,null,null,null,null,null));
-        data.add(b,Arrays.asList("按国民经济行业分组",null,null,null,null,null,null));
+        if(a != 0) data.add(a,Arrays.asList("按登记注册类型分组",null,null,null,null,null,null));
+        if(b != 0) data.add(b,Arrays.asList("按国民经济行业分组",null,null,null,null,null,null));
 
         data.forEach(e->{
             System.out.println(e.toString());
