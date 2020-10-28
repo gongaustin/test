@@ -59,9 +59,23 @@ public class Start {
         }
     }
 
+
+    public static void batTodo(){
+        List<File> list =  FileUtils.getFiles(zonePath,new ArrayList<>());
+
+        for (File file: list){
+            if(file.getName().endsWith("分类型.xlsx")) Excel6_05.todo(file.getAbsolutePath(),file.getParent().replace("地区","处理后"+"\\"+"地区")+"\\922-6.XLS");
+            if(file.getName().endsWith("大类行业.xlsx")) Excel6_06.todo(file.getAbsolutePath(),file.getParent().replace("地区","处理后"+"\\"+"地区")+"\\922-6.XLS");
+            if(file.getName().endsWith("大类行业国有控股.xlsx")) Excel6_07.todo(file.getAbsolutePath(),file.getParent().replace("地区","处理后"+"\\"+"地区")+"\\922-6.XLS");
+            if(file.getName().endsWith("大类行业私营.xlsx")) Excel6_08.todo(file.getAbsolutePath(),file.getParent().replace("地区","处理后"+"\\"+"地区")+"\\922-6.XLS");
+            if(file.getName().endsWith("大类行业外商及港澳台.xlsx")) Excel6_09.todo(file.getAbsolutePath(),file.getParent().replace("地区","处理后"+"\\"+"地区")+"\\922-6.XLS");
+            if(file.getName().endsWith("大类行业大中型.xlsx")) Excel6_10.todo(file.getAbsolutePath(),file.getParent().replace("地区","处理后"+"\\"+"地区")+"\\922-6.XLS");
+        }
+    }
+
     @Test
     public void test(){
-        copyFile2Zone();
+        batTodo();
     }
 
 }

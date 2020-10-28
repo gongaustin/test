@@ -64,6 +64,8 @@ public class Excel6_05 {
         }
 
         //写入数据
+        int 有限责任公司_count = 0;
+        int 股份有限公司_count = 0;
         for (int i = dataBeginRow; i < targetSheet.getPhysicalNumberOfRows(); i++) {
             Row row = targetSheet.getRow(i);
             if(row == null || row.getCell(0) == null || StringUtils.isBlank(row.getCell(0).getStringCellValue())) continue;
@@ -72,6 +74,9 @@ public class Excel6_05 {
                 Object dataTitle = rowData.get(0);
                 if(dataTitle != null && dataTitle instanceof String){
                     if(title.equals(RegUtils.delAllSpaceForString((String)dataTitle))){
+                        if("有限责任公司".equals(RegUtils.delAllSpaceForString((String)dataTitle))) 有限责任公司_count++;
+                        if("股份有限公司".equals(RegUtils.delAllSpaceForString((String)dataTitle))) 股份有限公司_count++;
+                        if(("有限责任公司".equals(title)&&有限责任公司_count == 2) || ("股份有限公司".equals(title)) && 股份有限公司_count ==2) continue;
                         for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                             Cell cell = row.getCell(j);
                             Object value = rowData.get(j);

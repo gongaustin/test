@@ -21,6 +21,10 @@ public class RegUtils {
         if(s==null) return null;
         return s.replaceAll("[　*| *| *|//s*]*", "")
                 .replaceAll("^[　*| *| *|//s*]*", "")
-                .replaceAll("[　*| *| *|//s*]*$", "");
+                .replaceAll("[　*| *| *|//s*]*$", "")
+                //针对工业处理
+                .replaceAll(":","")
+                .replaceAll("：","")
+                .replaceAll("、","");
     }
 }
