@@ -2,6 +2,7 @@ package com.gongjun.changsha.industryDos;
 
 import com.gongjun.changsha.tools.ExcelUtils;
 import com.gongjun.changsha.tools.RegUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -19,6 +20,7 @@ import java.util.List;
  * @Author: GongJun
  * @Date: Created in 10:10 2020/10/28
  */
+@Slf4j
 public class Excel6_05 {
 
     public static void todo(String sourceExcelPath,String targetExcelPath){
@@ -94,6 +96,7 @@ public class Excel6_05 {
 
     @Test
     public void test(){
-        todo("D:\\长沙项目\\工业\\地区\\芙蓉\\(6-05)2018年芙蓉区大类行业大中型.xlsx","D:\\长沙项目\\工业\\处理后\\地区\\芙蓉\\922-6.XLS");
+//        todo("D:\\长沙项目\\工业\\地区\\芙蓉\\(6-05)2018年芙蓉区大类行业大中型.xlsx","D:\\长沙项目\\工业\\处理后\\地区\\芙蓉\\922-6.XLS");
+        log.info("文件[{}]处理完毕","D:\\长沙项目\\工业\\地区\\芙蓉\\(6-05)2018年芙蓉区大类行业大中型.xlsx");
     }
 }
