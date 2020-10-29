@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Excel 工具类(兼容xls和xlsx)
  *
- * @author Logan
+ * @author GongJun
  * @version 1.0.0
  * @createDate 2019-03-07
  */
