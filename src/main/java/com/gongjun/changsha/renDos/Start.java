@@ -7,6 +7,7 @@ package com.gongjun.changsha.renDos;
  */
 public class Start {
     public static void main(String[] args) {
+        //处理表格922-1.xls
         Excel_1_01.todo();
         Excel_1_02.todo();
         Excel_1_03.todo();
@@ -25,6 +26,7 @@ public class Start {
 //        Excel_1_16.todo();
 //        Excel_1_17.todo();
 //        Excel_1_18.todo();
+        //处理表格922-2.xls
         Excel_2_01.todo();
         Excel_2_02.todo();
         Excel_2_03.todo();
