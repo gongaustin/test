@@ -1,4 +1,7 @@
 package com.gongjun.changsha.tools;
+
+import org.junit.Test;
+
 /**
  * @Description:
  * @Author: GongJun
@@ -20,8 +23,14 @@ public class RegUtils {
                 .replaceAll("^[　*| *| *|//s*]*", "")
                 .replaceAll("[　*| *| *|//s*]*$", "")
                 //针对工业处理
-                .replaceAll(":","")
-                .replaceAll("：","")
-                .replaceAll("、","");
+                .replaceAll("\\:|\\：|\\、","");
+    }
+
+
+    @Test
+    public void test(){
+        String s = "：：：：abcdefg:12345：ABCDEFG、!@#$%^&*()、、、、、";
+        s = s.replaceAll("\\:|\\：|\\、","");
+        System.out.println(s);
     }
 }
