@@ -2,6 +2,7 @@ package com.gongjun.changsha.industryDos;
 
 import com.gongjun.changsha.tools.ExcelUtils;
 import com.gongjun.changsha.tools.RegUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -20,6 +21,7 @@ import java.util.List;
  * @Author: GongJun
  * @Date: Created in 10:12 2020/10/28
  */
+@Slf4j
 public class dataSumJudgement {
     //全市数据表格路径
     private static String upLevel = "D:\\长沙项目\\工业\\处理后\\全市";
@@ -85,8 +87,9 @@ public class dataSumJudgement {
                         valueOne = new BigDecimal((double)valueOne).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
                         int valueTwoInt = new BigDecimal(valueTwo).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
                         //if(((int) valueOne - valueTwoInt) < 1) System.out.println("["+fileName+":"+upSheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据一致,地方总和:"+valueTwoInt+",全市数据:"+valueOne);
-                        if(Math.abs((int) valueOne - valueTwoInt) > 5) {
-                            System.out.println("["+fileName+":"+upSheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据不一致,地方总和:"+valueTwoInt+",全市数据:"+valueOne);
+                        if(Math.abs((int) valueOne - valueTwoInt) > 3) {
+                            String quota = RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue());
+                            log.info("[{}:{}]--指标:{},第{}列数据不一致,地方总和为:{},全市数据为:{}",fileName,sheetName,quota,k+1,valueTwoInt,valueOne);
                         }
                     }
                 }
