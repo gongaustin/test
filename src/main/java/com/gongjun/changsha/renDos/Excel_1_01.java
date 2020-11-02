@@ -153,7 +153,7 @@ public class Excel_1_01 {
                 //设置样式
                 bingCell.setCellStyle(csBing);
                 Object value = bingTile.get(j);
-                if (value instanceof java.lang.String) bingCell.setCellValue(String.valueOf(value));
+                if (value instanceof java.lang.String && StringUtils.isNotBlank((String)value)) bingCell.setCellValue(String.valueOf(value));
                 if (value instanceof java.lang.Double) bingCell.setCellValue((Double) value);
             }
         } else if (bingCellNum > bingNum) {
@@ -161,7 +161,7 @@ public class Excel_1_01 {
                 Cell bingCell = bingRow.getCell(i);
                 //设置样式
                 Object value = bingTile.get(i);
-                if (value instanceof java.lang.String) bingCell.setCellValue(String.valueOf(value));
+                if (value instanceof java.lang.String && StringUtils.isNotBlank((String)value )) bingCell.setCellValue(Double.valueOf(String.valueOf(value)));
                 if (value instanceof java.lang.Double) bingCell.setCellValue((Double) value);
             }
             for (int i = bingNum; i < bingCellNum; i++) {
@@ -212,7 +212,7 @@ public class Excel_1_01 {
                             if (cell == null) cell = row.createCell(j);
                             cell.setCellStyle(cs);
                             Object value = data.get(j);
-                            if (value instanceof java.lang.String) cell.setCellValue(String.valueOf(value));
+                            if (value instanceof java.lang.String && StringUtils.isNotBlank((String)value)) cell.setCellValue(Double.valueOf(String.valueOf(value)));
                             if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
                         }
                     } else if (writeNum < rowNum) {
@@ -220,7 +220,7 @@ public class Excel_1_01 {
                             Cell cell = row.getCell(j);
                             cell.setCellStyle(cs);
                             Object value = data.get(j);
-                            if (value instanceof java.lang.String) cell.setCellValue(String.valueOf(value));
+                            if (value instanceof java.lang.String && StringUtils.isNotBlank((String)value)) cell.setCellValue(Double.valueOf(String.valueOf(value)));
                             if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
                         }
                         for (int j = writeNum; j < rowNum; j++) {

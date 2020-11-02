@@ -247,8 +247,8 @@ public class Excel_2_06 {
         /**
          * @不加粗样式
          * */
-        CellStyle titleNoBold = standardSheet.getRow(bingRow + 2).getCell(0).getCellStyle();
-        CellStyle dataNoBold = standardSheet.getRow(bingRow + 2).getCell(1).getCellStyle();
+        CellStyle titleNoBold = standardSheet.getRow(bingRow + 3).getCell(0).getCellStyle();
+        CellStyle dataNoBold = standardSheet.getRow(bingRow + 3).getCell(1).getCellStyle();
         //写入数据
 
         //清除数据
