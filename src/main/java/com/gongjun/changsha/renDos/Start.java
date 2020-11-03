@@ -1,12 +1,22 @@
 package com.gongjun.changsha.renDos;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.junit.Test;
+
+import java.io.File;
+
 /**
  * @Description: 批处理类 （任主任任务）
  * @Author: GongJun
  * @Date: Created in 9:31 2020/10/19
  */
+@Slf4j
 public class Start {
     public static void main(String[] args) {
+        //首先替换表格
+        copyFiles();
+
         //处理表格922-1.xls
         Excel_1_01.todo();
         Excel_1_02.todo();
@@ -53,5 +63,21 @@ public class Start {
         Excel_2_24.todo();
         Excel_2_25.todo();
         Excel_2_26.todo();
+    }
+
+    public static void copyFiles(){
+        //拷贝标准文件
+        try {
+            FileUtils.copyFile(new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-1-副本（重新运行前一定要覆盖原来的）.xlsx"),new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-1.xlsx"));
+            FileUtils.copyFile(new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-2-副本（重新运行前一定要覆盖原来的）.xlsx"),new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-2.xlsx"));
+        } catch (Exception e) {
+            log.info("错误信息:{}",e.getMessage());
+        }
+        log.info("文件拷贝完成");
+    }
+
+    @Test
+    public void test(){
+        copyFiles();
     }
 }

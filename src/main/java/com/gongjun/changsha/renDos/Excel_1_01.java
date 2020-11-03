@@ -161,7 +161,12 @@ public class Excel_1_01 {
                 Cell bingCell = bingRow.getCell(i);
                 //设置样式
                 Object value = bingTile.get(i);
-                if (value instanceof java.lang.String && StringUtils.isNotBlank((String)value )) bingCell.setCellValue(Double.valueOf(String.valueOf(value)));
+                if (value instanceof java.lang.String && StringUtils.isNotBlank((String)value )) try {
+                    bingCell.setCellValue(Double.valueOf(String.valueOf(value)));
+                } catch (NumberFormatException e) {
+                    bingCell.setCellValue(String.valueOf(value));
+                } finally {
+                }
                 if (value instanceof java.lang.Double) bingCell.setCellValue((Double) value);
             }
             for (int i = bingNum; i < bingCellNum; i++) {
