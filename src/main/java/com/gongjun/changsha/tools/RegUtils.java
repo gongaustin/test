@@ -23,7 +23,8 @@ public class RegUtils {
                 .replaceAll("^[　*| *| *|//s*]*", "")
                 .replaceAll("[　*| *| *|//s*]*$", "")
                 //针对工业处理
-                .replaceAll("\\:|\\：|\\、","");
+                .replaceAll("\\:|\\：|\\、|\\#","")
+                ;
     }
 
 
