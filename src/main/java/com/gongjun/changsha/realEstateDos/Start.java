@@ -20,19 +20,20 @@ public class Start {
     public static String targetPath = "D:\\长沙项目\\房地产\\已处理";
 
     public static String standardExcelPath = "D:\\长沙项目\\房地产\\全市\\922-10 - 标准表格.XLS";
+
     //拷贝处理文件
-    public static void copyExcel2Zone(){
+    public static void copyExcel2Zone() {
         File file = new File(zonePath);
-        if(file.isDirectory()){
+        if (file.isDirectory()) {
             File[] fs = file.listFiles();
-            for (File excelFile : fs){
-                if(excelFile.isFile() && StringUtils.endsWithIgnoreCase(excelFile.getName(),".xls")){
+            for (File excelFile : fs) {
+                if (excelFile.isFile() && StringUtils.endsWithIgnoreCase(excelFile.getName(), ".xls")) {
                     String fileName = excelFile.getName();
-                    String zoneName = fileName.substring(11,fileName.lastIndexOf("."));
+                    String zoneName = fileName.substring(11, fileName.lastIndexOf("."));
                     try {
-                        FileUtils.copyFile(new File(standardExcelPath),new File(targetPath+"\\"+zoneName+"\\922-10.XLS"));
+                        FileUtils.copyFile(new File(standardExcelPath), new File(targetPath + "\\" + zoneName + "\\922-10.XLS"));
                     } catch (IOException e) {
-                        log.info("异常信息:{}",e.getMessage());
+                        log.info("异常信息:{}", e.getMessage());
                     }
                 }
             }
@@ -41,7 +42,7 @@ public class Start {
 
 
     @Test
-    public void test(){
+    public void test() {
         copyExcel2Zone();
     }
 }

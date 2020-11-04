@@ -21,7 +21,7 @@ import java.util.List;
  * @Date: Created in 11:15 2020/10/22
  */
 public class Excel5_01 {
-    public static void todo(String excelPath,String standardPath) {
+    public static void todo(String excelPath, String standardPath) {
         if (excelPath == null) return;
         //获取Workbook
         Workbook workbook = ExcelUtils.getWorkbookFromExcel(new File(excelPath));
@@ -79,10 +79,10 @@ public class Excel5_01 {
         //写入前清除数据
         for (int i = writeBeginRow; i < sheetWrite.getPhysicalNumberOfRows(); i++) {
             Row row = sheetWrite.getRow(i);
-            if(row == null)continue;
+            if (row == null) continue;
             for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
-                if(cell == null) continue;
+                if (cell == null) continue;
                 cell.setCellValue((String) null);
             }
         }
@@ -105,13 +105,13 @@ public class Excel5_01 {
             }
         }
         ExcelUtils.write2Excel(standardWorkbook, standardPath);
-        System.out.println(excelPath+"--处理完毕");
+        System.out.println(excelPath + "--处理完毕");
     }
 
 
     @Test
     public void test() {
-        todo("D:\\长沙项目\\信息化业\\430103信息化经普公报\\5-01.xls","D:\\长沙项目\\信息化业\\430103信息化经普公报\\922-5.xls");
+        todo("D:\\长沙项目\\信息化业\\430103信息化经普公报\\5-01.xls", "D:\\长沙项目\\信息化业\\430103信息化经普公报\\922-5.xls");
     }
 
 }

@@ -31,7 +31,7 @@ public class Excel_2_09 {
         //按地区分组
         List<List<Object>> dataSheetDatas = excelDos("(2-10A)", Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8), Arrays.asList(1), 0);
         //按登记类型分组
-        dataSheetDatas.addAll(excelDos("(2-11A)", Arrays.asList(0, 1, 2, 3, 4, 5, 6, 8 ,9), Arrays.asList(1), 1));
+        dataSheetDatas.addAll(excelDos("(2-11A)", Arrays.asList(0, 1, 2, 3, 4, 5, 6, 8, 9), Arrays.asList(1), 1));
 
         dataWriteDos(dataSheetDatas);
 
@@ -189,7 +189,7 @@ public class Excel_2_09 {
 
             for (int j = dataBeginCol; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
-                cell.setCellValue((String)null);
+                cell.setCellValue((String) null);
             }
         }
         if (originDataRows > writeDataRows) {

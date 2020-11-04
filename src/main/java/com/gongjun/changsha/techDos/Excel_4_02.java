@@ -53,7 +53,8 @@ public class Excel_4_02 {
                 }
                 rowData.add(value);
             }
-            if (!CollectionUtils.isEmpty(rowData) && StringUtils.isNotBlank(String.valueOf(rowData.get(0)))) dataSheetDatas.add(rowData);
+            if (!CollectionUtils.isEmpty(rowData) && StringUtils.isNotBlank(String.valueOf(rowData.get(0))))
+                dataSheetDatas.add(rowData);
         }
         return dataSheetDatas;
     }
@@ -79,7 +80,7 @@ public class Excel_4_02 {
 
             for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
-                cell.setCellValue((String)null);
+                cell.setCellValue((String) null);
             }
         }
 

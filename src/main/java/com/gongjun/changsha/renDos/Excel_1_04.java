@@ -128,7 +128,7 @@ public class Excel_1_04 {
 
             for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
-                cell.setCellValue((String)null);
+                cell.setCellValue((String) null);
             }
         }
         //获取标准表格的宾栏
@@ -145,8 +145,7 @@ public class Excel_1_04 {
                 String title = titleCell.getStringCellValue();
                 String titleTrim = RegUtils.delAllSpaceForString(title.trim());
                 String dataTitle = String.valueOf(data.get(0));
-                if (StringUtils.isNotBlank(dataTitle))
-                    dataTitle = RegUtils.delAllSpaceForString(dataTitle.trim());
+                if (StringUtils.isNotBlank(dataTitle)) dataTitle = RegUtils.delAllSpaceForString(dataTitle.trim());
                 else continue;
                 if (StringUtils.isNotBlank(dataTitle) && StringUtils.equals(titleTrim, dataTitle)) {
                     int writeNum = data.size();

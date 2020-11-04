@@ -62,13 +62,13 @@ public class ExcelUtils {
             e.printStackTrace();
         }
 
-        if (StringUtils.endsWithIgnoreCase(excelFile.getName(),"XLS")) {
+        if (StringUtils.endsWithIgnoreCase(excelFile.getName(), "XLS")) {
             try {
                 return new HSSFWorkbook(is);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if (StringUtils.endsWithIgnoreCase(excelFile.getName(),"XLSX")) {
+        } else if (StringUtils.endsWithIgnoreCase(excelFile.getName(), "XLSX")) {
             try {
                 return new XSSFWorkbook(is);
             } catch (IOException e) {

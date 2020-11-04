@@ -137,8 +137,7 @@ public class Excel_1_05 {
                 String title = titleCell.getStringCellValue();
                 String titleTrim = RegUtils.delAllSpaceForString(title.trim());
                 String dataTitle = String.valueOf(data.get(0));
-                if (StringUtils.isNotBlank(dataTitle))
-                    dataTitle = RegUtils.delAllSpaceForString(dataTitle.trim());
+                if (StringUtils.isNotBlank(dataTitle)) dataTitle = RegUtils.delAllSpaceForString(dataTitle.trim());
                 else continue;
                 if (StringUtils.isNotBlank(dataTitle) && dataTitle.equals(titleTrim)) {
                     int writeNum = data.size();

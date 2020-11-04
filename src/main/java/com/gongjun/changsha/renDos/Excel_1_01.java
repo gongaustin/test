@@ -153,7 +153,8 @@ public class Excel_1_01 {
                 //设置样式
                 bingCell.setCellStyle(csBing);
                 Object value = bingTile.get(j);
-                if (value instanceof java.lang.String && StringUtils.isNotBlank((String)value)) bingCell.setCellValue(String.valueOf(value));
+                if (value instanceof java.lang.String && StringUtils.isNotBlank((String) value))
+                    bingCell.setCellValue(String.valueOf(value));
                 if (value instanceof java.lang.Double) bingCell.setCellValue((Double) value);
             }
         } else if (bingCellNum > bingNum) {
@@ -161,7 +162,7 @@ public class Excel_1_01 {
                 Cell bingCell = bingRow.getCell(i);
                 //设置样式
                 Object value = bingTile.get(i);
-                if (value instanceof java.lang.String && StringUtils.isNotBlank((String)value )) try {
+                if (value instanceof java.lang.String && StringUtils.isNotBlank((String) value)) try {
                     bingCell.setCellValue(Double.valueOf(String.valueOf(value)));
                 } catch (NumberFormatException e) {
                     bingCell.setCellValue(String.valueOf(value));
@@ -185,7 +186,7 @@ public class Excel_1_01 {
 
             for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
-                cell.setCellValue((String)null);
+                cell.setCellValue((String) null);
             }
 
         }
@@ -203,8 +204,7 @@ public class Excel_1_01 {
                 String title = titleCell.getStringCellValue();
                 String titleTrim = RegUtils.delAllSpaceForString(title.trim());
                 String dataTitle = String.valueOf(data.get(0));
-                if (StringUtils.isNotBlank(dataTitle))
-                    dataTitle =  RegUtils.delAllSpaceForString(dataTitle.trim());
+                if (StringUtils.isNotBlank(dataTitle)) dataTitle = RegUtils.delAllSpaceForString(dataTitle.trim());
                 else continue;
                 if (StringUtils.isNotBlank(dataTitle) && dataTitle.equals(titleTrim)) {
                     int writeNum = data.size();
@@ -217,7 +217,8 @@ public class Excel_1_01 {
                             if (cell == null) cell = row.createCell(j);
                             cell.setCellStyle(cs);
                             Object value = data.get(j);
-                            if (value instanceof java.lang.String && StringUtils.isNotBlank((String)value)) cell.setCellValue(Double.valueOf(String.valueOf(value)));
+                            if (value instanceof java.lang.String && StringUtils.isNotBlank((String) value))
+                                cell.setCellValue(Double.valueOf(String.valueOf(value)));
                             if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
                         }
                     } else if (writeNum < rowNum) {
@@ -225,7 +226,8 @@ public class Excel_1_01 {
                             Cell cell = row.getCell(j);
                             cell.setCellStyle(cs);
                             Object value = data.get(j);
-                            if (value instanceof java.lang.String && StringUtils.isNotBlank((String)value)) cell.setCellValue(Double.valueOf(String.valueOf(value)));
+                            if (value instanceof java.lang.String && StringUtils.isNotBlank((String) value))
+                                cell.setCellValue(Double.valueOf(String.valueOf(value)));
                             if (value instanceof java.lang.Double) cell.setCellValue((Double) value);
                         }
                         for (int j = writeNum; j < rowNum; j++) {

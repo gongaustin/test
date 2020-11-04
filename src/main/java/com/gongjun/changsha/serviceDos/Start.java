@@ -19,19 +19,6 @@ public class Start {
     //地区
     public static String downExcelFilePath = "D:\\长沙项目\\服务业\\地区";
 
-    public void copyFile2Zone(){
-        File file = new File(downExcelFilePath);
-        if(file.isDirectory()){
-            File[] fs = file.listFiles();
-            for (File f:fs){
-                if(f.isDirectory()){
-                    String newPath = f.getAbsolutePath()+"\\"+new File(upExcelPath).getName().replace("-标准表格","");
-                    FileUtils.copyFile(new File(upExcelPath).getAbsolutePath(),newPath);
-                }
-            }
-        }
-    }
-
     /**
      * @param: []
      * @description: 批量处理的方法
@@ -40,22 +27,38 @@ public class Start {
      * @modified:
      * @return: void
      **/
-    public static void batTodo(){
+    public static void batTodo() {
         //获取文件
-        List<File> excelFileList = FileUtils.getFiles(downExcelFilePath,new ArrayList<>());
-        for (File file : excelFileList){
+        List<File> excelFileList = FileUtils.getFiles(downExcelFilePath, new ArrayList<>());
+        for (File file : excelFileList) {
             String fileName = file.getName();
-            if(StringUtils.startsWith(fileName,"11-01")) Excel11_01.todo(file.getAbsolutePath(),file.getParent()+"\\922-11.XLS");
-            if(StringUtils.startsWith(fileName,"11-02")) Excel11_02.todo(file.getAbsolutePath(),file.getParent()+"\\922-11.XLS");
-            if(StringUtils.startsWith(fileName,"11-03")) Excel11_03.todo(file.getAbsolutePath(),file.getParent()+"\\922-11.XLS");
-            if(StringUtils.startsWith(fileName,"11-04")) Excel11_04.todo(file.getAbsolutePath(),file.getParent()+"\\922-11.XLS");
+            if (StringUtils.startsWith(fileName, "11-01"))
+                Excel11_01.todo(file.getAbsolutePath(), file.getParent() + "\\922-11.XLS");
+            if (StringUtils.startsWith(fileName, "11-02"))
+                Excel11_02.todo(file.getAbsolutePath(), file.getParent() + "\\922-11.XLS");
+            if (StringUtils.startsWith(fileName, "11-03"))
+                Excel11_03.todo(file.getAbsolutePath(), file.getParent() + "\\922-11.XLS");
+            if (StringUtils.startsWith(fileName, "11-04"))
+                Excel11_04.todo(file.getAbsolutePath(), file.getParent() + "\\922-11.XLS");
         }
 
     }
 
+    public void copyFile2Zone() {
+        File file = new File(downExcelFilePath);
+        if (file.isDirectory()) {
+            File[] fs = file.listFiles();
+            for (File f : fs) {
+                if (f.isDirectory()) {
+                    String newPath = f.getAbsolutePath() + "\\" + new File(upExcelPath).getName().replace("-标准表格", "");
+                    FileUtils.copyFile(new File(upExcelPath).getAbsolutePath(), newPath);
+                }
+            }
+        }
+    }
 
     @Test
-    public void test(){
+    public void test() {
 //        copyFile2Zone();
         batTodo();
     }

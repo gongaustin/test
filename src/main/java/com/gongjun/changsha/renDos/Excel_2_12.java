@@ -257,7 +257,7 @@ public class Excel_2_12 {
 
             for (int j = bingBeginCol; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
-                cell.setCellValue((String)null);
+                cell.setCellValue((String) null);
             }
         }
         if (originDataRows > writeDataRows) {

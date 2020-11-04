@@ -1,15 +1,13 @@
 package com.gongjun.changsha.techDos;
 
-import com.sun.deploy.net.proxy.pac.PACFunctions;
-
 /**
  * @Description:
  * @Author: GongJun
  * @Date: Created in 11:49 2020/10/20
  */
 public class CommonSet {
-    public static void dataExcelPathSet(String path){
-        if(path == null) return;
+    public static void dataExcelPathSet(String path) {
+        if (path == null) return;
         Excel_4_01.dataExcelPath = path;
         Excel_4_02.dataExcelPath = path;
         Excel_4_03.dataExcelPath = path;
@@ -19,8 +17,8 @@ public class CommonSet {
         Excel_4_07.dataExcelPath = path;
     }
 
-    public static void standardExcelPathSet(String path){
-        if(path == null) return;
+    public static void standardExcelPathSet(String path) {
+        if (path == null) return;
         Excel_4_01.standardExcelPath = path;
         Excel_4_02.standardExcelPath = path;
         Excel_4_03.standardExcelPath = path;

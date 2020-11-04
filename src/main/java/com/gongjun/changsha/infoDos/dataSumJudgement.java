@@ -28,8 +28,8 @@ public class dataSumJudgement {
     private static String downLevel = "D:\\长沙项目\\信息化\\地区";
 
 
-    public static List<File> getFiles(String path,List<File> list) {
-        if(list == null) list = new ArrayList<>();
+    public static List<File> getFiles(String path, List<File> list) {
+        if (list == null) list = new ArrayList<>();
         File file = new File(path);
         // 如果这个路径是文件夹
         if (file.isDirectory()) {
@@ -38,7 +38,7 @@ public class dataSumJudgement {
             for (int i = 0; i < files.length; i++) {
                 // 如果还是文件夹 递归获取里面的文件 文件夹
                 if (files[i].isDirectory()) {
-                    getFiles(files[i].getPath(),list);
+                    getFiles(files[i].getPath(), list);
                 } else {
                     list.add(files[i]);
                 }
@@ -52,14 +52,14 @@ public class dataSumJudgement {
     //数据对比
     public static void dataJudge() {
         //获取全市的表格
-        List<File> upExcelList = dataSumJudgement.getFiles(upLevel,new ArrayList<>());
+        List<File> upExcelList = dataSumJudgement.getFiles(upLevel, new ArrayList<>());
         if (CollectionUtils.isEmpty(upExcelList)) return;
         //获取区县表格
-        List<File> downExelList = dataSumJudgement.getFiles(downLevel,new ArrayList<>());
+        List<File> downExelList = dataSumJudgement.getFiles(downLevel, new ArrayList<>());
 
         if (CollectionUtils.isEmpty(downExelList)) return;
         for (int i = 0; i < downExelList.size(); i++) {
-            if(downExelList.get(i).getAbsolutePath().contains("（剔除高新）")) downExelList.remove(i);
+            if (downExelList.get(i).getAbsolutePath().contains("（剔除高新）")) downExelList.remove(i);
         }
         //对比开始
         for (File fileOne : upExcelList) {
@@ -86,14 +86,14 @@ public class dataSumJudgement {
                                 Workbook downWorkbook = ExcelUtils.getWorkbookFromExcel(fileTwo);
                                 Cell downCell = downWorkbook.getSheetAt(i).getRow(j).getCell(k);
                                 Object downCellValue = ExcelUtils.getCellValue(downCell);
-                                if(downCellValue instanceof Double) valueTwo +=  (Double) downCellValue;
+                                if (downCellValue instanceof Double) valueTwo += (Double) downCellValue;
                             }
                         }
-                        valueOne = new BigDecimal((double)valueOne).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
-                        int valueTwoInt = new BigDecimal(valueTwo).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
+                        valueOne = new BigDecimal((double) valueOne).setScale(1, BigDecimal.ROUND_HALF_UP).intValue();
+                        int valueTwoInt = new BigDecimal(valueTwo).setScale(1, BigDecimal.ROUND_HALF_UP).intValue();
                         //if(((int) valueOne - valueTwoInt) < 1) System.out.println("["+fileName+":"+upSheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据一致,地方总和:"+valueTwoInt+",全市数据:"+valueOne);
-                        if((Math.abs((int) valueOne - valueTwoInt)) > 1) {
-                            System.out.println("["+fileName+":"+upSheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据不一致,地方总和:"+valueTwoInt+",全市数据:"+valueOne);
+                        if ((Math.abs((int) valueOne - valueTwoInt)) > 1) {
+                            System.out.println("[" + fileName + ":" + upSheet.getSheetName() + "]--" + RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue()) + "," + "第" + (k + 1) + "列数据不一致,地方总和:" + valueTwoInt + ",全市数据:" + valueOne);
                         }
                     }
                 }

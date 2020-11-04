@@ -65,19 +65,19 @@ public class Start {
         Excel_2_26.todo();
     }
 
-    public static void copyFiles(){
+    public static void copyFiles() {
         //拷贝标准文件
         try {
-            FileUtils.copyFile(new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-1-副本（重新运行前一定要覆盖原来的）.xlsx"),new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-1.xlsx"));
-            FileUtils.copyFile(new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-2-副本（重新运行前一定要覆盖原来的）.xlsx"),new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-2.xlsx"));
+            FileUtils.copyFile(new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-1-副本（重新运行前一定要覆盖原来的）.xlsx"), new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-1.xlsx"));
+            FileUtils.copyFile(new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-2-副本（重新运行前一定要覆盖原来的）.xlsx"), new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-2.xlsx"));
         } catch (Exception e) {
-            log.info("错误信息:{}",e.getMessage());
+            log.info("错误信息:{}", e.getMessage());
         }
         log.info("文件拷贝完成");
     }
 
     @Test
-    public void test(){
+    public void test() {
         copyFiles();
     }
 }

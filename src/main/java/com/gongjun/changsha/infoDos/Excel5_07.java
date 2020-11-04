@@ -21,7 +21,7 @@ import java.util.List;
  * @Date: Created in 11:16 2020/10/22
  */
 public class Excel5_07 {
-    public static void todo(String excelPath,String standardPath) {
+    public static void todo(String excelPath, String standardPath) {
         if (excelPath == null) return;
         //获取Workbook
         Workbook workbook = ExcelUtils.getWorkbookFromExcel(new File(excelPath));
@@ -53,10 +53,10 @@ public class Excel5_07 {
         //写入前清除数据
         for (int i = writeBeginRow; i < sheetWrite.getPhysicalNumberOfRows(); i++) {
             Row row = sheetWrite.getRow(i);
-            if(row == null)continue;
+            if (row == null) continue;
             for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
-                if(cell == null) continue;
+                if (cell == null) continue;
                 cell.setCellValue((String) null);
             }
         }
@@ -72,11 +72,10 @@ public class Excel5_07 {
                 if (rowData.get(0) != null && rowData.get(0) instanceof java.lang.String && hangye.equals(rowData.get(0))) {
                     for (int j = 1; j < 14; j++) {
                         Cell cell = row.getCell(j);
-                        if(rowData.size()<=j){
+                        if (rowData.size() <= j) {
                             System.out.println(rowData.toString());
                             cell.setCellValue(0);
-                        }
-                        else{
+                        } else {
                             if (rowData.get(j) instanceof java.lang.Double) cell.setCellValue((double) rowData.get(j));
                             if (rowData.get(j) instanceof java.lang.String) cell.setCellValue((String) rowData.get(j));
                         }
@@ -85,11 +84,11 @@ public class Excel5_07 {
             }
         }
         ExcelUtils.write2Excel(standardWorkbook, standardPath);
-        System.out.println(excelPath+"--处理完毕");
+        System.out.println(excelPath + "--处理完毕");
     }
 
     @Test
     public void test() {
-        todo("D:\\长沙项目\\信息化业\\430103信息化经普公报\\5-07.xls","D:\\长沙项目\\信息化业\\430103信息化经普公报\\922-5.xls");
+        todo("D:\\长沙项目\\信息化业\\430103信息化经普公报\\5-07.xls", "D:\\长沙项目\\信息化业\\430103信息化经普公报\\922-5.xls");
     }
 }

@@ -37,8 +37,7 @@ public class dataSumJudgement {
         for (File f : fs) {
             if (f.isDirectory()) {
                 files.addAll(readFileList(f.getAbsolutePath()));
-            }
-            else files.add(f);
+            } else files.add(f);
         }
         return files;
     }
@@ -52,7 +51,7 @@ public class dataSumJudgement {
         List<File> downExelList = com.gongjun.changsha.tradeDos.dataSumJudgement.readFileList(downLevel);
         if (CollectionUtils.isEmpty(downExelList)) return;
         for (int i = 0; i < downExelList.size(); i++) {
-            if(downExelList.get(i).getAbsolutePath().contains("岳麓不含高新")) downExelList.remove(i);
+            if (downExelList.get(i).getAbsolutePath().contains("岳麓不含高新")) downExelList.remove(i);
         }
         //对比开始
         for (File fileOne : upExcelList) {
@@ -65,7 +64,7 @@ public class dataSumJudgement {
 
             for (int i = 1; i < sheetNumber; i++) {
                 String sheetName = upWorkbook.getSheetName(i);
-                if(StringUtils.containsAny(sheetName,"6-01","6-02","6-03","6-04")) continue;
+                if (StringUtils.containsAny(sheetName, "6-01", "6-02", "6-03", "6-04")) continue;
                 Sheet upSheet = upWorkbook.getSheetAt(i);
                 for (int j = 0; j < upSheet.getPhysicalNumberOfRows(); j++) {
                     Row upRow = upSheet.getRow(j);
@@ -81,15 +80,15 @@ public class dataSumJudgement {
                                 Workbook downWorkbook = ExcelUtils.getWorkbookFromExcel(fileTwo);
                                 Cell downCell = downWorkbook.getSheetAt(i).getRow(j).getCell(k);
                                 Object downCellValue = ExcelUtils.getCellValue(downCell);
-                                if(downCellValue instanceof java.lang.Double) valueTwo +=  (Double) downCellValue;
+                                if (downCellValue instanceof java.lang.Double) valueTwo += (Double) downCellValue;
                             }
                         }
-                        valueOne = new BigDecimal((double)valueOne).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
-                        int valueTwoInt = new BigDecimal(valueTwo).setScale(1,BigDecimal.ROUND_HALF_UP).intValue();
+                        valueOne = new BigDecimal((double) valueOne).setScale(1, BigDecimal.ROUND_HALF_UP).intValue();
+                        int valueTwoInt = new BigDecimal(valueTwo).setScale(1, BigDecimal.ROUND_HALF_UP).intValue();
                         //if(((int) valueOne - valueTwoInt) < 1) System.out.println("["+fileName+":"+upSheet.getSheetName()+"]--"+ RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue())+","+"第"+(k+1)+"列数据一致,地方总和:"+valueTwoInt+",全市数据:"+valueOne);
-                        if(Math.abs((int) valueOne - valueTwoInt) > 3) {
+                        if (Math.abs((int) valueOne - valueTwoInt) > 3) {
                             String quota = RegUtils.delAllSpaceForString(upRow.getCell(0).getStringCellValue());
-                            log.info("[{}:{}]--指标:{},第{}列数据不一致,地方总和为:{},全市数据为:{}",fileName,sheetName,quota,k+1,valueTwoInt,valueOne);
+                            log.info("[{}:{}]--指标:{},第{}列数据不一致,地方总和为:{},全市数据为:{}", fileName, sheetName, quota, k + 1, valueTwoInt, valueOne);
                         }
                     }
                 }

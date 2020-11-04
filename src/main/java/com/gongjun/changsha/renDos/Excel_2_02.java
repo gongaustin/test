@@ -147,7 +147,7 @@ public class Excel_2_02 {
 
             for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
-                cell.setCellValue((String)null);
+                cell.setCellValue((String) null);
             }
 
         }
@@ -177,8 +177,7 @@ public class Excel_2_02 {
                 String dataTitle = String.valueOf(data.get(0));
 
 
-                if (StringUtils.isNotBlank(dataTitle))
-                    dataTitle = RegUtils.delAllSpaceForString(dataTitle.trim());
+                if (StringUtils.isNotBlank(dataTitle)) dataTitle = RegUtils.delAllSpaceForString(dataTitle.trim());
                 else continue;
                 if (StringUtils.isNotBlank(dataTitle) && StringUtils.equals(titleTrim, dataTitle)) {
                     int writeNum = data.size();

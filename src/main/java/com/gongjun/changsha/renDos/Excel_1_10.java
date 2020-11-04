@@ -157,7 +157,7 @@ public class Excel_1_10 {
 
             for (int j = dataBeginCol; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
-                cell.setCellValue((String)null);
+                cell.setCellValue((String) null);
             }
         }
         if (originDataRows > writeDataRows) {

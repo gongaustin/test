@@ -105,8 +105,7 @@ public class Excel_1_02 {
                 Object dataValue = ExcelUtils.getCellValue(cell);
                 dataSheetRowDatas.add(dataValue); //保存Cell数据到行
             }
-            if (dataSheetRowDatas != null )
-                dataSheetDatas.add(dataSheetRowDatas); //保存行数据到表数据中
+            if (dataSheetRowDatas != null) dataSheetDatas.add(dataSheetRowDatas); //保存行数据到表数据中
         }
         return dataSheetDatas;
     }
@@ -179,7 +178,7 @@ public class Excel_1_02 {
 
             for (int j = 1; j < row.getPhysicalNumberOfCells(); j++) {
                 Cell cell = row.getCell(j);
-                cell.setCellValue((String)null);
+                cell.setCellValue((String) null);
             }
 
         }
@@ -197,8 +196,7 @@ public class Excel_1_02 {
                 String title = titleCell.getStringCellValue();
                 String titleTrim = RegUtils.delAllSpaceForString(title.trim());
                 String dataTitle = String.valueOf(data.get(0));
-                if (StringUtils.isNotBlank(dataTitle))
-                    dataTitle = RegUtils.delAllSpaceForString(dataTitle.trim());
+                if (StringUtils.isNotBlank(dataTitle)) dataTitle = RegUtils.delAllSpaceForString(dataTitle.trim());
                 else continue;
                 if (StringUtils.isNotBlank(dataTitle) && StringUtils.equals(titleTrim, dataTitle)) {
                     int writeNum = data.size();

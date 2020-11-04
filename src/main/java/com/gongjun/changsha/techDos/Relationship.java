@@ -53,11 +53,11 @@ public class Relationship {
         Sheet sheet = workbook.getSheetAt(0);
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
             Row row = sheet.getRow(i);
-            if(row == null) continue;
-            String key = row.getCell(0) == null?null:row.getCell(0).getStringCellValue();
-            String value = row.getCell(1) == null?null:row.getCell(1).getStringCellValue();
-            if(key == null || value == null) continue;
-            relaMaps.put(RegUtils.delAllSpaceForString(key),RegUtils.delAllSpaceForString(value));
+            if (row == null) continue;
+            String key = row.getCell(0) == null ? null : row.getCell(0).getStringCellValue();
+            String value = row.getCell(1) == null ? null : row.getCell(1).getStringCellValue();
+            if (key == null || value == null) continue;
+            relaMaps.put(RegUtils.delAllSpaceForString(key), RegUtils.delAllSpaceForString(value));
         }
         return relaMaps;
     }
