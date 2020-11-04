@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description:方式参批处理类
@@ -40,9 +42,22 @@ public class Start {
         }
     }
 
+    public void todo(){
+        List<File> files = com.gongjun.changsha.tools.FileUtils.getFiles(zonePath,new ArrayList<>());
+
+        for (File file:files){
+            String sourceExcelName = file.getName();
+            String sourceExcelPath = file.getAbsolutePath();
+            String zone = sourceExcelName.substring(11, sourceExcelName.lastIndexOf("."));
+            String targetExcelPath = targetPath + "\\" + zone + "\\922-10.XLS";
+            Excel_10_03.todo(sourceExcelPath,targetExcelPath);
+            Excel_10_04.todo(sourceExcelPath,targetExcelPath);
+        }
+    }
+
 
     @Test
     public void test() {
-        copyExcel2Zone();
+        todo();
     }
 }

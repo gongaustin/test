@@ -3,6 +3,7 @@ package com.gongjun.changsha.realEstateDos;
 import com.gongjun.changsha.tools.ExcelUtils;
 import com.gongjun.changsha.tools.RegUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -51,7 +52,7 @@ public class Excel_10_03 {
 
         List<Integer> sourceExceptRows = Arrays.asList(0, 1, 2, 3, 4, 69, 70, 71);
 
-        List<Integer> sourceCols = Arrays.asList(1, 8);
+        List<Integer> sourceCols = Arrays.asList(0, 7);
         String bigCellVaule = "";
         for (int i = 0; i < sourceSheet.getPhysicalNumberOfRows(); i++) {
             if (sourceExceptRows.contains(i)) continue;
@@ -107,6 +108,7 @@ public class Excel_10_03 {
             } else title = bigCellVaule + "--" + title;
             title = RegUtils.delAllSpaceForString(title);
             for (List<Object> rowData : data) {
+                if(CollectionUtils.isEmpty(rowData)) continue;
                 Object dataTitle = rowData.get(0);
                 if (dataTitle != null && dataTitle instanceof String) {
                     if (title.equals(RegUtils.delAllSpaceForString((String) dataTitle))) {
