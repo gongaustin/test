@@ -1,6 +1,5 @@
 package com.gongjun.changsha.culDos;
 
-import com.gongjun.changsha.serviceDos.dataSumJudgement;
 import com.gongjun.changsha.tools.ExcelUtils;
 import com.gongjun.changsha.tools.RegUtils;
 import org.apache.commons.collections4.CollectionUtils;
@@ -21,7 +20,7 @@ import java.util.List;
  * @Author: GongJun
  * @Date: Created in 12:39 2020/11/3
  */
-public class dataSumJudgementOther {
+public class dataSumJudgement {
     //全市数据表格路径
 //    private static String upLevel = "D:\\长沙项目\\科技\\全市";
     private static String upLevel = "D:\\长沙项目\\核验数据\\文化\\全市";
@@ -47,14 +46,14 @@ public class dataSumJudgementOther {
     //数据对比
     public static void dataJudge() {
         //获取全市的表格
-        List<File> upExcelList = dataSumJudgement.readFileList(upLevel);
+        List<File> upExcelList = com.gongjun.changsha.serviceDos.dataSumJudgement.readFileList(upLevel);
         if (CollectionUtils.isEmpty(upExcelList)) return;
         for (int i = 0; i < upExcelList.size(); i++) {
             if(upExcelList.get(i).getAbsolutePath().contains("高新")) upExcelList.remove(i);
         }
         if (CollectionUtils.isEmpty(upExcelList)) return;
         //获取区县表格
-        List<File> downExelList = dataSumJudgement.readFileList(downLevel);
+        List<File> downExelList = com.gongjun.changsha.serviceDos.dataSumJudgement.readFileList(downLevel);
 
         if (CollectionUtils.isEmpty(downExelList)) return;
         for (int i = 0; i < downExelList.size(); i++) {
