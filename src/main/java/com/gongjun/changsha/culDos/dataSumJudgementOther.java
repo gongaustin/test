@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Description:
+ * @Description:文化数据校验
  * @Author: GongJun
  * @Date: Created in 12:39 2020/11/3
  */
