@@ -15,7 +15,7 @@ import java.io.File;
 import java.util.*;
 
 /**
- * @Description:新的判断方法
+ * @Description:新的判断方法(综合)
  * @Author: GongJun
  * @Date: Created in 9:09 2020/11/6
  */
@@ -154,7 +154,7 @@ public class newJudgement {
         //获取指标的集合
         List<String> indexs = this.getIndexsFromCityData(cityData);
         //获取区县的表格文件
-        List<File> zoneFiles = this.getFiles(zonePath, new ArrayList<>(), "922-1");
+        List<File> zoneFiles = this.getFiles(zonePath, new ArrayList<>(), keyword);
 
         //定义存储区县数据加总的MAP
         Map<String, List<Double>> zoneSumData = new HashMap<>();
