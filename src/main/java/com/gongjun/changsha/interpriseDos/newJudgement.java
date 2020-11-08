@@ -1,4 +1,4 @@
-package com.gongjun.changsha.synthesizeDos;
+package com.gongjun.changsha.interpriseDos;
 
 import com.gongjun.changsha.tools.ExcelUtils;
 import com.gongjun.changsha.tools.RegUtils;
@@ -27,7 +27,7 @@ public class newJudgement {
     //地区数据
     private static String zonePath = "D:\\长沙项目\\综合&企业\\地区";
     //表格关键词
-    private static String keyword = "922-1";
+    private static String keyword = "922-2";
 
     //获取文件
     //排除的Sheet集合
@@ -154,7 +154,7 @@ public class newJudgement {
         //获取指标的集合
         List<String> indexs = this.getIndexsFromCityData(cityData);
         //获取区县的表格文件
-        List<File> zoneFiles = this.getFiles(zonePath, new ArrayList<>(), "922-1");
+        List<File> zoneFiles = this.getFiles(zonePath, new ArrayList<>(), "922-2");
 
         //定义存储区县数据加总的MAP
         Map<String, List<Double>> zoneSumData = new HashMap<>();
