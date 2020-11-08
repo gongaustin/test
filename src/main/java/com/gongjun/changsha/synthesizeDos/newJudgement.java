@@ -29,6 +29,19 @@ public class newJudgement {
     //表格关键词
     private static String keyword = "922-1";
 
+    //排除的Sheet集合
+    List<String> exceptSheets = Arrays.asList(
+            //标题
+            "1-00",
+            //街道（镇）数据
+            "1-01", "1-02", "1-07", "1-08", "1-11",
+            //未统计数据
+            "1-14", "1-15", "1-16", "1-17", "1-18",
+            //标题
+            "2-00",
+            //街道（镇）数据
+            "2-04", "2-05", "2-06", "2-12", "2-25", "2-26");
+
     //获取文件
 
     /**
@@ -61,26 +74,14 @@ public class newJudgement {
         return list;
     }
 
-    public void judgement() {
+    public Map<String,List<Double>> getCityData() {
         //获取市表格文件
         List<File> cityFiles = this.getFiles(cityPath, new ArrayList<>(), keyword);
 
-        //获取地区表格文件
-        List<File> zoneFiles = this.getFiles(zonePath, new ArrayList<>(), keyword);
 
 
-        //排除的Sheet集合
-        List<String> exceptSheets = Arrays.asList(
-                //标题
-                "1-00",
-                //街道（镇）数据
-                "1-01", "1-02", "1-07", "1-08", "1-11",
-                //未统计数据
-                "1-14", "1-15", "1-16", "1-17", "1-18",
-                //标题
-                "2-00",
-                //街道（镇）数据
-                "2-04", "2-05", "2-06", "2-12", "2-25", "2-26");
+
+
         //市数据集合
         Map<String, List<Double>> cityData = new HashMap<>();
 
@@ -113,99 +114,170 @@ public class newJudgement {
                         List<Double> rowData = new ArrayList<>();
                         for (int k = 1; k < cityRowCellNumber; k++) {
                             Cell cictyCell = cityRow.getCell(k);
-                            if (cictyCell == null) continue;
-                            Object cellValue = ExcelUtils.getCellValue(cityRow.getCell(k));
-                            if (cellValue == null) continue;
+                            Object cellValue = null;
+                            if (cictyCell == null) cellValue = 0d;
+                            cellValue = ExcelUtils.getCellValue(cityRow.getCell(k));
                             if (cellValue instanceof Double) rowData.add((double) cellValue);
-                            if (cellValue instanceof String && StringUtils.isNotBlank((String) cellValue)) {
+                            if (cellValue instanceof String) {
                                 try {
                                     rowData.add(Double.valueOf((String) cellValue));
                                 } catch (NumberFormatException e) {
-                                    log.info("指标:{},数据转换发生错误,需要人为判断,错误信息:{}", index, e.getMessage());
-                                } finally {
                                     rowData.add(0d);
                                 }
                             }
                         }
-                        if (!CollectionUtils.isEmpty(rowData)) cityData.put(index, rowData);
+                        //添加到Map
+                        if (!CollectionUtils.isEmpty(rowData) && index != null) cityData.put(index, rowData);
                     }
                 }
             }
         }
 
 
-        //获取区县数据
-        for (File zonefile : zoneFiles) {
-            Map<String, Object> zoneData = new HashMap<>();
-            //获取市Workbook
-            Workbook zoneWorkbook = ExcelUtils.getWorkbookFromExcel(new File(zonefile.getAbsolutePath()));
-            //获取市Sheet数量
-            int zoneSheetNumber = zoneWorkbook.getNumberOfSheets();
-            if (zoneSheetNumber == 0) continue;
-            for (int i = 0; i < zoneSheetNumber; i++) {
-                //获取市Sheet
-                Sheet zoneSheet = zoneWorkbook.getSheetAt(i);
-                //获取市Sheet的SheetName
-                String sheetName = zoneSheet.getSheetName();
-                if (exceptSheets.contains(sheetName)) continue;
-                //获取市Sheet的行数
-                int citySheetRowNumber = zoneSheet.getPhysicalNumberOfRows();
-                //主要指标定义
-                for (int j = 0; j < citySheetRowNumber; j++) {
-                    Row zoneRow = zoneSheet.getRow(j);
-                    if (zoneRow == null) continue;
-                    Object value = ExcelUtils.getCellValue(zoneRow.getCell(0));
-                    if (value != null && value instanceof String && StringUtils.isNotBlank((String) value)) {
-                        String index = sheetName + "--" + value;
-                        index = RegUtils.delAllSpaceForString(index); //index作为Key值
-                        //获取市数据相减
-                        if(!cityData.containsKey(index)) System.out.println("全市数据不包含指标:"+index);
-                        List<Double> cityRowData = cityData.get(index);
-                        if (CollectionUtils.isEmpty(cityRowData)) continue;
-                        //获取cityRow的列数（Cell数）
-                        int zoneRowCellNumber = zoneRow.getPhysicalNumberOfCells();
-                        for (int k = 1; k < cityRowData.size()+1; k++) {
-                            Cell zoneCell = zoneRow.getCell(k);
-                            if (zoneCell == null) continue;
-                            Object cellValue = ExcelUtils.getCellValue(zoneRow.getCell(k));
-                            if (cellValue == null) continue;
-                            if (cellValue instanceof Double)
-                                cityRowData.set(k - 1, (cityRowData.get(k - 1) - ((double) cellValue)));
-                            if (cellValue instanceof String) {
-                                if (StringUtils.isNotBlank((String) cellValue)) {
-                                    try {
-                                        cityRowData.set(k - 1, (cityRowData.get(k - 1) - ((double) cellValue)));
-                                    } catch (NumberFormatException e) {
-                                        log.info("指标:{},数据转换发生错误,需要人为判断,错误信息:{}", index, e.getMessage());
-                                    } finally {
-                                        cityRowData.set(k - 1, cityRowData.get(k - 1) - 0d);
-                                    }
-                                } else continue;
-                            }
-                            //相减后重新put数据
-                            cityData.put(index, cityRowData);
-                        }
-                    }
-                }
-            }
-
-
-            //获取地方数据
-
-        }
 
         cityData = this.sortMapBykeyAsc(cityData);
 
         //打印市数据
 
-        for(Map.Entry<String, List<Double>> maps : cityData.entrySet()){
-            List<Double> list = cityData.get(maps.getKey());
-            System.out.println(maps.getKey()+"--"+list.toString());
-        }
+        return cityData;
 
 
 
     }
+
+    /**
+     * @param: [indexs]  indexs:指标名称集合（区县的数据需要和市的数据对的上）
+     * @description: 获取区县数据的总和
+     * @author: GongJun
+     * @time: Created in 9:47 2020/11/8
+     * @modified:
+     * @return: void
+     **/
+    //获取区县的数据
+    public Map<String,List<Double>> getZoneSumData(){
+
+        Map<String,List<Double>> cityData = this.getCityData();
+        //获取指标的集合
+        List<String> indexs = this.getIndexsFromCityData(cityData);
+        //获取区县的表格文件
+        List<File> zoneFiles = this.getFiles(zonePath,new ArrayList<>(),"922-1");
+
+        //定义存储区县数据加总的MAP
+        Map<String,List<Double>> zoneSumData = new HashMap<>();
+
+        for (File zoneExcelFile : zoneFiles){
+            //获取Workbool
+            Workbook zoneWorkbook = ExcelUtils.getWorkbookFromExcel(zoneExcelFile);
+            //获取Sheet数目
+            int zoneShertNumber = zoneWorkbook.getNumberOfSheets();
+            //遍历Workbook获取Sheet
+            for (int i = 0; i < zoneShertNumber; i++) {
+                //获取Sheet
+                Sheet zoneSheet = zoneWorkbook.getSheetAt(i);
+                //排除规则
+                String sheetName = zoneSheet.getSheetName();
+                if(exceptSheets.contains(sheetName)) continue;
+                //获取Sheet的行数
+                int zoneSheetRowNumber = zoneSheet.getPhysicalNumberOfRows();
+                //遍历SHeet的行
+                for (int j = 0; j < zoneSheetRowNumber; j++) {
+                    //获取row
+                    Row zoneRow = zoneSheet.getRow(j);
+
+                    if(zoneRow == null) continue;
+                    //获取row的Cell数
+                    int cellNumberOfRow = zoneRow.getPhysicalNumberOfCells();
+                    //获取指标名称
+                    String zoneIndex = null;
+                    try {
+                        zoneIndex = RegUtils.delAllSpaceForString(sheetName+"--"+zoneRow.getCell(0).getStringCellValue());
+                    } catch (Exception e) {
+                        log.info("区县数据转换错误:{},位置:{}--{}",e.getMessage(),zoneExcelFile,sheetName);
+                        continue;
+                    }
+                    //判断是否为空或者为市指标的存在的，否则不予处理
+                    if(StringUtils.isBlank(zoneIndex) || !indexs.contains(zoneIndex)) continue;
+                    //从区县获取指标否则添加
+                    if(zoneSumData.containsKey(zoneIndex)){
+                        //获取数据
+                        List<Double> sumData = zoneSumData.get(zoneIndex);
+                        for (int k = 1; k < cellNumberOfRow; k++) {
+                            Cell zoneCell = zoneRow.getCell(k);
+                            Double zoneCellValue = 0d;
+                            Object value = 0d;
+                            try {
+                                value = ExcelUtils.getCellValue(zoneCell);
+                            } catch (Exception e) {
+                                log.info("Cell值获取错误,位置:{},指标名称:{},第{}列数据",sheetName,zoneIndex,k+1);
+                                value = 0d;
+                            }
+                            if(value instanceof Double) zoneCellValue = (Double) value;
+                            if(value instanceof String){
+                                if(StringUtils.isNotBlank((String)value))
+                                    try {
+                                        zoneCellValue = Double.valueOf((String)value);
+                                    }catch (Exception e){
+                                        log.info("数据转换错误,原始值:{}",value);
+                                        zoneCellValue = 0d;
+                                    }
+                                else zoneCellValue = 0d;
+                            }
+                            try {
+                                sumData.set(k-1,sumData.get(k-1)+zoneCellValue);
+                            }catch (Exception e){
+                                sumData.add(k-1,zoneCellValue);
+                            }
+                        }
+                        zoneSumData.put(zoneIndex,sumData);
+
+                    }else {
+                        List<Double> zoneRowData = new ArrayList<>();
+                        for (int k = 1; k < cellNumberOfRow; k++) {
+                            //获取Cell
+                            Cell zoneCell = zoneRow.getCell(k);
+                            Double zoneCellValue = 0d;
+                            Object value = 0d;
+                            try {
+                                value = ExcelUtils.getCellValue(zoneCell);
+                            } catch (Exception e) {
+                                log.info("Cell值获取错误,位置:{},指标名称:{},第{}列数据",sheetName,zoneIndex,k+1);
+                                value = 0d;
+                            }
+                            if(value instanceof Double) zoneCellValue = (Double) value;
+                            if(value instanceof String){
+                                if(StringUtils.isNotBlank((String)value))
+                                    try {
+                                        zoneCellValue = Double.valueOf((String)value);
+                                    }catch (Exception e){
+                                        log.info("数据转换错误,原始值:{}",value);
+                                        zoneCellValue = 0d;
+                                    }
+                                else zoneCellValue = 0d;
+                            }
+                            else{
+                                zoneCellValue = 0d;
+                            }
+                            zoneRowData.add(zoneCellValue);
+                        }
+                        if(!CollectionUtils.isEmpty(zoneRowData)) zoneSumData.put(zoneIndex,zoneRowData);
+                    }
+                }
+            }
+        }
+      return zoneSumData;
+    }
+
+
+    public List<String> getIndexsFromCityData(Map<String,List<Double>> data){
+        if(data == null) return null;
+        List<String> indexs = new ArrayList<>();
+        for(String key:data.keySet()){
+            if(!indexs.contains(key)) indexs.add(key);
+        }
+        return indexs;
+    }
+
+
 
     //升序
     public Map<String, List<Double>> sortMapBykeyAsc(Map<String, List<Double>> oriMap) {
@@ -244,6 +316,43 @@ public class newJudgement {
 
     @Test
     public void test() {
-        this.judgement();
+
+        Map<String,List<Double>> cityData = this.sortMapBykeyAsc(this.getCityData());
+
+
+
+        Map<String,List<Double>> zoneSumData = this.sortMapBykeyAsc(this.getZoneSumData());
+
+        for (String key:zoneSumData.keySet()){
+            System.out.println(key+"--"+zoneSumData.get(key).toString());
+        }
+//
+        //开始比较
+        for(String key:cityData.keySet()){
+            List<Double> cityRowData = cityData.get(key);
+
+            List<Double> zoneSumRowData= zoneSumData.get(key);
+            if(cityRowData == null || zoneSumRowData == null) continue;
+            if(cityRowData.containsAll(zoneSumRowData)) continue;
+            int number = cityRowData.size();
+            for (int i = 0; i < number; i++) {
+                //市数据
+                double cityCellData = cityRowData.get(i);
+
+                double zoneCellSumData = 0;
+                try {
+                    zoneCellSumData = zoneSumRowData.get(i);
+                } catch (Exception e) {
+                    zoneCellSumData = 0;
+                }
+
+                if(Math.abs(cityCellData-zoneCellSumData) > 1)
+                    log.info("{}数据不一致,全市数据:{},区县加总:{}",key,cityCellData,zoneCellSumData);
+
+            }
+
+
+        }
+
     }
 }
