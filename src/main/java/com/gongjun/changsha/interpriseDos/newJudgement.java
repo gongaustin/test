@@ -310,6 +310,8 @@ public class newJudgement {
 
         Map<String, List<Double>> zoneSumData = this.sortMapBykeyAsc(this.getZoneSumData());
 
+        List<String> qtys = new ArrayList<>();
+
 //
         //开始比较
         for (String key : cityData.keySet()) {
@@ -335,6 +337,7 @@ public class newJudgement {
 
                     }else{
                         log.info("指标[{}]--第{}项数据不一致,全市数据:{},区县加总:{}", key,i+1, cityCellData, zoneCellSumData);
+//                        if(!qtys.contains(key)) qtys.add(key);
                     }
                 }
 
@@ -343,6 +346,44 @@ public class newJudgement {
 
 
         }
+    }
 
+    public Map<String,List<Integer>> getQtyMap(){
+        Map<String,List<Integer>> qtyMap = new HashMap<>();
+        Map<String, List<Double>> cityData = this.sortMapBykeyAsc(this.getCityData());
+        Map<String, List<Double>> zoneSumData = this.sortMapBykeyAsc(this.getZoneSumData());
+//
+        //开始比较
+        for (String key : cityData.keySet()) {
+            List<Double> cityRowData = cityData.get(key);
+
+            List<Double> zoneSumRowData = zoneSumData.get(key);
+            if (cityRowData == null || zoneSumRowData == null) continue;
+            if (cityRowData.containsAll(zoneSumRowData)) continue;
+            int number = cityRowData.size();
+            List<Integer> qtyIndex = null;
+            for (int i = 0; i < number; i++) {
+                //市数据
+                double cityCellData = cityRowData.get(i);
+
+                double zoneCellSumData = 0;
+                try {
+                    zoneCellSumData = zoneSumRowData.get(i);
+                } catch (Exception e) {
+                    zoneCellSumData = 0;
+                }
+
+                if (Math.abs(cityCellData - zoneCellSumData) > 1) {
+                    if(Math.abs(cityCellData*2-zoneCellSumData)==0d){
+                    }else{
+                        qtyIndex = qtyMap.get(key);
+                        if(qtyIndex == null) qtyIndex = new ArrayList<>();
+                        qtyIndex.add(i);
+                        qtyMap.put(key,qtyIndex);
+                    }
+                }
+            }
+        }
+        return qtyMap;
     }
 }
