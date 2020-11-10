@@ -134,8 +134,8 @@ public class QtyDos {
                                 zoneCellValue = 0d;
                             }
                         }
-                        if(zoneCellValue == 0d)
-                        qtyDataMap.put("指标["+zoneIndex+"]第"+(k+1)+"项["+zone+"]数据为:",zoneCellValue);
+//                        if(zoneCellValue == 0d)
+                        qtyDataMap.put("指标["+zoneIndex+"]第"+(k+1)+"项,["+zone+"]数据为:",zoneCellValue);
                     }
                 }
             }
@@ -173,9 +173,19 @@ public class QtyDos {
     @Test
     public void test(){
           Map<String,Double> map = this.sortByKey(this.readZoneData());
-
+          Double sum = 0d;
+          String index = null;
           for (String key:map.keySet()){
-              System.out.println(key+"--"+map.get(key));
+              if(index != null && !key.startsWith(index)){
+                  System.out.println(index+",[市县区]总和为:"+sum);
+                  System.out.println("************************************************");
+                  sum = 0d;
+              }
+              System.out.println(key+map.get(key));
+              String[] keys = key.split(",");
+              index = keys[0];
+              if(key.startsWith(index)) sum +=map.get(key);
           }
+
     }
 }

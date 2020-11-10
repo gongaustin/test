@@ -20,13 +20,13 @@ public class Excel_1_04 {
     /**
      * @修改点******************************************************************
      */
-    public static String standardExcelPath = "D:\\长沙项目\\表格批量处理\\标准表格\\922-1.xlsx";
+    public static String standardExcelPath = "D:\\长沙项目\\综合&企业待处理\\已处理\\雨花区\\922-1.xlsx";
 
     //待处理表格的保存文件夹路径
     /**
      * @修改点******************************************************************
      */
-    public static String todoExcelFilePath = "D:\\长沙项目\\表格批量处理\\平台导出表格";
+    public static String todoExcelFilePath = "D:\\长沙项目\\综合&企业待处理\\地区\\雨花区";
 
     public static void todo() {
         //标准表格的路径
