@@ -50,7 +50,7 @@ public class Excel_10_03 {
         }
         if (sourceSheet == null) return data;
 
-        List<Integer> sourceExceptRows = Arrays.asList(0, 1, 2, 3, 4, 69, 70, 71);
+        List<Integer> sourceExceptRows = Arrays.asList(0, 1, 2, 3, 4);
 
         List<Integer> sourceCols = Arrays.asList(0, 7);
         String bigCellVaule = "";

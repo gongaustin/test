@@ -49,7 +49,7 @@ public class Excel_10_04 {
         }
         if (sourceSheet == null) return data;
 
-        List<Integer> sourceExceptRows = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 28, 29);
+        List<Integer> sourceExceptRows = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7);
 
         List<Integer> sourceCols = Arrays.asList(0, 9, 12, 16, 17, 20, 23, 26, 31);
         for (int i = 0; i < sourceSheet.getPhysicalNumberOfRows(); i++) {

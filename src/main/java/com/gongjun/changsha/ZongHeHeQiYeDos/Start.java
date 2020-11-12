@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +30,18 @@ public class Start {
             String excelPath = file.getAbsolutePath();
             String zone = excelPath.substring(20,23);
             if(!zones.contains(zone)) zones.add(zone);
-
         }
+
+
+        //拷贝标准文件
+        zones.forEach(e->{
+            try {
+                FileUtils.copyFile(new File("D:\\长沙项目\\综合&企业待处理\\标椎表格\\922-1.xlsx"),new File("D:\\长沙项目\\综合&企业待处理\\已处理\\"+e+"\\922-1.xlsx"));
+                FileUtils.copyFile(new File("D:\\长沙项目\\综合&企业待处理\\标椎表格\\922-2.xlsx"),new File("D:\\长沙项目\\综合&企业待处理\\已处理\\"+e+"\\922-2.xlsx"));
+            } catch (IOException ioException) {
+                log.info("拷贝标准文件出错");
+            }
+        });
 
         for (String zone:zones){
             String standarExcelPathForOne = targetExcelsPath+"\\"+zone+"\\922-1.xlsx";
