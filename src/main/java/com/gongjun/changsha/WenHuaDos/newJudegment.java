@@ -290,9 +290,10 @@ public class newJudegment {
                     zoneCellSumData = 0;
                 }
 
-                if (Math.abs(cityCellData - zoneCellSumData) > 1) {
+                if (Math.abs(cityCellData - zoneCellSumData) > 5) {
                     if(Math.abs(cityCellData*2-zoneCellSumData)==0d){
                     }else{
+//                        System.out.println("key"+key+"差值"+Math.abs(cityCellData - zoneCellSumData));
                         qtyIndex = qtyMap.get(key);
                         if(qtyIndex == null) qtyIndex = new ArrayList<>();
                         qtyIndex.add(i);
