@@ -36,6 +36,25 @@ public class Excel_1_18 {
         //按登记类型分组
         dataSheetDatas.addAll(excelDos("(1-19A-aa)", Arrays.asList(0, 1, 2, 3, 4, 5), Arrays.asList(1), 1));
 
+        List<List<Object>> dataThree = excelDos("(1-19A-aaa)", Arrays.asList(0, 1, 2, 3, 4, 6, 7, 8), Arrays.asList(1), 3);
+
+        for (int i = 0; i < dataSheetDatas.size(); i++) {
+            List<Object> row = dataSheetDatas.get(i);
+            if(CollectionUtils.isEmpty(row)) continue;
+            Object indexObj = row.get(0);
+            if(indexObj == null) continue;
+            String index = RegUtils.delAllSpaceForString((String)indexObj);
+            for (int j = 0; j < dataThree.size(); j++) {
+                List<Object> sonRow = dataThree.get(j);
+                if(CollectionUtils.isEmpty(sonRow)||sonRow.size()<2) continue;
+                Object indexSonObj = sonRow.get(0);
+                if(indexSonObj == null) continue;
+                String sonIndex = RegUtils.delAllSpaceForString((String)indexSonObj);
+                if(sonIndex.equals(index)) row.add(1,sonRow.get(1));
+            }
+        }
+
+
         dataWriteDos(dataSheetDatas);
 
     }
@@ -108,6 +127,8 @@ public class Excel_1_18 {
         //获取行数
         int dataSheetRows = dataSheet.getPhysicalNumberOfRows();
         List<List<Object>> dataSheetDatas = new ArrayList<>(); //整张表数据
+        int 房地产count = 0;
+        int 教育count = 0;
         int count = 0;
         for (int i = 0; i < dataSheetRows; i++) {
             if (exceptRows.contains(i)) continue;
@@ -122,7 +143,7 @@ public class Excel_1_18 {
                 //获取数据
                 Object dataValue = ExcelUtils.getCellValue(cell);
                 if (j == 0) {
-                    if (mark == 0) {
+                    if (mark == 0 || mark == 3) {
                         if (count == 0) dataValue = "总  计";
                         else
                             dataValue = String.valueOf(dataValue) == null ? "" : "  " + String.valueOf(dataValue).trim();
@@ -150,6 +171,17 @@ public class Excel_1_18 {
                         if(indexs.contains(index)) dataSheetDatas.add(dataSheetRowDatas);
                     }
                 }
+                if(mark == 3) {
+                    String index = (String)dataSheetRowDatas.get(0);
+                    if(StringUtils.isNotBlank(index)){
+                        if(index.contains("房地产业")) 房地产count++;
+                        if(index.contains("教育")) 教育count++;
+                        if(!StringUtils.containsAny(index,"房地产业","教育")) dataSheetDatas.add(dataSheetRowDatas);
+                        if(index.contains("房地产业")&&房地产count==1) dataSheetDatas.add(dataSheetRowDatas);
+                        if(index.contains("教育")&&教育count==1) dataSheetDatas.add(dataSheetRowDatas);
+                    }
+                }
+
             }
             //保存行数据到表数据中
             count++;
