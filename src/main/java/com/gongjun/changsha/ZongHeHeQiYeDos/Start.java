@@ -69,7 +69,7 @@ public class Start {
         Excel_1_11.standardExcelPath = standarExcelPathForOne;
         Excel_1_12.standardExcelPath = standarExcelPathForOne;
         Excel_1_13.standardExcelPath = standarExcelPathForOne;
-//        Excel_1_14.standardExcelPath = standarExcelPathForOne;
+        Excel_1_14.standardExcelPath = standarExcelPathForOne;
 //        Excel_1_15.standardExcelPath = standarExcelPathForOne;
 //        Excel_1_16.standardExcelPath = standarExcelPathForOne;
         Excel_1_17.standardExcelPath = standarExcelPathForOne;
@@ -119,7 +119,7 @@ public class Start {
         Excel_1_11.todoExcelFilePath = sourceExcelPath;
         Excel_1_12.todoExcelFilePath = sourceExcelPath;
         Excel_1_13.todoExcelFilePath = sourceExcelPath;
-//        Excel_1_14.todoExcelFilePath = sourceExcelPath;
+        Excel_1_14.todoExcelFilePath = sourceExcelPath;
 //        Excel_1_15.todoExcelFilePath = sourceExcelPath;
 //        Excel_1_16.todoExcelFilePath = sourceExcelPath;
         Excel_1_17.todoExcelFilePath = sourceExcelPath;
@@ -168,7 +168,7 @@ public class Start {
         Excel_1_11.todo();
         Excel_1_12.todo();
         Excel_1_13.todo();
-//        Excel_1_14.todo();
+        Excel_1_14.todo();
 //        Excel_1_15.todo();
 //        Excel_1_16.todo();
         Excel_1_17.todo();
@@ -202,11 +202,11 @@ public class Start {
         Excel_2_26.todo();
     }
 
-    public static void copyFiles() {
+    public static void copyFiles(String zone) {
         //拷贝标准文件
         try {
-            FileUtils.copyFile(new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-1-副本（重新运行前一定要覆盖原来的）.xlsx"), new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-1.xlsx"));
-            FileUtils.copyFile(new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-2-副本（重新运行前一定要覆盖原来的）.xlsx"), new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-2.xlsx"));
+            FileUtils.copyFile(new File("D:\\长沙项目\\综合&企业待处理\\标椎表格\\922-1.xlsx"), new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-1.xlsx"));
+            FileUtils.copyFile(new File("D:\\长沙项目\\综合&企业待处理\\标椎表格\\922-2.xlsx"), new File("D:\\长沙项目\\表格批量处理\\标准表格\\922-2.xlsx"));
         } catch (Exception e) {
             log.info("错误信息:{}", e.getMessage());
         }

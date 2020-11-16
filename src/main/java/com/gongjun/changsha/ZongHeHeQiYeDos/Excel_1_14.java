@@ -20,13 +20,13 @@ public class Excel_1_14 {
     /**
      * @修改点******************************************************************
      */
-    public static String standardExcelPath = "D:\\长沙项目\\表格批量处理\\标准表格\\922-1.xlsx";
+    public static String standardExcelPath = "D:\\长沙项目\\综合&企业待处理\\已处理\\芙蓉区\\922-1.xlsx";
 
     //待处理表格的保存文件夹路径
     /**
      * @修改点******************************************************************
      */
-    public static String todoExcelFilePath = "D:\\长沙项目\\表格批量处理\\平台导出表格";
+    public static String todoExcelFilePath = "D:\\长沙项目\\综合&企业待处理\\地区\\芙蓉区";
 
     public static void todo() {
         //标准表格的路径
@@ -50,7 +50,7 @@ public class Excel_1_14 {
                 System.out.println("没有符合条件的表格请重新检查！");
                 break;
             case 1: {
-                List<String> depts = readDepts(accordExcels.get(0), 5, Arrays.asList(0, 1, 3, 4, 5));
+                List<String> depts = readDepts(accordExcels.get(0), 6, Arrays.asList(0, 1, 3, 4, 5));
                 List<List<Object>> dataSheetDatas = dataReadDos(accordExcels.get(0));
                 if (dataSheetDatas != null) dataWriteDos(depts, dataSheetDatas);
             }
@@ -99,7 +99,7 @@ public class Excel_1_14 {
         /**
          * @修改点******************************************************************
          * */
-        List exceptRows = Arrays.asList(0, 1, 2, 3, 4, 5, 7);
+        List exceptRows = Arrays.asList(0, 1, 2, 3, 4, 5, 7, 8);
         //dataSheet排除的列数(0开始，合并的列算一列)
         /**
          * @修改点******************************************************************
@@ -248,7 +248,7 @@ public class Excel_1_14 {
 
         //写入表格
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
-        System.out.println("**********表格Excel_2_26处理完毕**********");
+        System.out.println("**********表格Excel_1_14处理完毕**********");
     }
 
     @Test
