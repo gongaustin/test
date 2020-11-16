@@ -286,7 +286,7 @@ public class Excel_1_18 {
 
         //写入表格
         ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
-        System.out.println("**********表格Excel_1_06处理完毕**********");
+        System.out.println("**********表格Excel_1_18处理完毕**********");
     }
 
     @Test
