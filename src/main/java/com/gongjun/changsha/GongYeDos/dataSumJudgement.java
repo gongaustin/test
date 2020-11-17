@@ -64,7 +64,7 @@ public class dataSumJudgement {
 
             for (int i = 1; i < sheetNumber; i++) {
                 String sheetName = upWorkbook.getSheetName(i);
-                if (StringUtils.containsAny(sheetName, "6-01", "6-02", "6-03", "6-04")) continue;
+                if (StringUtils.containsAny(sheetName, "6-05", "6-06", "6-07", "6-08","6-09","6-10")) continue;
                 Sheet upSheet = upWorkbook.getSheetAt(i);
                 for (int j = 0; j < upSheet.getPhysicalNumberOfRows(); j++) {
                     Row upRow = upSheet.getRow(j);
