@@ -240,7 +240,7 @@ public class changshaXlsHandle {
 
     /**
      * @param: [path] 表格初始路径
-     * @description: 利用递归方法批量对表格数据进行截图
+     * @description:利用递归方法批量对表格数据进行截图
      * @author: GongJun
      * @time: Created in 11:19 2020/9/27
      * @modified:

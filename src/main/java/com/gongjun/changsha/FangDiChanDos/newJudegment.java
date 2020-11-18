@@ -226,7 +226,7 @@ public class newJudegment {
                                 if (StringUtils.isNotBlank((String) value)) try {
                                     zoneCellValue = Double.valueOf((String) value);
                                 } catch (Exception e) {
-                                    log.info("数据转换错误,原始值:{}", value);
+//                                    log.info("数据转换错误,原始值:{}", value);
                                     zoneCellValue = 0d;
                                 }
                                 else zoneCellValue = 0d;
@@ -258,7 +258,7 @@ public class newJudegment {
                                     try {
                                         zoneCellValue = Double.valueOf((String) value);
                                     } catch (Exception e) {
-                                        log.info("数据转换错误,原始值:{}", value);
+//                                        log.info("数据转换错误,原始值:{}", value);
                                         zoneCellValue = 0d;
                                     }
                                 } else zoneCellValue = 0d;
