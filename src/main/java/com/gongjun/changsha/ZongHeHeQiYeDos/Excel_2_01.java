@@ -20,19 +20,22 @@ public class Excel_2_01 {
     /**
      * @修改点******************************************************************
      */
-    public static String standardExcelPath = "D:\\长沙项目\\综合&企业\\地区\\开福区\\922-2.xlsx";
+    public static String standardExcelPath = "D:\\长沙项目\\综合&企业\\地区\\宁乡市\\922-2.xlsx";
 
     //待处理表格的保存文件夹路径
     /**
      * @修改点******************************************************************
      */
-    public static String todoExcelFilePath = "D:\\长沙项目\\综合&企业待处理\\地区\\开福区";
+    public static String todoExcelFilePath = "D:\\长沙项目\\综合&企业待处理\\地区\\宁乡市";
 
     public static void todo() {
         //按地区分组
         List<List<Object>> dataSheetDatas = excelDos("(2-01A)", Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8), Arrays.asList(1), 0);
+        dataSheetDatas.forEach(e->{
+            System.out.println(e.toString());
+        });
         //按登记类型分组
-        dataWriteDos(dataSheetDatas);
+//        dataWriteDos(dataSheetDatas);
 
     }
 

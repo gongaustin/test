@@ -169,8 +169,8 @@ public class Excel_1_14 {
         Row rowBing = standardSheet.getRow(bingRow);
 
         //单独处理宾栏合并格
-        Cell firstBingCell = standardSheet.getRow(bingRow - 1).getCell(bingBeginCol);
-        firstBingCell.setCellValue(bings.get(0));
+//        Cell firstBingCell = standardSheet.getRow(bingRow - 1).getCell(bingBeginCol);
+//        firstBingCell.setCellValue(bings.get(0));
         //遍历宾栏
         CellStyle bingStyle = rowBing.getCell(bingBeginCol + 1).getCellStyle();
 

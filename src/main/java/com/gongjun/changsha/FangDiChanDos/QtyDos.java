@@ -31,7 +31,7 @@ public class QtyDos {
 
     List<String> exceptSheets = Arrays.asList(
             //标题
-            "10-00","10-01","10-02");
+            "10-00");
     //读取问题指标并存储
     public List<String> getIndexsFromTxt(){
         List<String> indexs = new ArrayList<>();

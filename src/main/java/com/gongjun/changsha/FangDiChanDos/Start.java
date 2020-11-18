@@ -55,9 +55,23 @@ public class Start {
         }
     }
 
+    public void todoFor1And2(){
+        String zoneParent = "D:\\长沙项目\\房地产\\地区\\1-2";
+        List<File> files = com.gongjun.changsha.tools.FileUtils.getFiles(zoneParent,new ArrayList<>());
+        for(File file : files){
+            String[] fileStrs = file.getAbsolutePath().split("\\\\");
+            String zoneName = fileStrs[fileStrs.length-2];
+            String fileName = file.getName();
+            if(fileName.startsWith("(fdc-4301-1)")) Excel_10_01.todo(file.getAbsolutePath(),targetPath+"\\"+zoneName+"\\922-10.XLS");
+            if(fileName.startsWith("(fdc-4301-02)")) Excel_10_02.todo(file.getAbsolutePath(),targetPath+"\\"+zoneName+"\\922-10.XLS");
+        }
+
+
+    }
+
 
     @Test
     public void test() {
-        todo();
+        todoFor1And2();
     }
 }
