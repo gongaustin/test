@@ -21,7 +21,7 @@ import java.util.*;
  */
 @Slf4j
 public class EbookExcelUtils {
-    final static List<String> RELATION_LIST = Arrays.asList("第一篇 综合,922-1", "第二篇 企业,922-2", "第三篇 文化及相关产业,922-3", "第四篇 科技,922-4", "第五篇 信息化和电子商务,922-5", "第六篇 工业,922-6", "第七篇 建筑业,922-7", "第八篇 批发和零售业,922-8", "第九篇 住宿和餐饮业,922-9", "第十篇 房地产开发经营业,922-10", "第十一篇 服务业,922-11");
+    final static List<String> RELATION_LIST = Arrays.asList("01第一篇 综合,922-1", "02第二篇 企业,922-2", "03第三篇 文化及相关产业,922-3", "04第四篇 科技,922-4", "05第五篇 信息化和电子商务,922-5", "06第六篇 工业,922-6", "07第七篇 建筑业,922-7", "08第八篇 批发和零售业,922-8", "09第九篇 住宿和餐饮业,922-9", "10第十篇 房地产开发经营业,922-10", "11第十一篇 服务业,922-11");
     /**
      * @param: [sheet, cell]
      * @description:读取合并表格的字符串
@@ -162,7 +162,7 @@ public class EbookExcelUtils {
         }
         for (int i = 0; i < total; i++) {
             // 获取每个Sheet表
-            String filePath2 = targerExcelParentPath + "\\" + indexName + "\\" + i + ".xls";
+            String filePath2 = targerExcelParentPath + "\\" + indexName + "\\" + i + ".xlsx";
             Workbook workbook2 = null;
             try {
                 FileUtils.copyFile(new File(sourceExcelPath), new File(filePath2));
@@ -178,7 +178,7 @@ public class EbookExcelUtils {
                 }
                 workbook2.removeSheetAt(j);
             }
-            String filePath3 = targerExcelParentPath + "\\" + indexName + "\\" + i + ".xls";
+            String filePath3 = targerExcelParentPath + "\\" + indexName + "\\" + i + ".xlsx";
             try {
                 FileOutputStream fout = new FileOutputStream(filePath3);
                 workbook2.write(fout);
