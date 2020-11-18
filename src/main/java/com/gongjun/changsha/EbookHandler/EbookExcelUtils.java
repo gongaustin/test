@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * @Description:
+ * @Description:电子书工具类
  * @Author: GongJun
  * @Date: Created in 13:37 2020/11/18
  */
