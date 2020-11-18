@@ -197,20 +197,7 @@ public class EbookExcelUtils {
         log.info("文件[{}]拆分完成", sourceExcelPath);
     }
 
-    /**
-     * @param: [sourExcelParent, targetExcelParent]
-     * @description:批量处理[多个Sheet的表格拆分为单个Sheet的表格]
-     * @author: GongJun
-     * @time: Created in 15:39 2020/11/18
-     * @modified:
-     * @return: void
-     **/
-    public static void batSplitSheetsToSingleExcel(String sourExcelParent, String targetExcelParent) {
-        List<File> files = com.gongjun.changsha.tools.FileUtils.getFiles(sourExcelParent, new ArrayList<>());
-        for (File file : files) {
-            splitSheetsToSingleExcel(file.getAbsolutePath(), targetExcelParent);
-        }
-    }
+
 
     /**
      * @param: [path]
@@ -258,11 +245,7 @@ public class EbookExcelUtils {
         }
     }
 
-    //测试方法
-    @Test
-    public void test() {
-        batSplitSheetsToSingleExcel("D:\\测试文件夹\\未拆分", "D:\\测试文件夹\\拆分后");
-    }
+
 
 
 }
