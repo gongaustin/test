@@ -6,12 +6,14 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.*;
 
 /**
  * @Description:
@@ -20,6 +22,8 @@ import java.io.IOException;
  */
 @Slf4j
 public class EbookExcelUtils {
+
+    final static List<String> RELATION_LIST = Arrays.asList("第一篇 综合,922-1", "第二篇 企业,922-2", "第三篇 文化及相关产业,922-3", "第四篇 科技,922-4", "第五篇 信息化和电子商务,922-5", "第六篇 工业,922-6", "第七篇 建筑业,922-7", "第八篇 批发和零售业,922-8", "第九篇 住宿和餐饮业,922-9", "第十篇 房地产开发经营业,922-10", "第十一篇 服务业,922-11");
 
 
     /**
@@ -134,6 +138,81 @@ public class EbookExcelUtils {
     }
 
     /**
+     * @param: [sourceExcelPath, targerExcelParentPath]
+     * @description:多个Sheet的表格拆分为单个Sheet的表格
+     * @author: GongJun
+     * @time: Created in 15:39 2020/11/18
+     * @modified:
+     * @return: void
+     **/
+    public static void splitSheetsToSingleExcel(String sourceExcelPath, String targerExcelParentPath) {
+        Map<String, String> relationMap = new HashMap<>();
+        RELATION_LIST.forEach(e -> {
+            String[] strings = e.split(",");
+            relationMap.put(strings[1], strings[0]);
+        });
+        File excelFile = new File(sourceExcelPath);
+        String fileName = excelFile.getName();
+        String fileNameWithoutSuffix = fileName.substring(0, fileName.lastIndexOf("."));
+        String indexName = relationMap.get(fileNameWithoutSuffix);
+        // 第一步，创建一个webbook，对应一个Excel文件
+        int total = 0;//3
+        try {
+            org.apache.poi.ss.usermodel.Workbook workbook = ExcelUtils.getWorkbookFromExcel(new File(sourceExcelPath));
+            total = workbook.getNumberOfSheets();
+            workbook.close();
+        } catch (IOException e) {
+            log.info("错误信息:{}", e.getMessage());
+        }
+        for (int i = 0; i < total; i++) {
+            // 获取每个Sheet表
+            String filePath2 = targerExcelParentPath + "\\" + indexName + "\\" + i + ".xls";
+            Workbook workbook2 = null;
+            try {
+                FileUtils.copyFile(new File(sourceExcelPath), new File(filePath2));
+            } catch (IOException e) {
+                log.info("复制文件出错，错误信息:{}", e.getMessage());
+            }
+            File file = new File(filePath2);
+            workbook2 = ExcelUtils.getWorkbookFromExcel(file);
+            int total2 = workbook2.getNumberOfSheets();
+            for (int j = total2 - 1; j >= 0; j--) {
+                if (i == j) {
+                    continue;
+                }
+                workbook2.removeSheetAt(j);
+            }
+            String filePath3 = targerExcelParentPath + "\\" + indexName + "\\" + i + ".xls";
+            try {
+                FileOutputStream fout = new FileOutputStream(filePath3);
+                workbook2.write(fout);
+                workbook2.close();
+                fout.close();
+            } catch (IOException e) {
+                log.info("错误信息:{}", e.getMessage());
+            }
+            //删除文件
+            //file.delete();
+        }
+        log.info("文件[{}]拆分完成", sourceExcelPath);
+    }
+
+    /**
+     * @param: [sourExcelParent, targetExcelParent]
+     * @description:批量处理[多个Sheet的表格拆分为单个Sheet的表格]
+     * @author: GongJun
+     * @time: Created in 15:39 2020/11/18
+     * @modified:
+     * @return: void
+     **/
+    public static void batSplitSheetsToSingleExcel(String sourExcelParent, String targetExcelParent) {
+        List<File> files = com.gongjun.changsha.tools.FileUtils.getFiles(sourExcelParent, new ArrayList<>());
+        for (File file : files) {
+            splitSheetsToSingleExcel(file.getAbsolutePath(), targetExcelParent);
+        }
+    }
+
+    /**
      * @param: [path]
      * @param: [newPath] 生成文件保存的新路径
      * @description:利用递归方法批量重命名表格名称并写入另一个文件夹
@@ -177,54 +256,13 @@ public class EbookExcelUtils {
         } else {
             System.out.println("文件不存在!");
         }
-
     }
 
-    public void splitSheetsToSingleExcel(String sourceExcelPath, String targerExcelParentPath) {
-        sourceExcelPath = "D:\\长沙项目\\9-22发统计局电子表\\922-11.xlsx";
-
-
-        // 第一步，创建一个webbook，对应一个Excel文件
-        int total = 0;//3
-        try {
-            org.apache.poi.ss.usermodel.Workbook workbook = ExcelUtils.getWorkbookFromExcel(new File(sourceExcelPath));
-            total = workbook.getNumberOfSheets();
-            workbook.close();
-        } catch (IOException e) {
-            log.info("错误信息:{}", e.getMessage());
-        }
-        for (int i = 0; i < total; i++) {
-            // 获取每个Sheet表
-            String filePath2 = "D:\\长沙项目\\拆分后\\12第十一篇 服务业\\" + i + ".xlsx";
-            Workbook workbook2 = null;
-            try {
-                FileUtils.copyFile(new File(sourceExcelPath), new File(filePath2));
-            } catch (IOException e) {
-                log.info("复制文件出错，错误信息:{}", e.getMessage());
-            }
-            File file = new File(filePath2);
-            workbook2 = ExcelUtils.getWorkbookFromExcel(file);
-
-            int total2 = workbook2.getNumberOfSheets();
-            for (int j = total2 - 1; j >= 0; j--) {
-                if (i == j) {
-                    continue;
-                }
-                workbook2.removeSheetAt(j);
-            }
-            String filePath3 = "D:\\长沙项目\\拆分后\\12第十一篇 服务业\\" + i + ".xlsx";
-            try {
-                FileOutputStream fout = new FileOutputStream(filePath3);
-                workbook2.write(fout);
-                workbook2.close();
-                fout.close();
-            } catch (IOException e) {
-                log.info("错误信息:{}", e.getMessage());
-            }
-            //删除文件
-            //file.delete();
-        }
-        log.info("文件[{}]处理完成",sourceExcelPath);
+    //测试方法
+    @Test
+    public void test() {
+        batSplitSheetsToSingleExcel("D:\\测试文件夹\\未拆分", "D:\\测试文件夹\\拆分后");
     }
+
 
 }
