@@ -372,7 +372,7 @@ public class newJudgement {
                     zoneCellSumData = 0;
                 }
 
-                if (Math.abs(cityCellData - zoneCellSumData) > 1) {
+                if (Math.abs(cityCellData - zoneCellSumData) > 5) {
                     if(Math.abs(cityCellData*2-zoneCellSumData)==0d){
                     }else{
                         qtyIndex = qtyMap.get(key);

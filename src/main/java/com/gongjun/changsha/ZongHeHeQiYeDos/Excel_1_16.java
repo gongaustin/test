@@ -1,6 +1,8 @@
 package com.gongjun.changsha.ZongHeHeQiYeDos;
 
 import com.gongjun.changsha.tools.ExcelUtils;
+import org.apache.poi.ss.formula.functions.Na;
+import org.apache.poi.ss.usermodel.Name;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.File;
@@ -11,9 +13,12 @@ import java.io.File;
  * @Date: Created in 10:36 2020/10/13
  */
 public class Excel_1_16 {
-    public void todo(String standardExcelPath){
-        Workbook wb = ExcelUtils.getWorkbookFromExcel(new File(standardExcelPath));
-        wb.removeName("1-16");
-
+    public static String standardExcelPath = "";
+    public static String todoExcelFilePath = "";
+    public static void todo(){
+        Workbook standardWorkbook = ExcelUtils.getWorkbookFromExcel(new File(standardExcelPath));
+        standardWorkbook.removeSheetAt(standardWorkbook.getSheetIndex("1-16"));
+        ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
+        System.out.println(standardExcelPath+":[1-16]移除成功");
     }
 }

@@ -12,9 +12,13 @@ import java.io.File;
  * @Date: Created in 10:36 2020/10/13
  */
 public class Excel_1_15 {
-    public void todo(String standardExcelPath){
-        Workbook wb = ExcelUtils.getWorkbookFromExcel(new File(standardExcelPath));
-        wb.removeName("1-15");
 
+    public static String standardExcelPath = "";
+    public static String todoExcelFilePath = "";
+    public static void todo(){
+        Workbook standardWorkbook = ExcelUtils.getWorkbookFromExcel(new File(standardExcelPath));
+        standardWorkbook.removeSheetAt(standardWorkbook.getSheetIndex("1-15"));
+        ExcelUtils.write2Excel(standardWorkbook, standardExcelPath);
+        System.out.println(standardExcelPath+":[1-15]移除成功");
     }
 }

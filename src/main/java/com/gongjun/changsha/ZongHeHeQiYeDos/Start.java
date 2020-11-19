@@ -70,8 +70,8 @@ public class Start {
         Excel_1_12.standardExcelPath = standarExcelPathForOne;
         Excel_1_13.standardExcelPath = standarExcelPathForOne;
         Excel_1_14.standardExcelPath = standarExcelPathForOne;
-//        Excel_1_15.standardExcelPath = standarExcelPathForOne;
-//        Excel_1_16.standardExcelPath = standarExcelPathForOne;
+        Excel_1_15.standardExcelPath = standarExcelPathForOne;
+        Excel_1_16.standardExcelPath = standarExcelPathForOne;
         Excel_1_17.standardExcelPath = standarExcelPathForOne;
         Excel_1_18.standardExcelPath = standarExcelPathForOne;
         //处理表格922-2.xls
@@ -120,8 +120,8 @@ public class Start {
         Excel_1_12.todoExcelFilePath = sourceExcelPath;
         Excel_1_13.todoExcelFilePath = sourceExcelPath;
         Excel_1_14.todoExcelFilePath = sourceExcelPath;
-//        Excel_1_15.todoExcelFilePath = sourceExcelPath;
-//        Excel_1_16.todoExcelFilePath = sourceExcelPath;
+        Excel_1_15.todoExcelFilePath = sourceExcelPath;
+        Excel_1_16.todoExcelFilePath = sourceExcelPath;
         Excel_1_17.todoExcelFilePath = sourceExcelPath;
         Excel_1_18.todoExcelFilePath = sourceExcelPath;
         //处理表格922-2.xls
@@ -169,8 +169,8 @@ public class Start {
         Excel_1_12.todo();
         Excel_1_13.todo();
         Excel_1_14.todo();
-//        Excel_1_15.todo();
-//        Excel_1_16.todo();
+        Excel_1_15.todo();
+        Excel_1_16.todo();
         Excel_1_17.todo();
         Excel_1_18.todo();
         //处理表格922-2.xls
