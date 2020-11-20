@@ -20,7 +20,7 @@ public class Excel_2_01 {
     /**
      * @修改点******************************************************************
      */
-    public static String standardExcelPath = "D:\\长沙项目\\综合&企业\\地区\\宁乡市\\922-2.xlsx";
+    public static String standardExcelPath = "D:\\长沙项目\\综合&企业待处理\\已处理\\宁乡市\\922-2.xlsx";
 
     //待处理表格的保存文件夹路径
     /**

@@ -308,16 +308,6 @@ public class newJudegment {
                     if(Math.abs(cityCellData*2-zoneCellSumData)==0d){
                     }else{
                         qtyIndex = qtyMap.get(key);
-                        if(!noMatchMap.containsKey(i)) {
-                            List<String> noMatchIndexList = new ArrayList<>();
-                            noMatchIndexList.add("["+i+"]"+key+"[第"+i+"项数据]的差值(地方总和-市表数据):"+(zoneCellSumData - cityCellData));
-                            noMatchMap.put(i,noMatchIndexList);
-                        }
-                        if(noMatchMap.containsKey(i)){
-                            List<String> noMatchIndexList = noMatchMap.get(i);
-                            noMatchIndexList.add("["+i+"]"+key+"[第"+i+"项数据]的差值(地方总和-市表数据):"+(zoneCellSumData - cityCellData));
-                            noMatchMap.put(i,noMatchIndexList);
-                        }
                         if(qtyIndex == null) qtyIndex = new ArrayList<>();
                         qtyIndex.add(i);
                         qtyMap.put(key,qtyIndex);
@@ -325,14 +315,6 @@ public class newJudegment {
                 }
             }
         }
-        for(int key:noMatchMap.keySet()){
-           List<String> noMatchList = noMatchMap.get(key);
-           noMatchList.forEach(e->{
-               System.out.println(e);
-           });
-        }
         return qtyMap;
     }
-
-
 }

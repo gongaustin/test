@@ -58,7 +58,7 @@ public class EbookExcelUtils {
      * @modified:
      * @return: java.lang.String
      **/
-    public static String achieveChangshaExcelTitle(String excelPath) {
+    private static String achieveChangshaExcelTitle(String excelPath) {
         String title = new String("");
         org.apache.poi.ss.usermodel.Workbook workbook = null;
         try {
@@ -141,7 +141,7 @@ public class EbookExcelUtils {
      * @modified:
      * @return: void
      **/
-    public static void splitSheetsToSingleExcel(String sourceExcelPath, String targerExcelParentPath) {
+    public static void batSplitSheetsToSingleExcel(String sourceExcelPath, String targerExcelParentPath) {
         Map<String, String> relationMap = new HashMap<>();
         RELATION_LIST.forEach(e -> {
             String[] strings = e.split(",");
@@ -204,9 +204,9 @@ public class EbookExcelUtils {
      * @modified:
      * @return: void
      **/
-    public void renameChangshaExcelAndCopyExcel2OtherPath(String path) {
-        String sourceStr = "长沙项目";
-        String targetStr = "长沙项目_处理后";
+    public static void batRenameChangshaExcelAndCopyExcel2OtherPath(String path) {
+        String sourceStr = "年鉴拆分表";
+        String targetStr = "电子年鉴生成材料";
         File file = new File(path);
         if (file.exists()) {
             File[] files = file.listFiles();
@@ -217,7 +217,7 @@ public class EbookExcelUtils {
                 for (File file2 : files) {
                     if (file2.isDirectory()) {
                         System.out.println("文件夹:" + file2.getAbsolutePath());
-                        this.renameChangshaExcelAndCopyExcel2OtherPath(file2.getAbsolutePath());
+                        batRenameChangshaExcelAndCopyExcel2OtherPath(file2.getAbsolutePath());
                     } else {
 
                         String fileName = file2.getName();//文件名
@@ -225,8 +225,10 @@ public class EbookExcelUtils {
                         boolean flag = StringUtils.endsWith(fileName, "xlsx") && !StringUtils.startsWith(fileName, "0.xlsx");
                         if (flag) {
                             String filePath = file2.getAbsolutePath();
+                            String newFileName = achieveChangshaExcelTitle(filePath);
+                            String newFilePath = file2.getParent()+"\\"+newFileName+".xlsx";
                             //新文件夹
-                            String newPath = filePath.replaceAll(sourceStr, targetStr);
+                            String newPath = newFilePath.replaceAll(sourceStr, targetStr);
                             try {
                                 FileUtils.copyFile(file2, new File(newPath));
                             } catch (Exception e) {

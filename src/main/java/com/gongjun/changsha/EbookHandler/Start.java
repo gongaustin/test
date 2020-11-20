@@ -25,12 +25,12 @@ public class Start {
     public static void batSplitSheetsToSingleExcel(String sourExcelParent, String targetExcelParent) {
         List<File> files = FileUtils.getFiles(sourExcelParent, new ArrayList<>());
         for (File file : files) {
-            EbookExcelUtils.splitSheetsToSingleExcel(file.getAbsolutePath(), targetExcelParent);
+            EbookExcelUtils.batSplitSheetsToSingleExcel(file.getAbsolutePath(), targetExcelParent);
         }
     }
     //测试方法
     @Test
     public void test() {
-        batSplitSheetsToSingleExcel("D:\\测试文件夹\\未拆分", "D:\\测试文件夹\\拆分后");
+        EbookExcelUtils.batCaptureChangshaExcelToPng("D:\\长沙项目\\电子年鉴制作\\电子年鉴生成材料");
     }
 }

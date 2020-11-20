@@ -120,7 +120,7 @@ public class QtyDos {
                         try {
                             value = ExcelUtils.getCellValue(zoneCell);
                         } catch (Exception e) {
-                            log.info("Cell值获取错误,位置:{},指标名称:{},第{}列数据", sheetName, zoneIndex, k + 1);
+//                            log.info("Cell值获取错误,位置:{},指标名称:{},第{}列数据", sheetName, zoneIndex, k + 1);
                             value = 0d;
                         }
                         if (value instanceof Double) zoneCellValue = (Double) value;
@@ -169,7 +169,7 @@ public class QtyDos {
         String index = null;
         for (String key:map.keySet()){
             if(index != null && !key.startsWith(index)){
-                System.out.println(index+",[地区]总和为:"+sum);
+//                System.out.println(index+",[地区]总和为:"+(new Double(sum).intValue()));
                 System.out.println("************************************************");
                 sum = 0d;
             }
