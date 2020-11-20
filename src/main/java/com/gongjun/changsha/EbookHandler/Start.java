@@ -1,11 +1,6 @@
 package com.gongjun.changsha.EbookHandler;
 
-import com.gongjun.changsha.tools.FileUtils;
 import org.junit.Test;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Description:批处理类
@@ -22,7 +17,7 @@ public class Start {
     //测试方法
     @Test
     public void test() {
-        EbookExcelUtils.batSplitSheetsToSingleExcel(SOURCE_EXCEL_PARENT,TARGET_EXCEL_PARENT);
+        EbookExcelUtils.batSplitSheetsToSingleExcel(SOURCE_EXCEL_PARENT, TARGET_EXCEL_PARENT);
         EbookExcelUtils.batRenameChangshaExcelAndCopyExcel2OtherPath(TARGET_EXCEL_PARENT);
         EbookExcelUtils.batCaptureChangshaExcelToPng(MATERIAL_EXCEL_PARENT);
     }
