@@ -31,7 +31,7 @@ public class QtyDos {
 
     List<String> exceptSheets = Arrays.asList(
             //标题
-            "7-00");
+            "7-00","7-01","7-02");
     //读取问题指标并存储
     public List<String> getIndexsFromTxt(){
         List<String> indexs = new ArrayList<>();
@@ -71,7 +71,9 @@ public class QtyDos {
         for (File zoneExcelFile : zoneFiles) {
             if(!zoneExcelFile.getAbsolutePath().endsWith(".XLS")) continue;
             //获取区域
-            String zone = zoneExcelFile.getAbsolutePath().substring(16, 18);
+            String asPathPatent = zoneExcelFile.getParent();
+            String[] strings = asPathPatent.split("\\\\");
+            String zone = strings[strings.length-1];
             //获取Workbool
             Workbook zoneWorkbook = ExcelUtils.getWorkbookFromExcel(zoneExcelFile);
             //获取Sheet数目

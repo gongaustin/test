@@ -30,7 +30,7 @@ public class newJudegment {
     //排除的表
     List<String> exceptSheets = Arrays.asList(
             //标题
-            "7-00");
+            "7-00","7-01","7-02");
     public List<File> getFiles(String path, List<File> list, String keyword) {
         if (list == null) list = new ArrayList<>();
         File file = new File(path);
@@ -283,7 +283,7 @@ public class newJudegment {
         Map<String,List<Integer>> qtyMap = new HashMap<>();
         Map<String, List<Double>> cityData = this.sortByKey(this.getCityData());
         Map<String, List<Double>> zoneSumData = this.sortByKey(this.getZoneSumData());
-//
+        Map<Integer,List<String>> noMatchMap = new HashMap<>();
         //开始比较
         for (String key : cityData.keySet()) {
             List<Double> cityRowData = cityData.get(key);
@@ -304,10 +304,20 @@ public class newJudegment {
                     zoneCellSumData = 0;
                 }
 
-                if (Math.abs(cityCellData - zoneCellSumData) > 1) {
+                if (Math.abs(cityCellData - zoneCellSumData) > 5) {
                     if(Math.abs(cityCellData*2-zoneCellSumData)==0d){
                     }else{
                         qtyIndex = qtyMap.get(key);
+                        if(!noMatchMap.containsKey(i)) {
+                            List<String> noMatchIndexList = new ArrayList<>();
+                            noMatchIndexList.add("["+i+"]"+key+"[第"+i+"项数据]的差值(地方总和-市表数据):"+(zoneCellSumData - cityCellData));
+                            noMatchMap.put(i,noMatchIndexList);
+                        }
+                        if(noMatchMap.containsKey(i)){
+                            List<String> noMatchIndexList = noMatchMap.get(i);
+                            noMatchIndexList.add("["+i+"]"+key+"[第"+i+"项数据]的差值(地方总和-市表数据):"+(zoneCellSumData - cityCellData));
+                            noMatchMap.put(i,noMatchIndexList);
+                        }
                         if(qtyIndex == null) qtyIndex = new ArrayList<>();
                         qtyIndex.add(i);
                         qtyMap.put(key,qtyIndex);
@@ -315,6 +325,14 @@ public class newJudegment {
                 }
             }
         }
+        for(int key:noMatchMap.keySet()){
+           List<String> noMatchList = noMatchMap.get(key);
+           noMatchList.forEach(e->{
+               System.out.println(e);
+           });
+        }
         return qtyMap;
     }
+
+
 }
