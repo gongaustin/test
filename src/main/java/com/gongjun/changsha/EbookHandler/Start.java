@@ -14,23 +14,16 @@ import java.util.List;
  */
 public class Start {
 
-    /**
-     * @param: [sourExcelParent, targetExcelParent]
-     * @description:批量处理[多个Sheet的表格拆分为单个Sheet的表格]
-     * @author: GongJun
-     * @time: Created in 15:39 2020/11/18
-     * @modified:
-     * @return: void
-     **/
-    public static void batSplitSheetsToSingleExcel(String sourExcelParent, String targetExcelParent) {
-        List<File> files = FileUtils.getFiles(sourExcelParent, new ArrayList<>());
-        for (File file : files) {
-            EbookExcelUtils.batSplitSheetsToSingleExcel(file.getAbsolutePath(), targetExcelParent);
-        }
-    }
+    private static String SOURCE_EXCEL_PARENT = "D:\\长沙项目\\电子年鉴制作\\年鉴和表";
+    private static String TARGET_EXCEL_PARENT = "D:\\长沙项目\\电子年鉴制作\\年鉴拆分表";
+    private static String MATERIAL_EXCEL_PARENT = "D:\\长沙项目\\电子年鉴制作\\电子年鉴生成材料";
+
+
     //测试方法
     @Test
     public void test() {
-        EbookExcelUtils.batCaptureChangshaExcelToPng("D:\\长沙项目\\电子年鉴制作\\电子年鉴生成材料");
+        EbookExcelUtils.batSplitSheetsToSingleExcel(SOURCE_EXCEL_PARENT,TARGET_EXCEL_PARENT);
+        EbookExcelUtils.batRenameChangshaExcelAndCopyExcel2OtherPath(TARGET_EXCEL_PARENT);
+        EbookExcelUtils.batCaptureChangshaExcelToPng(MATERIAL_EXCEL_PARENT);
     }
 }

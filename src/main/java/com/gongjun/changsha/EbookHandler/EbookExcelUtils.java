@@ -141,7 +141,7 @@ public class EbookExcelUtils {
      * @modified:
      * @return: void
      **/
-    public static void batSplitSheetsToSingleExcel(String sourceExcelPath, String targerExcelParentPath) {
+    private static void splitSheetsToSingleExcel(String sourceExcelPath, String targerExcelParentPath) {
         Map<String, String> relationMap = new HashMap<>();
         RELATION_LIST.forEach(e -> {
             String[] strings = e.split(",");
@@ -191,6 +191,22 @@ public class EbookExcelUtils {
             //file.delete();
         }
         log.info("文件[{}]拆分完成", sourceExcelPath);
+    }
+
+
+    /**
+     * @param: [sourExcelParent, targetExcelParent]
+     * @description:批量处理[多个Sheet的表格拆分为单个Sheet的表格]
+     * @author: GongJun
+     * @time: Created in 15:39 2020/11/18
+     * @modified:
+     * @return: void
+     **/
+    public static void batSplitSheetsToSingleExcel(String sourExcelParent, String targetExcelParent) {
+        List<File> files = com.gongjun.changsha.tools.FileUtils.getFiles(sourExcelParent, new ArrayList<>());
+        for (File file : files) {
+            splitSheetsToSingleExcel(file.getAbsolutePath(), targetExcelParent);
+        }
     }
 
 
