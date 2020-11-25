@@ -31,7 +31,7 @@ public class QtyDos {
 
     //地区文件路径
 
-    public String zoneFilesPath = "D:\\长沙项目\\核验数据\\文化\\地区";
+    public String zoneFilesPath = "D:\\长沙项目\\再次校验\\文化（已核）";
 
     //排除的表格
     List<String> exceptSheets = Arrays.asList(
@@ -76,7 +76,9 @@ public class QtyDos {
         for (File zoneExcelFile : zoneFiles) {
             if(!zoneExcelFile.getAbsolutePath().endsWith(".xlsx")) continue;
             //获取区域
-            String zone = zoneExcelFile.getAbsolutePath().substring(19, 22);
+            String asPathPatent = zoneExcelFile.getParent();
+            String[] strings = asPathPatent.split("\\\\");
+            String zone = strings[strings.length-1];
             //获取Workbool
             Workbook zoneWorkbook = ExcelUtils.getWorkbookFromExcel(zoneExcelFile);
             //获取Sheet数目

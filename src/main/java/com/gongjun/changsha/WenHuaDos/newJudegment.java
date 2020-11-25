@@ -24,7 +24,7 @@ public class newJudegment {
     //全市数据
     private static String cityPath = "D:\\长沙项目\\核验数据\\文化\\全市";
     //地区数据
-    private static String zonePath = "D:\\长沙项目\\核验数据\\文化\\地区";
+    private static String zonePath = "D:\\长沙项目\\再次校验\\文化（已核）";
     private static String keyword = "922-3";
     List<String> exceptSheets = Arrays.asList(
             //标题
@@ -161,7 +161,9 @@ public class newJudegment {
 
         for (File zoneExcelFile : zoneFiles) {
             //获取区域
-            String zone = zoneExcelFile.getAbsolutePath().substring(19, 22);
+            String asPathPatent = zoneExcelFile.getParent();
+            String[] strings = asPathPatent.split("\\\\");
+            String zone = strings[strings.length-1];
             //获取Workbool
             Workbook zoneWorkbook = ExcelUtils.getWorkbookFromExcel(zoneExcelFile);
             //获取Sheet数目
