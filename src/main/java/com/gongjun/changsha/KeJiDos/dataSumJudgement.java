@@ -25,7 +25,7 @@ public class dataSumJudgement {
     private static String upLevel = "D:\\长沙项目\\科技\\全市";
 
     //区县数据表格路径
-    private static String downLevel = "D:\\长沙项目\\科技\\地区";
+    private static String downLevel = "D:\\长沙项目\\再次校验\\科技（已核）";
 
     public static List<File> readFileList(String excelPath) {
         List<File> files = new ArrayList<>();

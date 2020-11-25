@@ -30,7 +30,7 @@ public class newJudegment {
     //排除的表
     List<String> exceptSheets = Arrays.asList(
             //标题
-            "7-00","7-01","7-02");
+            "7-00");
     public List<File> getFiles(String path, List<File> list, String keyword) {
         if (list == null) list = new ArrayList<>();
         File file = new File(path);

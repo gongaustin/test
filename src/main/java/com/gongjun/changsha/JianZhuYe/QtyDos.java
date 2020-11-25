@@ -31,7 +31,7 @@ public class QtyDos {
 
     List<String> exceptSheets = Arrays.asList(
             //标题
-            "7-00","7-01","7-02");
+            "7-00");
     //读取问题指标并存储
     public List<String> getIndexsFromTxt(){
         List<String> indexs = new ArrayList<>();
@@ -169,7 +169,7 @@ public class QtyDos {
         String index = null;
         for (String key:map.keySet()){
             if(index != null && !key.startsWith(index)){
-//                System.out.println(index+",[地区]总和为:"+(new Double(sum).intValue()));
+                System.out.println(index+",[地区]总和为:"+(new Double(sum).intValue()));
                 System.out.println("************************************************");
                 sum = 0d;
             }

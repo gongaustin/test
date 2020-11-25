@@ -59,7 +59,7 @@ public class Start {
 
     @Test
     public void test() {
-//        copyFile2Zone();
+        copyFile2Zone();
         batTodo();
     }
 }

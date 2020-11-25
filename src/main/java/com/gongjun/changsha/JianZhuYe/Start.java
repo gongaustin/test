@@ -53,8 +53,11 @@ public class Start {
             String[] strings = asPathPatent.split("\\\\");
             String zone = strings[strings.length-1];
             String fileName = file.getName();
+            if(fileName.startsWith("(B-2-01-4301)")) Excel_7_01.todo(file.getAbsolutePath(),targetExcelPatentPath+"\\"+zone+"\\922-7.XLS");
+            if(fileName.startsWith("(B-2-02-4301)")) Excel_7_02.todo(file.getAbsolutePath(),targetExcelPatentPath+"\\"+zone+"\\922-7.XLS");
             if(fileName.startsWith("660+")) Excel_7_03.todo(file.getAbsolutePath(),targetExcelPatentPath+"\\"+zone+"\\922-7.XLS");
             if(fileName.startsWith("661+")) Excel_7_04.todo(file.getAbsolutePath(),targetExcelPatentPath+"\\"+zone+"\\922-7.XLS");
+
         }
     }
 

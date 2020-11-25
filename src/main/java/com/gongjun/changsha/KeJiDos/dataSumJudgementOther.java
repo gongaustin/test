@@ -28,7 +28,7 @@ public class dataSumJudgementOther {
 
     //区县数据表格路径
 //    private static String downLevel = "D:\\长沙项目\\科技\\地区";
-    private static String downLevel = "D:\\长沙项目\\核验数据\\文化\\地区";
+    private static String downLevel = "D:\\长沙项目\\再次校验\\文化（已核）";
 
     public static List<File> readFileList(String excelPath) {
         List<File> files = new ArrayList<>();
@@ -126,7 +126,7 @@ public class dataSumJudgementOther {
                         int valueOne = new BigDecimal((double) upValue).setScale(1, BigDecimal.ROUND_HALF_UP).intValue();
                         int valueTwoInt = new BigDecimal(valueSum).setScale(1, BigDecimal.ROUND_HALF_UP).intValue();
                         if (Math.abs(valueOne - valueTwoInt) < 5) {
-                            System.out.println("项目:" + title + "--valueOne:" + valueOne + "--valueTwoInt:" + valueTwoInt);
+//                            System.out.println("项目:" + title + "--valueOne:" + valueOne + "--valueTwoInt:" + valueTwoInt);
                         }
                         if (Math.abs(valueOne - valueTwoInt) > 5) {
                             System.out.println("[" + f.getAbsolutePath() + ":" + sheet.getSheetName() + "]--" + RegUtils.delAllSpaceForString(row.getCell(0).getStringCellValue()) + "," + "第" + (k + 1) + "列数据不一致,地方总和:" + valueTwoInt + ",全市数据:" + valueOne);
