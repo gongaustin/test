@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description: 批处理类
@@ -21,6 +22,9 @@ public class Start {
     public static String upExcelPath = "D:\\长沙项目\\服务业\\922-11-标准表格.XLS";
     //地区
     public static String downExcelFilePath = "D:\\长沙项目\\服务业\\地区";
+
+
+
 
     /**
      * @param: []
