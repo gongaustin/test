@@ -1,5 +1,6 @@
 package com.gongjun.changsha.FuWuYeDos;
 
+import com.gongjun.changsha.EbookHandler.EbookExcelUtils;
 import com.gongjun.changsha.tools.ExcelUtils;
 import com.gongjun.changsha.tools.RegUtils;
 import org.apache.commons.collections4.CollectionUtils;
@@ -21,6 +22,23 @@ public class Excel11_01 {
     public static void todo(String sourceExcelPath, String targetExcelPath) {
         //数据源表
         Workbook sourceWorkbook = ExcelUtils.getWorkbookFromExcel(new File(sourceExcelPath));
+
+        //读取市表的宾栏
+        Workbook targetWorkbook = ExcelUtils.getWorkbookFromExcel(new File(targetExcelPath));
+        Sheet targetSheet = targetWorkbook.getSheet("11-01");
+        int targetSheetRows = targetSheet.getPhysicalNumberOfRows();
+        int targetBeginRow = 14;
+        List<String> indexsData = new ArrayList<>();
+        for (int i = targetBeginRow; i < targetSheetRows; i++) {
+            Row row  = targetSheet.getRow(i);
+            if(row == null || row.getCell(0) == null) continue;
+            String index = row.getCell(0).getStringCellValue();
+            if(index.startsWith(" ")) index = "  "+RegUtils.delAllSpaceForString(index);
+            if(StringUtils.isNotBlank(index)) indexsData.add(index);
+        }
+
+
+
 
         Sheet sourceSheet = sourceWorkbook.getSheetAt(0);
         int dataBeginRow = 0;
@@ -75,10 +93,33 @@ public class Excel11_01 {
         if (a != 0) data.add(a, Arrays.asList("按登记注册类型分组", null, null, null, null, null, null));
         if (b != 0) data.add(b, Arrays.asList("按国民经济行业分组", null, null, null, null, null, null));
 
-        //目标表
-        Workbook targetWorkbook = ExcelUtils.getWorkbookFromExcel(new File(targetExcelPath));
+        List<List<Object>> newData = new ArrayList<>();
+        for (int i = 0; i < data.size(); i++) {
+            if(i<a) {
+                newData.add(data.get(i));
+            }
+        }
 
-        Sheet targetSheet = targetWorkbook.getSheet("11-01");
+        for (int j = 0; j < indexsData.size(); j++) {
+            List<Object> newRowData = new ArrayList<>();
+            String index = indexsData.get(j);
+            newRowData.add(index);
+            for (int k = a; k < data.size(); k++) {
+                if(data == null || data.size()<1 || StringUtils.isBlank(data.get(k).get(0).toString())) continue;
+                String dataIndex = data.get(k).get(0).toString();
+                if(index.equals(dataIndex)){
+                    List<Object> rowData = data.get(k);
+                    for (int i = 1; i < rowData.size(); i++) {
+                        if(newRowData.size()==i) newRowData.add(rowData.get(i));
+                    }
+                }
+            }
+            newData.add(newRowData);
+        }
+
+
+        data = newData;
+        //目标表
         int targetSheetDataBeginRow = 3;
 
         /**
@@ -119,7 +160,7 @@ public class Excel11_01 {
         if (originDataRows > writeDataRows) {
             for (int i = writeDataRows + targetSheetDataBeginRow; i < targetSheet.getPhysicalNumberOfRows(); i++) {
                 Row row = targetSheet.getRow(i);
-                targetSheet.removeRow(row);
+                if(row != null) targetSheet.removeRow(row);
             }
         }
         for (int i = 0; i < writeDataRows; i++) {
@@ -154,6 +195,6 @@ public class Excel11_01 {
 
     @Test
     public void test() {
-        todo("D:\\长沙项目\\服务业\\地区\\430102服务业经普公报\\11-01服务业法人单位基本情况.xlsx", "D:\\长沙项目\\服务业\\地区\\430102服务业经普公报\\922-11.XLS");
+        todo("D:\\长沙项目\\服务业\\地区\\430102服务业经普公报\\11-01服务业法人单位基本情况1.xlsx", "D:\\长沙项目\\服务业\\全市\\922-11新表.XLS");
     }
 }
