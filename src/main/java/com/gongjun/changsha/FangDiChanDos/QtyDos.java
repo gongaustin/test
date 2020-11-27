@@ -175,6 +175,7 @@ public class QtyDos {
             String[] keys = key.split(",");
             index = keys[0];
             if(key.startsWith(index)) sum +=map.get(key);
+//            System.out.println(index+",[市县区]总和为:"+sum);
         }
 
     }

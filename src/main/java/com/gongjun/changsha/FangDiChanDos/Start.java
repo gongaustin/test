@@ -43,7 +43,7 @@ public class Start {
     }
 
     public void todo(){
-        List<File> files = com.gongjun.changsha.tools.FileUtils.getFiles(zonePath,new ArrayList<>());
+        List<File> files = com.gongjun.changsha.tools.FileUtils.getFiles(zonePath+"\\3-4",new ArrayList<>());
 
         for (File file:files){
             String sourceExcelName = file.getName();
@@ -56,7 +56,7 @@ public class Start {
     }
 
     public void todoFor1And2(){
-        String zoneParent = "D:\\长沙项目\\房地产\\地区\\1-2";
+        String zoneParent = zonePath+"\\1-2";
         List<File> files = com.gongjun.changsha.tools.FileUtils.getFiles(zoneParent,new ArrayList<>());
         for(File file : files){
             String[] fileStrs = file.getAbsolutePath().split("\\\\");
@@ -72,6 +72,9 @@ public class Start {
 
     @Test
     public void test() {
+        copyExcel2Zone();
         todoFor1And2();
+        todo();
     }
+
 }

@@ -63,8 +63,10 @@ public class Excel_10_02 {
                     rowData.add(value);
                 }
             }
-            if(!CollectionUtils.isEmpty(rowData) && rowData.size()==4)
+            if(!CollectionUtils.isEmpty(rowData) && rowData.size()==4){
+                if(!StringUtils.equalsAny(RegUtils.delAllSpaceForString(rowData.get(0).toString()),"中央","地方","其他"))
                 data.add(rowData);
+            }
 
         }
         data.add(1,Arrays.asList("按地区分组",null,null,null));

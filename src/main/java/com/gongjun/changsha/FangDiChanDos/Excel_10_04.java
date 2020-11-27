@@ -3,6 +3,7 @@ package com.gongjun.changsha.FangDiChanDos;
 import com.gongjun.changsha.tools.ExcelUtils;
 import com.gongjun.changsha.tools.RegUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -63,7 +64,7 @@ public class Excel_10_04 {
                 Object value = ExcelUtils.getCellValue(cell);
                 rowData.add(value);
             }
-            data.add(rowData);
+            if(!CollectionUtils.isEmpty(rowData)&& rowData.size()>1)data.add(rowData);
         }
         return data;
     }
