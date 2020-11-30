@@ -96,6 +96,7 @@ public class Excel_7_04 {
                     if(value instanceof String && StringUtils.isBlank((String)value)) valueDouble = 0d;
                     if(value instanceof String && StringUtils.isNotBlank((String)value)) valueDouble = Double.valueOf((String)value);
                     if(value instanceof Double) valueDouble = (double)value;
+                    //如果是以千元为单位
 //                    if(j>=1){
 //                        BigDecimal bd = new BigDecimal(valueDouble/10).setScale(0, BigDecimal.ROUND_HALF_UP);
 //                        valueDouble = new Double(bd.intValue());
