@@ -305,6 +305,7 @@ public class newJudegment {
                 }
 
                 if (Math.abs(cityCellData - zoneCellSumData) > 5) {
+                    System.out.println(key+"--"+i+"--"+"差值"+Math.abs(cityCellData - zoneCellSumData));
                     if(Math.abs(cityCellData*2-zoneCellSumData)==0d){
                     }else{
                         qtyIndex = qtyMap.get(key);

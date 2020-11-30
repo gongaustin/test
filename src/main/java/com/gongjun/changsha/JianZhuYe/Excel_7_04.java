@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.Test;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -95,6 +96,10 @@ public class Excel_7_04 {
                     if(value instanceof String && StringUtils.isBlank((String)value)) valueDouble = 0d;
                     if(value instanceof String && StringUtils.isNotBlank((String)value)) valueDouble = Double.valueOf((String)value);
                     if(value instanceof Double) valueDouble = (double)value;
+//                    if(j>=1){
+//                        BigDecimal bd = new BigDecimal(valueDouble/10).setScale(0, BigDecimal.ROUND_HALF_UP);
+//                        valueDouble = new Double(bd.intValue());
+//                    }
                     rowData.add(valueDouble);
                 }
             }
@@ -149,7 +154,7 @@ public class Excel_7_04 {
 
     @Test
     public void test(){
-        todo("D:\\长沙项目\\建筑业\\地区\\芙蓉区\\661+总承包和专业承包建筑业法人单位主要财务状况（864301000000000_县级_县级）_430100000000_20180000_20201118.xls",
-                "D:\\长沙项目\\建筑业\\已处理\\芙蓉区\\922-7.XLS");
+        todo("D:\\长沙项目\\建筑业\\地区\\雨花区\\661+总承包和专业承包建筑业法人单位主要财务状况（864301000000000_县级_县级）_430100000000_20180000_20201118.xls",
+                "D:\\长沙项目\\建筑业\\已处理\\雨花区\\922-7.XLS");
     }
 }
