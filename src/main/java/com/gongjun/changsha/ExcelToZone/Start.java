@@ -17,9 +17,9 @@ import java.util.List;
  */
 @Slf4j
 public class Start {
-    private static String PER_PARENT = "D:\\长沙项目\\数据专业汇总\\汇总前";
-    private static String AFTER_PARENT = "D:\\长沙项目\\数据专业汇总\\汇总后";
-    private static List<String> ZONES = Arrays.asList(
+    private final static String PER_PARENT = "D:\\长沙项目\\数据专业汇总\\汇总前";
+    private final static String AFTER_PARENT = "D:\\长沙项目\\数据专业汇总\\汇总后";
+    private final static List<String> ZONES = Arrays.asList(
             "芙蓉区",
             "开福区",
             "浏阳市",
