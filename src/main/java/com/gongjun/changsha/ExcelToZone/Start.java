@@ -19,6 +19,7 @@ import java.util.List;
 public class Start {
     private final static String PER_PARENT = "D:\\长沙项目\\数据专业汇总\\汇总前";
     private final static String AFTER_PARENT = "D:\\长沙项目\\数据专业汇总\\汇总后";
+    private final static String RENAME_PARENT = "D:\\长沙项目\\数据专业汇总\\重命名";
     private final static List<String> ZONES = Arrays.asList(
             "芙蓉区",
             "开福区",
@@ -59,9 +60,36 @@ public class Start {
 
     }
 
+    public void rename (){
+        List<File> files = FileUtils.getFiles(AFTER_PARENT,new ArrayList<>());
+        for (File file:files){
+            String asPathPatent = file.getParent();
+            String[] strings = asPathPatent.split("\\\\");
+            String zone = strings[strings.length-1];
+
+
+            String fileName = file.getName();
+            String fileNameWithoutSuffix = fileName.substring(0,fileName.lastIndexOf("."));
+            String suffix = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+            String[] ss = fileNameWithoutSuffix.split("-");
+            if(ss.length!=2) continue;
+
+            //获取阿拉伯数字
+            String number = ss[1];
+            if(number.contains("430")) number = number.substring(0,1);
+            try {
+                org.apache.commons.io.FileUtils.copyFile(file,new File(RENAME_PARENT+"\\"+zone+"\\第"+number+"篇"+suffix));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
     @Test
     public void test(){
-        this.todo();
+        this.rename();
     }
 
 }

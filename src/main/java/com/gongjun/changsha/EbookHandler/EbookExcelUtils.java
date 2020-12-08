@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellAddress;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -124,6 +126,38 @@ public class EbookExcelUtils {
                         if (fileName.endsWith("xlsx") && !fileName.startsWith("0.xlsx")) {
                             System.out.println(fileName);
                             excelToPng(directory, fileName);
+                        }
+                    }
+                }
+            }
+        } else {
+            System.out.println("文件不存在!");
+        }
+    }
+
+    public static void batCaptureChangshaExcelToPngNew(String path) {
+        File file = new File(path);
+        if (file.exists()) {
+            File[] files = file.listFiles();
+            if (files.length == 0) {
+                System.out.println("文件夹是空的!");
+                return;
+            } else {
+                for (File file2 : files) {
+                    if (file2.isDirectory()) {
+                        System.out.println("文件夹:" + file2.getAbsolutePath());
+                        batCaptureChangshaExcelToPng(file2.getAbsolutePath());
+                    } else {
+                        String fileName = file2.getName();     //获取文件的文件名
+                        String directory = file2.getParent();  //获取文件的路径
+                        if (fileName.endsWith("xlsx") && !fileName.startsWith("0.xlsx")) {
+                            System.out.println(fileName);
+                            File excelFile = new File(directory);
+                            com.spire.xls.Workbook workbook = new com.spire.xls.Workbook();
+                            workbook.loadFromFile(directory);
+                            com.spire.xls.Worksheet ws = workbook.getActiveSheet();
+
+                            Excel2Img.convertToImage(excelFile, 0,"","");
                         }
                     }
                 }
@@ -259,7 +293,14 @@ public class EbookExcelUtils {
         }
     }
 
-
+   @Test
+    public void test(){
+        String excelPath = "D:\\长沙项目\\电子年鉴制作\\拆分表格不含图片\\11第十一篇 服务业\\11-01  服务业法人单位基本情况.xlsx";
+       Workbook workbook1 = ExcelUtils.getWorkbookFromExcel(new File(excelPath));
+       Sheet sheet = workbook1.getSheetAt(0);
+       CellAddress ca = sheet.getActiveCell();
+       Excel2Img.convertToImage(new File(excelPath),0,"A0",ca.toString());
+   }
 
 
 }

@@ -1,4 +1,4 @@
-package com.gongjun.changsha.ZongHeDos;
+package com.gongjun.changsha.MaoYiDos;
 
 import com.gongjun.changsha.tools.ExcelUtils;
 import com.gongjun.changsha.tools.RegUtils;
@@ -9,48 +9,28 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.junit.Test;
 
 import java.io.File;
 import java.util.*;
 
 /**
- * @Description:新的判断方法(综合)
+ * @Description:建筑业数据核对
  * @Author: GongJun
- * @Date: Created in 9:09 2020/11/6
+ * @Date: Created in 10:09 2020/11/12
  */
 @Slf4j
-public class newJudgement {
-    public static Map<String, List<Map<String, Double>>> markData = new HashMap<>();
-    //全市数据
-    private static String cityPath = "D:\\长沙项目\\综合&企业\\全市";
-    //地区数据
-    private static String zonePath = "D:\\长沙项目\\综合&企业\\地区";
-    //表格关键词
-    private static String keyword = "922-1";
+public class newJudegment {
 
-    //获取文件
-    //排除的Sheet集合
+    //全市数据
+    private static String cityPath = "D:\\长沙项目\\贸易\\全市";
+    //地区数据
+    private static String zonePath = "D:\\长沙项目\\贸易\\地区";
+    //关键词
+    private static String keyword = "922-9";
+    //排除的表
     List<String> exceptSheets = Arrays.asList(
             //标题
-            "1-00",
-            //街道（镇）数据
-            "1-01", "1-02", "1-07", "1-08", "1-11",
-            //未统计数据
-//            "1-14", "1-15", "1-16",
-            //标题
-            "2-00",
-            //街道（镇）数据
-            "2-04", "2-05", "2-06", "2-12", "2-25", "2-26");
-
-    /**
-     * @param: [path, list, keyword]
-     * @description:获取文件的List
-     * @author: GongJun
-     * @time: Created in 9:13 2020/11/6
-     * @modified:
-     * @return: java.util.List<java.io.File>
-     **/
+            "9-00");
     public List<File> getFiles(String path, List<File> list, String keyword) {
         if (list == null) list = new ArrayList<>();
         File file = new File(path);
@@ -72,6 +52,7 @@ public class newJudgement {
         }
         return list;
     }
+
 
     public Map<String, List<Double>> getCityData() {
         //获取市表格文件
@@ -97,12 +78,18 @@ public class newJudgement {
                 if (exceptSheets.contains(sheetName)) continue;
                 //获取市Sheet的行数
                 int citySheetRowNumber = citySheet.getPhysicalNumberOfRows();
+
+                //定义主标题
+                String bigCellVaule = "";
                 //主要指标定义
                 for (int j = 0; j < citySheetRowNumber; j++) {
                     Row cityRow = citySheet.getRow(j);
-                    if (cityRow == null) continue;
-                    Object value = ExcelUtils.getCellValue(cityRow.getCell(0));
+                    if (cityRow == null || cityRow.getCell(0) == null) continue;
+                    String value = cityRow.getCell(0).getStringCellValue();
                     if (value != null && value instanceof String && StringUtils.isNotBlank((String) value)) {
+                        if (!value.startsWith(" ")) {
+                            bigCellVaule = value;
+                        } else value = bigCellVaule + "--" + value;
                         String index = sheetName + "--" + value;
                         index = RegUtils.delAllSpaceForString(index); //index作为Key值
                         //获取cityRow的列数（Cell数）
@@ -130,13 +117,34 @@ public class newJudgement {
         }
 
 
-        cityData = this.sortMapBykeyAsc(cityData);
+        cityData = this.sortByKey(cityData);
 
         //打印市数据
 
         return cityData;
 
 
+    }
+
+
+
+
+    private Map<String, List<Double>> sortByKey(Map<String, List<Double>> map) {
+        Map<String, List<Double>> result = new LinkedHashMap<>(map.size());
+        map.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEachOrdered(e -> result.put(e.getKey(), e.getValue()));
+        return result;
+    }
+
+
+    public List<String> getIndexsFromCityData(Map<String, List<Double>> data) {
+        if (data == null) return null;
+        List<String> indexs = new ArrayList<>();
+        for (String key : data.keySet()) {
+            if (!indexs.contains(key)) indexs.add(key);
+        }
+        return indexs;
     }
 
     /**
@@ -161,7 +169,7 @@ public class newJudgement {
 
         for (File zoneExcelFile : zoneFiles) {
             //获取区域
-            String zone = zoneExcelFile.getAbsolutePath().substring(17, 20);
+            String zone = zoneExcelFile.getAbsolutePath().substring(16, 18);
             //获取Workbool
             Workbook zoneWorkbook = ExcelUtils.getWorkbookFromExcel(zoneExcelFile);
             //获取Sheet数目
@@ -175,6 +183,7 @@ public class newJudgement {
                 if (exceptSheets.contains(sheetName)) continue;
                 //获取Sheet的行数
                 int zoneSheetRowNumber = zoneSheet.getPhysicalNumberOfRows();
+                String bigCellVaule = "";
                 //遍历SHeet的行
                 for (int j = 0; j < zoneSheetRowNumber; j++) {
                     //获取row
@@ -185,8 +194,13 @@ public class newJudgement {
                     int cellNumberOfRow = zoneRow.getPhysicalNumberOfCells();
                     //获取指标名称
                     String zoneIndex = null;
+
                     try {
-                        zoneIndex = RegUtils.delAllSpaceForString(sheetName + "--" + zoneRow.getCell(0).getStringCellValue());
+                        String value = zoneRow.getCell(0).getStringCellValue();
+                        if (!value.startsWith(" ")) {
+                            bigCellVaule = value;
+                        } else value = bigCellVaule + "--" + value;
+                        zoneIndex = RegUtils.delAllSpaceForString(sheetName + "--" + value);
                     } catch (Exception e) {
 //                        log.info("区县数据转换错误:{},位置:{}--{}",e.getMessage(),zoneExcelFile,sheetName);
                         continue;
@@ -212,7 +226,7 @@ public class newJudgement {
                                 if (StringUtils.isNotBlank((String) value)) try {
                                     zoneCellValue = Double.valueOf((String) value);
                                 } catch (Exception e) {
-                                    log.info("数据转换错误,原始值:{}", value);
+//                                    log.info("数据转换错误,原始值:{}", value);
                                     zoneCellValue = 0d;
                                 }
                                 else zoneCellValue = 0d;
@@ -244,7 +258,7 @@ public class newJudgement {
                                     try {
                                         zoneCellValue = Double.valueOf((String) value);
                                     } catch (Exception e) {
-                                        log.info("数据转换错误,原始值:{}", value);
+//                                        log.info("数据转换错误,原始值:{}", value);
                                         zoneCellValue = 0d;
                                     }
                                 } else zoneCellValue = 0d;
@@ -260,99 +274,16 @@ public class newJudgement {
     }
 
 
-    public List<String> getIndexsFromCityData(Map<String, List<Double>> data) {
-        if (data == null) return null;
-        List<String> indexs = new ArrayList<>();
-        for (String key : data.keySet()) {
-            if (!indexs.contains(key)) indexs.add(key);
-        }
-        return indexs;
-    }
 
 
-    //升序
-    public Map<String, List<Double>> sortMapBykeyAsc(Map<String, List<Double>> oriMap) {
-        Map<String, List<Double>> sortedMap = new LinkedHashMap<>();
-        try {
-            if (oriMap != null && !oriMap.isEmpty()) {
-                List<Map.Entry<String, List<Double>>> entryList = new ArrayList<Map.Entry<String, List<Double>>>(oriMap.entrySet());
-                Collections.sort(entryList, new Comparator<Map.Entry<String, List<Double>>>() {
-                    public int compare(Map.Entry<String, List<Double>> entry2, Map.Entry<String, List<Double>> entry1) {
-                        int value2 = 0, value1 = 0;
-                        try {
-                            value2 = Integer.parseInt(entry2.getKey().substring(1, 4));
-                            value1 = Integer.parseInt(entry1.getKey().substring(1, 4));
-                        } catch (NumberFormatException e) {
-                            value2 = 0;
-                            value1 = 0;
-                        }
-                        return value1 - value2;
-                    }
-                });
-                Iterator<Map.Entry<String, List<Double>>> iter = entryList.iterator();
-                Map.Entry<String, List<Double>> tmpEntry = null;
-                while (iter.hasNext()) {
-                    tmpEntry = iter.next();
-                    sortedMap.put(tmpEntry.getKey(), tmpEntry.getValue());
-                }
-            }
-        } catch (Exception e) {
-        }
-        return sortedMap;
-    }
 
 
-    @Test
-    public void test() {
 
-        Map<String, List<Double>> cityData = this.sortMapBykeyAsc(this.getCityData());
-
-
-        Map<String, List<Double>> zoneSumData = this.sortMapBykeyAsc(this.getZoneSumData());
-
-        List<String> qtys = new ArrayList<>();
-
-//
-        //开始比较
-        for (String key : cityData.keySet()) {
-            List<Double> cityRowData = cityData.get(key);
-
-            List<Double> zoneSumRowData = zoneSumData.get(key);
-            if (cityRowData == null || zoneSumRowData == null) continue;
-            if (cityRowData.containsAll(zoneSumRowData)) continue;
-            int number = cityRowData.size();
-            for (int i = 0; i < number; i++) {
-                //市数据
-                double cityCellData = cityRowData.get(i);
-
-                double zoneCellSumData = 0;
-                try {
-                    zoneCellSumData = zoneSumRowData.get(i);
-                } catch (Exception e) {
-                    zoneCellSumData = 0;
-                }
-
-                if (Math.abs(cityCellData - zoneCellSumData) > 1) {
-                    if(Math.abs(cityCellData*2-zoneCellSumData)==0d){
-
-                    }else{
-                        log.info("指标[{}]--第{}项数据不一致,全市数据:{},区县加总:{}", key,i+1, cityCellData, zoneCellSumData);
-                        if(!qtys.contains(key)) qtys.add(key);
-                    }
-                }
-
-            }
-
-
-        }
-    }
-
-    public Map<String,List<Integer>> getQtyMap(){
+    public Map<String, List<Integer>> getQtyMap(){
         Map<String,List<Integer>> qtyMap = new HashMap<>();
-
-        Map<String, List<Double>> cityData = this.sortMapBykeyAsc(this.getCityData());
-        Map<String, List<Double>> zoneSumData = this.sortMapBykeyAsc(this.getZoneSumData());
-//
+        Map<String, List<Double>> cityData = this.sortByKey(this.getCityData());
+        Map<String, List<Double>> zoneSumData = this.sortByKey(this.getZoneSumData());
+        Map<Integer,List<String>> noMatchMap = new HashMap<>();
         //开始比较
         for (String key : cityData.keySet()) {
             List<Double> cityRowData = cityData.get(key);
@@ -365,14 +296,15 @@ public class newJudgement {
             for (int i = 0; i < number; i++) {
                 //市数据
                 double cityCellData = cityRowData.get(i);
+
                 double zoneCellSumData = 0;
                 try {
                     zoneCellSumData = zoneSumRowData.get(i);
                 } catch (Exception e) {
                     zoneCellSumData = 0;
                 }
-
-                if (Math.abs(cityCellData - zoneCellSumData) > 5) {
+                if (Math.abs(cityCellData - zoneCellSumData) > 0) {
+                    System.out.println(key+"--"+i+"--"+"差值"+Math.abs(cityCellData - zoneCellSumData));
                     if(Math.abs(cityCellData*2-zoneCellSumData)==0d){
                     }else{
                         qtyIndex = qtyMap.get(key);

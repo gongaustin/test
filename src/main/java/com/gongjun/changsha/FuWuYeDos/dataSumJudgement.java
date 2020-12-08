@@ -87,7 +87,7 @@ public class dataSumJudgement {
                         if (!(upValue instanceof Double)) continue;
                         Double valueSum = 0d;
                         for (File file : downExelList) {
-                            if (file.getName().contains(sheetName)) {
+                            if (file.getName().contains("922-11")) {
                                 Workbook workbook1 = ExcelUtils.getWorkbookFromExcel(file);
                                 Sheet sheet1 = workbook1.getSheetAt(0);
                                 int markline = 0;

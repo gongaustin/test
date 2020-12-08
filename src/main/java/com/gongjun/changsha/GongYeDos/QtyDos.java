@@ -1,6 +1,5 @@
-package com.gongjun.changsha.ZongHeHeQiYeDos;
+package com.gongjun.changsha.GongYeDos;
 
-import com.gongjun.changsha.ZongHeDos.newJudgement;
 import com.gongjun.changsha.tools.ExcelUtils;
 import com.gongjun.changsha.tools.FileUtils;
 import com.gongjun.changsha.tools.RegUtils;
@@ -20,27 +19,19 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 /**
- * @Description:问题指标数据读取
+ * @Description:建筑业数据核对
  * @Author: GongJun
- * @Date: Created in 9:35 2020/11/9
+ * @Date: Created in 9:54 2020/11/12
  */
 @Slf4j
 public class QtyDos {
 
-    public static String indexTxtPath = "D:\\长沙项目\\综合&企业待处理\\问题指标.txt";
+    public static String indexTxtPath = "";
 
 
     List<String> exceptSheets = Arrays.asList(
             //标题
-            "1-00",
-            //街道（镇）数据
-            "1-01", "1-02", "1-07", "1-08", "1-11",  "1-14",
-            //未统计数据
-//             "1-15", "1-16",
-            //标题
-            "2-00",
-            //街道（镇）数据
-            "2-04", "2-05", "2-06", "2-12", "2-25", "2-26");
+            "6-00");
     //读取问题指标并存储
     public List<String> getIndexsFromTxt(){
         List<String> indexs = new ArrayList<>();
@@ -72,15 +63,17 @@ public class QtyDos {
 //        List<String> indexs = this.getIndexsFromTxt();
         Map<String,List<Integer>> indexsMap = this.getQtyMap();
         //获取表格的文件集合
-        List<File> zoneFiles = FileUtils.getFiles("D:\\长沙项目\\综合&企业\\地区",new ArrayList<>());
+        List<File> zoneFiles = FileUtils.getFiles( "D:\\长沙项目\\工业\\处理后\\地区",new ArrayList<>());
 
         Map<String,Double> qtyDataMap = new HashMap<>();
 
 
         for (File zoneExcelFile : zoneFiles) {
-            if(!zoneExcelFile.getAbsolutePath().endsWith(".xlsx")) continue;
+            if(!zoneExcelFile.getAbsolutePath().endsWith(".XLS")) continue;
             //获取区域
-            String zone = zoneExcelFile.getAbsolutePath().substring(17, 20);
+            String asPathPatent = zoneExcelFile.getParent();
+            String[] strings = asPathPatent.split("\\\\");
+            String zone = strings[strings.length-1];
             //获取Workbool
             Workbook zoneWorkbook = ExcelUtils.getWorkbookFromExcel(zoneExcelFile);
             //获取Sheet数目
@@ -95,6 +88,7 @@ public class QtyDos {
                 //获取Sheet的行数
                 int zoneSheetRowNumber = zoneSheet.getPhysicalNumberOfRows();
                 //遍历SHeet的行
+                String bigCellVaule = "";
                 for (int j = 0; j < zoneSheetRowNumber; j++) {
                     //获取row
                     Row zoneRow = zoneSheet.getRow(j);
@@ -105,7 +99,11 @@ public class QtyDos {
                     //获取指标名称
                     String zoneIndex = null;
                     try {
-                        zoneIndex = RegUtils.delAllSpaceForString(sheetName + "--" + zoneRow.getCell(0).getStringCellValue());
+                        String value = zoneRow.getCell(0).getStringCellValue();
+                        if (!value.startsWith(" ")) {
+                            bigCellVaule = value;
+                        } else value = bigCellVaule + "--" + value;
+                        zoneIndex = RegUtils.delAllSpaceForString(sheetName + "--" + value);
                     } catch (Exception e) {
 //                        log.info("区县数据转换错误:{},位置:{}--{}",e.getMessage(),zoneExcelFile,sheetName);
                         continue;
@@ -122,7 +120,7 @@ public class QtyDos {
                         try {
                             value = ExcelUtils.getCellValue(zoneCell);
                         } catch (Exception e) {
-                            log.info("Cell值获取错误,位置:{},指标名称:{},第{}列数据", sheetName, zoneIndex, k + 1);
+//                            log.info("Cell值获取错误,位置:{},指标名称:{},第{}列数据", sheetName, zoneIndex, k + 1);
                             value = 0d;
                         }
                         if (value instanceof Double) zoneCellValue = (Double) value;
@@ -159,33 +157,27 @@ public class QtyDos {
     public Map<String,List<Integer>> getQtyMap(){
 
         //综合
-        newJudgement  snew = new newJudgement();
-        com.gongjun.changsha.QiYeDos.newJudgement  enew = new com.gongjun.changsha.QiYeDos.newJudgement();
-        Map<String,List<Integer>> sMap = snew.getQtyMap();
-        Map<String,List<Integer>> eMap = enew.getQtyMap();
-        for(String key:eMap.keySet()){
-            sMap.put(key,eMap.get(key));
-        }
+        Map<String,List<Integer>> sMap = new newJudegment().getQtyMap();
         return sMap;
     }
 
 
     @Test
     public void test(){
-          Map<String,Double> map = this.sortByKey(this.readZoneData());
-          Double sum = 0d;
-          String index = null;
-          for (String key:map.keySet()){
-              if(index != null && !key.startsWith(index)){
-                  System.out.println(index+",[市县区]总和为:"+sum);
-                  System.out.println("************************************************");
-                  sum = 0d;
-              }
-              System.out.println(key+map.get(key));
-              String[] keys = key.split(",");
-              index = keys[0];
-              if(key.startsWith(index)) sum +=map.get(key);
-          }
+        Map<String,Double> map = this.sortByKey(this.readZoneData());
+        Double sum = 0d;
+        String index = null;
+        for (String key:map.keySet()){
+            if(index != null && !key.startsWith(index)){
+                System.out.println(index+",[地区]总和为:"+(new Double(sum).intValue()));
+                System.out.println("************************************************");
+                sum = 0d;
+            }
+            System.out.println(key+map.get(key));
+            String[] keys = key.split(",");
+            index = keys[0];
+            if(key.startsWith(index)) sum +=map.get(key);
+        }
 
     }
 }

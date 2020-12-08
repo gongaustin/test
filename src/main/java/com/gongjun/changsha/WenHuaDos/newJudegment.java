@@ -24,7 +24,7 @@ public class newJudegment {
     //全市数据
     private static String cityPath = "D:\\长沙项目\\核验数据\\文化\\全市";
     //地区数据
-    private static String zonePath = "D:\\长沙项目\\再次校验\\文化（已核）";
+    private static String zonePath = "D:\\长沙项目\\核验数据\\科技与文化\\地区";
     private static String keyword = "922-3";
     List<String> exceptSheets = Arrays.asList(
             //标题

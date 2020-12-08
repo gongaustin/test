@@ -17,8 +17,8 @@ public class Start {
     //测试方法
     @Test
     public void test() {
-        EbookExcelUtils.batSplitSheetsToSingleExcel(SOURCE_EXCEL_PARENT, TARGET_EXCEL_PARENT);
-        EbookExcelUtils.batRenameChangshaExcelAndCopyExcel2OtherPath(TARGET_EXCEL_PARENT);
+//        EbookExcelUtils.batSplitSheetsToSingleExcel(SOURCE_EXCEL_PARENT, TARGET_EXCEL_PARENT);
+//        EbookExcelUtils.batRenameChangshaExcelAndCopyExcel2OtherPath(TARGET_EXCEL_PARENT);
         EbookExcelUtils.batCaptureChangshaExcelToPng(MATERIAL_EXCEL_PARENT);
     }
 }
