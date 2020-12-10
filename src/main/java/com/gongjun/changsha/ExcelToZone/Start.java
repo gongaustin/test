@@ -2,6 +2,7 @@ package com.gongjun.changsha.ExcelToZone;
 
 import com.gongjun.changsha.tools.FileUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.map.HashedMap;
 import org.junit.Test;
 
 import java.io.File;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:分专业的数据拷贝到地区文件夹
@@ -20,6 +22,7 @@ public class Start {
     private final static String PER_PARENT = "D:\\长沙项目\\数据专业汇总\\汇总前";
     private final static String AFTER_PARENT = "D:\\长沙项目\\数据专业汇总\\汇总后";
     private final static String RENAME_PARENT = "D:\\长沙项目\\数据专业汇总\\重命名";
+    private final static String RENAME_AFTER = "D:\\长沙项目\\数据专业汇总\\再次处理";
     private final static List<String> ZONES = Arrays.asList(
             "芙蓉区",
             "开福区",
@@ -58,6 +61,7 @@ public class Start {
             if(!file.exists()) file.mkdir();
         });
 
+
     }
 
     public void rename (){
@@ -86,10 +90,51 @@ public class Start {
     }
 
 
+    private static List<String> RELATIONS = Arrays.asList(
+            "第1篇,综合",
+            "第2篇,企业",
+            "第3篇,文化及相关产业",
+            "第4篇,科技",
+            "第5篇,信息化和电子商务",
+            "第6篇,工业",
+            "第7篇,建筑业",
+            "第8篇,批发和零售业",
+            "第9篇,住宿和餐饮业",
+            "第10篇,房地产开发经营业",
+            "第11篇,服务业"
+            );
+
+    private void renameExcelS(){
+        Map<String,String> relationMap = new HashedMap<>();
+        RELATIONS.forEach(e->{
+            String[] ss = e.split(",");
+            if(ss.length == 2) relationMap.put(ss[0],ss[0]+" "+ss[1]);
+        });
+
+
+        List<File> files = FileUtils.getFiles(RENAME_PARENT,new ArrayList<>());
+        for(File file : files){
+            String fileName = file.getName();
+            String fileNameWithoutSuffix = fileName.substring(0,fileName.lastIndexOf("."));
+            if(relationMap.containsKey(fileNameWithoutSuffix)) fileName = relationMap.get(fileNameWithoutSuffix)+".xlsx";
+            //获取地区
+            String asPathPatent = file.getParent();
+            String[] strings = asPathPatent.split("\\\\");
+            String zone = strings[strings.length-1];
+
+
+            try {
+                org.apache.commons.io.FileUtils.copyFile(file,new File(RENAME_AFTER+"\\"+zone+"\\"+fileName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     @Test
     public void test(){
-        this.rename();
+        this.renameExcelS();
     }
 
 }
