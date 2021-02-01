@@ -41,6 +41,7 @@ public class excersises {
         System.out.println("后面的代码会执行吗？！");
 
         //位运算
+        System.out.println(16>>3);
         System.out.println(2<<3);
     }
 }
