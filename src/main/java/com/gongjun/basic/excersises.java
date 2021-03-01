@@ -19,12 +19,15 @@ public class excersises {
         System.out.println(2==b++&&b==2);
         System.out.println("a="+a);
         System.out.println("b="+b);
-
-        ok:
+        System.out.println("***********************0***********************");
+        // 结束循环
+        over:
         for (int i = 0; i < 10; i++) {
             System.out.println(i);
-            break ok;
+            break over;
         }
+
+        System.out.println("***********************1***********************");
 
         for (int i = 0; i < 10; i++) {
             System.out.println(i);
@@ -32,16 +35,19 @@ public class excersises {
             System.out.println(i);
         }
 
+        System.out.println("***********************2***********************");
+
         for (int i = 0; i < 10; i++) {
-            System.out.println(i);
+            System.out.println("i="+i);
             if(i>5) continue;
             System.out.println("后面的代码会执行吗？！");
 
         }
         System.out.println("后面的代码会执行吗？！");
-
+        System.out.println("***********************3***********************");
         //位运算
         System.out.println(16>>3);
         System.out.println(2<<3);
+        System.out.println("***********************4***********************");
     }
 }
