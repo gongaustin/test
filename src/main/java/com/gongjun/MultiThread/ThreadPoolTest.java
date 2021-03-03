@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * @Description:
+ * @Description:多线程 newCachedThreadPool newFixedThreadPool newSingleThreadExecutor
  * @Author: GongJun
  * @Date: Created in 14:41 2021/2/5
  */
