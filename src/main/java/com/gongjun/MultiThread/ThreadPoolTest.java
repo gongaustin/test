@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * @Description:多线程 newCachedThreadPool newFixedThreadPool newSingleThreadExecutor
+ * @Description:多线程 newCachedThreadPool newFixedThreadPool newSingleThreadExecutor 执行速度对比
  * @Author: GongJun
  * @Date: Created in 14:41 2021/2/5
  */
