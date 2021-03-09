@@ -9,6 +9,14 @@ import java.util.concurrent.Executors;
  * @Date: Created in 14:41 2021/2/5
  */
 public class ThreadPoolTest {
+    /**
+     * @param: [args]
+     * @description: main方法
+     * @author: GongJun
+     * @time: Created in 17:00 2021/3/3
+     * @modified: 
+     * @return: void
+     **/
     public static void main(String[] args) {
         ExecutorService cacheService = Executors.newCachedThreadPool();  //快速  有多少任务创建多少非核心线程 （核心线程为0）
         ExecutorService fixService = Executors.newFixedThreadPool(10);  //比较慢   创建10个核心线程执行任务 （队列每10个执行）
@@ -60,5 +68,5 @@ class TestTaskThread extends Thread{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    } 
 }
