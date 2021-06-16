@@ -29,7 +29,6 @@ public class test {
             System.out.print(arr[i]+"\t");
         }
     }
-    @Test
     public void keyTyped(KeyEvent e) {
         System.out.println("【 键入一个字符：  " + e.getKeyChar()+"   】");
     }
