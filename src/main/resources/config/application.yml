@@ -1,0 +1,18 @@
+# 定义端口和context-path
+
+server:
+  port: 8080
+  servlet:
+    context-path: /test
+#指定模板后缀名，否则无法跳转
+spring:
+  freemarker:
+    enabled: true
+    suffix: .ftlh
+
+
+
+# 自定义
+my:
+  name: gongjun
+  age: 34
