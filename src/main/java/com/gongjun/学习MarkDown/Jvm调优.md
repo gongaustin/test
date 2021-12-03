@@ -24,3 +24,11 @@ Java虚拟机生成机器可运行的机器码
 ##方法区
 
 ##程序计数器
+
+
+
+#JVM调优
+
+##Java Visual VM(Java JDK 自带调试工具)
+
+##Ali Arthas(阿里巴巴调试工具)
