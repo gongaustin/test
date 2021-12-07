@@ -8,4 +8,5 @@
 >2.订阅模式
 >
 >>Producer--Cluster(消息集群)--> CustomerOne
->                          --> CustomerTwo
+>>                         --> CustomerTwo
+>>                         --> CustomerThree
