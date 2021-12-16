@@ -28,6 +28,30 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.ftl</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <!--如果要读取的文件是放在src下，需要特别注意：Maven默认不会将src下的资源文件打包到classpath路径下，所以要在pom.xml中追加下面的配置-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.ftl</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+
+        </resources>
     </build>
 
     <repositories>
@@ -198,31 +222,6 @@
     </dependencies>
 
 
-    <!--如果要读取的文件是放在src下，需要特别注意：Maven默认不会将src下的资源文件打包到classpath路径下，所以要在pom.xml中追加下面的配置-->
-    <resources>
-        <resource>
-            <directory>src/main/java</directory>
-            <includes>
-                <include>**/*.yml</include>
-                <include>**/*.properties</include>
-                <include>**/*.xml</include>
-                <include>**/*.ftl</include>
-            </includes>
-            <filtering>false</filtering>
-        </resource>
-        <resource>
-            <directory>src/main/resources</directory>
-            <directory>src/main/templates</directory>
-            <includes>
-                <include>**/*.yml</include>
-                <include>**/*.properties</include>
-                <include>**/*.xml</include>
-                <include>**/*.ftl</include>
-            </includes>
-            <filtering>false</filtering>
-        </resource>
-
-    </resources>
 
 
 </project>
