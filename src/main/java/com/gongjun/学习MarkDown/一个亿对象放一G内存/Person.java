@@ -1,6 +1,7 @@
 package com.gongjun.学习MarkDown.一个亿对象放一G内存;
 
 import lombok.Builder;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
  * @Date:2021/12/24
  */
 @Builder
+@Data
 public class Person {
     //id
     private Long id;

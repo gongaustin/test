@@ -17,7 +17,7 @@ public class ArrayListTest {
     public static void main(String[] args) {
         ArrayList<Person> arrayList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            arrayList.addAll(CreatePersons.getPersonList(5000000));
+            arrayList.addAll(CreatePersons.getPersonList(500000));
         }
         //add一个确定的person
         arrayList.add(CreatePersons.getFixedPerson(LocalDateTime.now()));
