@@ -20,7 +20,7 @@ public class Test {
                 .email("232432@qq.com")
                 .name("King")
                 .address("华阳街道")
-                .salary(new BigDecimal(15000))
+                .salary(BigDecimal.valueOf(15000))
                 .build();
 
 
@@ -30,7 +30,7 @@ public class Test {
                 .email("232432@qq.com")
                 .name("King")
                 .address("郫筒街道")
-                .salary(new BigDecimal(15000))
+                .salary(BigDecimal.valueOf(15000))
                 .build();
         System.out.println(ObjectUtils.equals(personOne,personTwo));
 
