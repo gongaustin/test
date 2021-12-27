@@ -20,7 +20,7 @@ public class Person {
     private String email;
     private Integer age;
     private BigDecimal salary;
-    private String Address;
+    private String address;
 
     public Person(long id, String name, String email, Integer age, BigDecimal salary, String address) {
         this.id = id;
@@ -28,6 +28,6 @@ public class Person {
         this.email = email;
         this.age = age;
         this.salary = salary;
-        Address = address;
+        this.address = address;
     }
 }

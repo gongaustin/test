@@ -19,7 +19,7 @@ public class Test {
                 .age(21)
                 .email("232432@qq.com")
                 .name("King")
-                .Address("华阳街道")
+                .address("华阳街道")
                 .salary(new BigDecimal(15000))
                 .build();
 
@@ -29,7 +29,7 @@ public class Test {
                 .age(21)
                 .email("232432@qq.com")
                 .name("King")
-                .Address("郫筒街道")
+                .address("郫筒街道")
                 .salary(new BigDecimal(15000))
                 .build();
         System.out.println(ObjectUtils.equals(personOne,personTwo));
