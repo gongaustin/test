@@ -1,6 +1,7 @@
 package com.gongjun.学习MarkDown.一个亿对象放一G内存;
 
 import com.spire.ms.System.Collections.ArrayList;
+import lombok.var;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -26,7 +27,7 @@ public class CreatePersons {
     public static LocalDateTime now = LocalDateTime.now();
 
     public static List<Person> getPersonList(int count){
-        List<Person> personList = new ArrayList();
+        var personList = new ArrayList();
         for (int i = 0; i < count; i++) {
             Person person = getPerson();
             personList.add(person);
@@ -35,7 +36,7 @@ public class CreatePersons {
     }
 
     private static Person getPerson(){
-            Person person = Person.builder()
+            var person = Person.builder()
                     .id(random.nextLong())
                     .address("四川省成都市"+addresses[random.nextInt(addresses.length)])
                     .age(random.nextInt(99))
@@ -54,7 +55,7 @@ public class CreatePersons {
 
     //获得一个确定的person，需传入一个date，什么作用这里先别管，后面一看就懂
     public static Person getFixedPerson(LocalDateTime date) {
-        Person person = Person.builder()
+        var person = Person.builder()
                 .id(18966666666L)
                 .name("austin gong")
                 .age(30)
