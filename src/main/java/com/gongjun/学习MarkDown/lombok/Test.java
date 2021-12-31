@@ -34,6 +34,10 @@ public class Test {
                 .build();
         System.out.println(ObjectUtils.equals(personOne,personTwo));
 
+        int a = 5;
+        int b = 2;
+        System.out.println((double)a/b);
+
 
     }
 }
