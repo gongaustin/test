@@ -1,12 +1,9 @@
-package com.gongjun.学习MarkDown.一个亿对象放一G内存;
+package com.gongjun.MarkdownOfStudy.HundredMillionObjectsIntoRAM;
 
 import jdk.nashorn.internal.ir.debug.ObjectSizeCalculator;
-import org.junit.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
-import static com.gongjun.学习MarkDown.一个亿对象放一G内存.CreatePersons.getPersonList;
 
 /**
  * @Description:测试类

@@ -1,8 +1,6 @@
-package com.gongjun.学习MarkDown.一个亿对象放一G内存;
+package com.gongjun.MarkdownOfStudy.HundredMillionObjectsIntoRAM;
 
 import jdk.nashorn.internal.ir.debug.ObjectSizeCalculator;
-
-import java.time.LocalDateTime;
 
 /**
  * @Description:测试类

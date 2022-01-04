@@ -1,4 +1,4 @@
-package com.gongjun.学习MarkDown.lombok;
+package com.gongjun.MarkdownOfStudy.lombok;
 
 import org.apache.commons.lang3.ObjectUtils;
 

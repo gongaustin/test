@@ -1,6 +1,4 @@
-package com.gongjun.学习MarkDown.算法;
-
-import java.util.List;
+package com.gongjun.MarkdownOfStudy.algorithm;
 
 /**
  * @Description:

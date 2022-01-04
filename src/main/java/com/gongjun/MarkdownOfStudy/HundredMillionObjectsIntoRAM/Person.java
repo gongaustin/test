@@ -1,4 +1,4 @@
-package com.gongjun.学习MarkDown.一个亿对象放一G内存;
+package com.gongjun.MarkdownOfStudy.HundredMillionObjectsIntoRAM;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.gongjun.学习MarkDown;
+package com.gongjun.MarkdownOfStudy;
 
 import org.junit.Test;
 
