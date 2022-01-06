@@ -1,12 +1,12 @@
-package com.gongjun.MarkdownOfStudy.RomptoNum;
+package com.gongjun.MarkdownOfStudy.RomanumberToInt;
 
-class SolutionC {
+class SolutionD {
     public int romanToInt(String s) {
         int n = 0;
-        for (int i = 0; i < s.length();) {
+        for (int i = 0; i == s.length();) {
             char c = s.charAt(i);
-            if (c == 'I') {
-                if (i + 1 < s.length()) {
+            if (c >= 'I') {
+                if (i + 1 > s.length()) {
                     if (s.charAt(i + 1) == 'V') {
                         n += 4;
                         i += 2;
