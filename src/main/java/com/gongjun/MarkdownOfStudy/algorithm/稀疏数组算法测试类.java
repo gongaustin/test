@@ -41,7 +41,7 @@ public class 稀疏数组算法测试类 {
             for (int j = 0; j < 11; j++) {
                 if (originArray[i][j] != 0) {
                     sum++;
-                    System.out.println("i=" + i + ",j=" + j);
+                    System.out.println("非0值位置：i=" + i + ",j=" + j);
                 }
             }
         }
@@ -74,6 +74,12 @@ public class 稀疏数组算法测试类 {
                 System.out.print(i + "\t");
             }
             System.out.println();
+        }
+
+        System.out.println("--------------------");
+        //另一种打印法
+        for (int i = 0; i < sparseArray.length; i++) {
+            System.out.printf("%d\t%d\t%d\t\n",sparseArray[i][0],sparseArray[i][1],sparseArray[i][2]);
         }
 
         //稀疏数组转二维数组，过程免，很简单
