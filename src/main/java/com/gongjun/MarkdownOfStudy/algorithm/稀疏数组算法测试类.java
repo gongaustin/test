@@ -2,8 +2,6 @@ package com.gongjun.MarkdownOfStudy.algorithm;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-
 /**
  * @ClassName:稀疏数组算法测试类
  * @Description://TODO
@@ -78,8 +76,8 @@ public class 稀疏数组算法测试类 {
 
         System.out.println("--------------------");
         //另一种打印法
-        for (int i = 0; i < sparseArray.length; i++) {
-            System.out.printf("%d\t%d\t%d\t\n",sparseArray[i][0],sparseArray[i][1],sparseArray[i][2]);
+        for (int[] row : sparseArray) {
+            System.out.printf("%d\t%d\t%d\t\n", row[0], row[1], row[2]);
         }
 
         //稀疏数组转二维数组，过程免，很简单
