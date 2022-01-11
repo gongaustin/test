@@ -17,6 +17,9 @@ public class test {
 
     @Test
     public void test(){
+
+        String b = "abc";
+        
         System.out.println(a);
     }
 
