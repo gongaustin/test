@@ -17,6 +17,15 @@ public class stringTest {
 
         String str3 = new String(str1);
 
+        System.out.println(str1 == str3);
+
+        System.out.println(str2 == str3);
+
+        System.out.println(str1 == str2);
+
+
+
+
 
 
 
